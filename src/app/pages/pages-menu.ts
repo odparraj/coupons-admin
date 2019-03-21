@@ -22,29 +22,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
     children: [
       {
-        title: 'SubMenu 1',
-        children: [
-          {
-            title: 'SubMenu 1',
-            link: '/pages/submenu/1',
-          },
-          {
-            title: 'SubMenu 2',
-            link: '/pages/submenu/2',
-          },
-          {
-            title: 'SubMenu 3',
-            link: '/pages/submenu/3',
-          },
-        ],
+        title: 'Users',
+        link: '/pages/authorization/users',
+        data: {
+          permission: 'product.authorization',
+        },
       },
       {
-        title: 'SubMenu 2',
-        link: '/pages/submenu/2',
+        title: 'Roles',
+        link: '/pages/authorization/roles',
+        data: {
+          permission: 'product.authorization',
+        },
       },
       {
-        title: 'SubMenu 3',
-        link: '/pages/submenu/3',
+        title: 'Permissions',
+        link: '/pages/authorization/permissions',
+        data: {
+          permission: 'product.authorization',
+        },
       },
     ],
   },
