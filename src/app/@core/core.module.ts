@@ -69,7 +69,7 @@ export const NB_CORE_PROVIDERS = [
   NbSecurityModule.forRoot({
     accessControl: {
       guest: {
-        view: ['pages', 'ivr'],
+        view: ['pages', 'authorization','authorization.users'],
       },
       admin: {
         view: '*',

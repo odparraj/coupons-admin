@@ -25,21 +25,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Users',
         link: '/pages/authorization/users',
         data: {
-          permission: 'product.authorization',
+          permission: 'authorization.users',
         },
       },
       {
         title: 'Roles',
         link: '/pages/authorization/roles',
         data: {
-          permission: 'product.authorization',
+          permission: 'authorization.roles',
         },
       },
       {
         title: 'Permissions',
         link: '/pages/authorization/permissions',
         data: {
-          permission: 'product.authorization',
+          permission: 'authorization.permissions',
         },
       },
     ],

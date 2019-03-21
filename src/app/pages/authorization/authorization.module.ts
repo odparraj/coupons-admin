@@ -3,10 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { AuthorizationRoutingModule } from './authorization-routing.module';
 import { AuthorizationComponent } from './authorization.component';
-import { TableActionsComponent } from './components/table-actions/table-actions.component';
+import { UsersComponent } from './pages/users/users.component';
+import { RolesComponent } from './pages/roles/roles.component';
+import { PermissionsComponent } from './pages/permissions/permissions.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
-  declarations: [AuthorizationComponent, TableActionsComponent],
+  declarations: [AuthorizationComponent, UsersComponent, RolesComponent, PermissionsComponent, TableComponent],
   imports: [
     CommonModule,
     AuthorizationRoutingModule,

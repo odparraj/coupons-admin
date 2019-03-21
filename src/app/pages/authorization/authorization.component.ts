@@ -3,9 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'ngx-authorization',
   template: `
-    <p>
-      authorization works!
-    </p>
+    <router-outlet></router-outlet>
   `,
   styles: [],
 })
