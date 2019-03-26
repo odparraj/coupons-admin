@@ -1,40 +1,54 @@
 import { Component, OnInit } from '@angular/core';
+import { NbDialogService } from '@nebular/theme';
+import { UserModalComponent } from '../../components/user-modal/user-modal.component';
 
 @Component({
   selector: 'users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit{
+export class UsersComponent implements OnInit {
+
   searchKey: string;
   data = [];
-  constructor() { }
-  ngOnInit(){
+  constructor(private dialogService: NbDialogService) { }
+
+  ngOnInit() {
     this.data = this.users;
   }
+
   searchClear() {
     this.searchKey = '';
     this.data = this.users;
     this.searchByKey();
   }
+
   searchByKey() {
     this.data = [];
-    for (let i = 0; i < this.users.length; i++){
+    for (let i = 0; i < this.users.length; i++) {
       const fields = ['name', 'email'];
       const user = this.users[i];
       let append = false;
-      for (let j = 0; j < fields.length; j++){
-        if (user[fields[j]].search(this.searchKey) !== -1){
+      for (let j = 0; j < fields.length; j++) {
+        if (user[fields[j]].search(this.searchKey) !== -1) {
           append = true;
         }
       }
-      if (append){
+      if (append) {
         this.data.push(user);
       }
     }
   }
-  addUser(){
+  names = [];
+  addUser() {
+    this.dialogService.open(UserModalComponent, {
+      context: {
+        title: 'This is a title passed to the dialog component',
+      },
+    });
   }
+
+
   users = [
     {'name': 'Leanne Graham', 'email': 'Sinwecere@april.biz'},
     {'name': 'Leanne Graham', 'email': 'Sincere@april.biz'},
@@ -48,5 +62,6 @@ export class UsersComponent implements OnInit{
     {'name': 'Leansasdfdne Graham', 'email': 'Sfghfincere@april.biz'},
     {'name': 'asdLeanne Graham', 'email': 'fgggSincere@april.biz'},
   ];
+
 }
 
