@@ -20,7 +20,7 @@ const routes: Routes = [{
     {
       path: 'permissions',
       component: PermissionsComponent,
-    }
+    },
   ],
 }];
 

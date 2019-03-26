@@ -15,5 +15,5 @@ import { environment } from '../../../../environments/environment';
   `,
 })
 export class FooterComponent {
-  env:any = environment;
+  env: any = environment;
 }

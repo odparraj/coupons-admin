@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 @Component({
   selector: 'table-actions',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
 
@@ -12,5 +12,5 @@ export class TableComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
 }

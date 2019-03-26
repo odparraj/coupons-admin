@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   @Input() position = 'normal';
 
   user: any;
-  env:any = environment;
+  env: any = environment;
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out', link: '/auth/logout' }];
 
