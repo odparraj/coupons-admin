@@ -1,4 +1,23 @@
-<p>
-  users works!
-</p>
-<table-actions [data]="data"></table-actions>
+<nb-card [size]="'medium'">
+  <nb-card-header>
+    <nb-actions size="medium" badgePosition="bottom right" style= "padding: 10px">
+      <nb-action>
+        <input type="text" fullWidth status="info" nbInput placeholder="Buscar Usuario" [(ngModel)]="searchKey" autocomplete="off" (keyup) = "searchByKey()">
+      </nb-action>
+      <!--
+        <nb-action icon="nb-search" title="Buscar" badgePosition="bottom right" badgeStatus="warning" (click) = "searchByKey()"></nb-action>
+        <nb-action><button nbButton hero status="primary" icon="nb-plus" (click)="addUser()"></button></nb-action>
+      -->
+      <nb-action icon="nb-power-circled" title="Reiniciar busqueda" badgePosition="bottom right" badgeStatus="warning" (click)="searchClear()"></nb-action>
+      <nb-action icon="nb-person" badgeText="add" badgePosition="bottom end" badgeStatus="success" (click)="addUser()"></nb-action>
+    </nb-actions>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-list>
+      <nb-list-item *ngFor="let user of data">
+        <nb-user [name]="user.name" [title]="user.email" [picture] = "user.picture">
+        </nb-user>
+      </nb-list-item>
+    </nb-list>
+  </nb-card-body>
+</nb-card>
