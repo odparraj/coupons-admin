@@ -1,4 +1,4 @@
-<nb-card [size]="'medium'">
+<nb-card>
   <nb-card-header>
     <nb-actions size="medium" style= "padding: 10px" fullWidth>
       <nb-action>
@@ -14,7 +14,7 @@
   </nb-card-header>
   <nb-card-body>
     <nb-list>
-      <nb-list-item *ngFor="let user of data">
+      <nb-list-item *ngFor="let user of users | async">
         <nb-actions size="small" badgePosition="bottom right" fullWidth>
           <nb-action>
             <nb-user [name]="user.name" [title]="user.email" [picture] = "user.picture" style="width: 200px"></nb-user>

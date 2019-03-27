@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 import { UserModalComponent } from '../../components/user-modal/user-modal.component';
+import { Observable, of } from 'rxjs';
+import { UsersService } from '../../services/users.service';
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'users',
@@ -11,19 +14,25 @@ export class UsersComponent implements OnInit {
 
   searchKey: string;
   data = [];
-  constructor(private dialogService: NbDialogService) { }
+  users: Observable<any>;
+  constructor(private dialogService: NbDialogService, private usersService: UsersService) { }
 
   ngOnInit() {
-    this.data = this.users;
+    this.users = this.usersService.getUsers().pipe(
+      flatMap((data) => {
+        return of(data['data']);
+      })
+    );
+    //this.data = this.users;
   }
 
   searchClear() {
-    this.searchKey = '';
-    this.data = this.users;
-    this.searchByKey();
+    //this.searchKey = '';
+    //this.data = this.users;
+    //this.searchByKey();
   }
 
-  searchByKey() {
+  /* searchByKey() {
     this.data = [];
     for (let i = 0; i < this.users.length; i++) {
       const fields = ['name', 'email'];
@@ -46,10 +55,10 @@ export class UsersComponent implements OnInit {
         title: 'This is a title passed to the dialog component',
       },
     });
-  }
+  } */
 
 
-  users = [
+  /* users = [
     {'name': 'Leanne Graham', 'email': 'Sinwecere@april.biz'},
     {'name': 'Leanne Graham', 'email': 'Sincere@april.biz'},
     {'name': 'das Graham', 'email': 'Sincasdere@april.biz'},
@@ -61,7 +70,7 @@ export class UsersComponent implements OnInit {
     {'name': 'f Grsdaham', 'email': 'fgfghfSincere@april.biz'},
     {'name': 'Leansasdfdne Graham', 'email': 'Sfghfincere@april.biz'},
     {'name': 'asdLeanne Graham', 'email': 'fgggSincere@april.biz'},
-  ];
+  ]; */
 
 }
 
