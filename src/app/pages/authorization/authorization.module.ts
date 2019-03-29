@@ -10,9 +10,10 @@ import { PermissionsComponent } from './pages/permissions/permissions.component'
 import { UserModalComponent } from './components/user-modal/user-modal.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { NbDialogService } from '@nebular/theme';
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
 
 @NgModule({
-  declarations: [AuthorizationComponent, UsersComponent, RolesComponent, PermissionsComponent, UserModalComponent],
+  declarations: [AuthorizationComponent, UsersComponent, RolesComponent, PermissionsComponent, UserModalComponent, EditUserComponent],
   imports: [
     CommonModule,
     AuthorizationRoutingModule,

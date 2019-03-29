@@ -4,6 +4,7 @@ import { AuthorizationComponent } from './authorization.component';
 import { UsersComponent } from './pages/users/users.component';
 import { RolesComponent } from './pages/roles/roles.component';
 import { PermissionsComponent } from './pages/permissions/permissions.component';
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,6 +21,10 @@ const routes: Routes = [{
     {
       path: 'permissions',
       component: PermissionsComponent,
+    },
+    {
+      path: 'edit-user',
+      component: EditUserComponent,
     },
   ],
 }];

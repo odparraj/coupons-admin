@@ -29,6 +29,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
         },
       },
       {
+        title: 'Edit User',
+        link: '/pages/authorization/edit-user',
+        data: {
+          permission: 'authorization.users',
+        },
+      },
+      {
         title: 'Roles',
         link: '/pages/authorization/roles',
         data: {
