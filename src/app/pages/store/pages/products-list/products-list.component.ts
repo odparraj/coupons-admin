@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { NbLayoutScrollService, NbLayoutRulerService, NbLayoutDimensions } from '@nebular/theme';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'products-list',
@@ -8,7 +9,7 @@ import { NbLayoutScrollService, NbLayoutRulerService, NbLayoutDimensions } from 
 })
 export class ProductsListComponent implements OnInit {
 
-  constructor(private scroll: NbLayoutScrollService, private ruler: NbLayoutRulerService) {
+  constructor(private scroll: NbLayoutScrollService, private ruler: NbLayoutRulerService, private router: Router) {
     this.scroll.onScroll()
       .subscribe((event) => this.onScroll());
   }
@@ -34,11 +35,12 @@ export class ProductsListComponent implements OnInit {
     this.searchByKey();
   }
 
-  goToCart() {}
+  goToCart() {
+    this.router.navigate(['/pages/store/shopping-cart']);
+  }
 
   loadNext() {
     var next_page = [
-      { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
       { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
       { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
       { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
@@ -53,8 +55,6 @@ export class ProductsListComponent implements OnInit {
 
   products=[
     { name:"Zapatos sadasda", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
-    { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
-    { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
     { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
     { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
     { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },

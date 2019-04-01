@@ -6,9 +6,10 @@ import { ProductsListComponent } from './pages/products-list/products-list.compo
 import { StoreComponent } from './store.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
+import { PaymentGatewayComponent } from './pages/payment-gateway/payment-gateway.component';
 
 @NgModule({
-  declarations: [ProductsListComponent, StoreComponent, ShoppingCartComponent],
+  declarations: [ProductsListComponent, StoreComponent, ShoppingCartComponent, PaymentGatewayComponent],
   imports: [
     CommonModule,
     StoreRoutingModule,

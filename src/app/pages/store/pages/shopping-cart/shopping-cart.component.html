@@ -1,3 +1,35 @@
-<p>
-  shopping-cart works!
-</p>
+<nb-card>
+  <nb-card-header>
+    Carrito de compras
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Artículo</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Valor Total</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of order; let i = index">
+          <th scope="row">{{i + 1}}</th>
+          <td> 
+            <nb-user name="{{product.name}}" title="{{product.brand}}"></nb-user>
+          </td>
+          <td>{{product.amount}}</td>
+          <td>{{product.price*product.amount | currency}}</td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary btn-icon" (click)="decrease_quantity(product.id)"><i class="fa fa-minus"></i></button>
+              <button type="button" class="btn btn-danger btn-icon" (click)="delete_product(product.id)"><i class="fa fa-trash-alt"></i></button>
+              <button type="button" class="btn btn-success btn-icon" (click)="increase_quantity(product.id)"><i class="fa fa-plus"></i></button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </nb-card-body>
+</nb-card>
