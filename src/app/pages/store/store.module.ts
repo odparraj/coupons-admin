@@ -5,9 +5,10 @@ import { StoreRoutingModule } from './store-routing.module';
 import { ProductsListComponent } from './pages/products-list/products-list.component';
 import { StoreComponent } from './store.component';
 import { ThemeModule } from '../../@theme/theme.module';
+import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 
 @NgModule({
-  declarations: [ProductsListComponent, StoreComponent],
+  declarations: [ProductsListComponent, StoreComponent, ShoppingCartComponent],
   imports: [
     CommonModule,
     StoreRoutingModule,

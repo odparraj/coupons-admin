@@ -43,4 +43,23 @@
 .search-bar {
     margin: 0 auto;
     width: 100%;
+    position:fixed; 
+    height: 50px;
+    max-width: 70%;
+    z-index: 1;
+}
+.space-search-bar {
+    height: 50px;
+}
+.brand-container {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 1rem;
+}
+.action-icon-danger {
+    text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+}
+.action-icon-success {
+    text-shadow: 0 0 5px rgb(43, 255, 0), 0 0 8px #0000FF;
 }
