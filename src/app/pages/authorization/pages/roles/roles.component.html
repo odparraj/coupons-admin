@@ -1,3 +1,27 @@
-<p>
-  <span class="glyphicon glyphicon-plus"></span>
-</p>
+<custom-form *ngIf="currentAction=='create' && createModel" 
+    title="{{config.title}} / Create Form" 
+    [model]="createModel" 
+    (submit)= "onAction({action:'store', data:$event})" 
+    (cancel)="currentAction='index'">
+</custom-form>
+<custom-form *ngIf="currentAction=='edit' && editModel" 
+    title="{{config.title}} / Edit Form" 
+    [model]="editModel" 
+    (submit)= "onAction({action:'update', data:$event})" 
+    (cancel)="currentAction='index'">
+</custom-form>
+<custom-form *ngIf="currentAction=='editPermissions'" 
+    title="{{config.title}} / Sync Permissions Form" 
+    [model]="syncModel" 
+    (submit)= "onAction({action:'syncPermissions', data:$event})" 
+    (cancel)="currentAction='index'">
+</custom-form>
+<custom-table *ngIf="currentAction=='index' && config && actions" 
+    [config]="config" 
+    [actions]="actions" 
+    (action)="onAction($event)">
+    <custom-actions *ngIf="globalActions"
+        [actions]="globalActions" 
+        (action)="onAction({action:$event, data:''})">
+    </custom-actions>
+</custom-table>

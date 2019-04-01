@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { DynamicFormsCoreModule } from '@ng-dynamic-forms/core';
+import { DynamicFormsBootstrapUIModule } from '@ng-dynamic-forms/ui-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 import {
   NbActionsModule,
   NbCardModule,
@@ -65,7 +69,7 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 
-const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
+const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule, DynamicFormsCoreModule, DynamicFormsBootstrapUIModule, NgxPaginationModule];
 
 const NB_MODULES = [
   NbCardModule,

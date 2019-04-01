@@ -6,23 +6,18 @@ import { AuthorizationComponent } from './authorization.component';
 import { UsersComponent } from './pages/users/users.component';
 import { RolesComponent } from './pages/roles/roles.component';
 import { PermissionsComponent } from './pages/permissions/permissions.component';
-
-import { UserModalComponent } from './components/user-modal/user-modal.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbDialogService } from '@nebular/theme';
+import { SharedModule } from '../../shared/shared.module';
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
 
 @NgModule({
-  declarations: [AuthorizationComponent, UsersComponent, RolesComponent, PermissionsComponent, UserModalComponent, EditUserComponent],
+  declarations: [AuthorizationComponent, UsersComponent, RolesComponent, PermissionsComponent, EditUserComponent],
   imports: [
     CommonModule,
     AuthorizationRoutingModule,
     ThemeModule,
+    SharedModule
   ],
-  entryComponents:[ UserModalComponent ],
-  providers:[
-    NbDialogService
-  ]
-  //entryComponents: [AuthorizationComponent, UserModalComponent],
+  entryComponents: [AuthorizationComponent],
 })
 export class AuthorizationModule { }
