@@ -51,6 +51,13 @@ const routes: Routes = [{
       },
     },
     {
+      path: 'store',
+      loadChildren: './store/store.module#StoreModule',
+      data: {
+        permission: 'store',
+      },
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },

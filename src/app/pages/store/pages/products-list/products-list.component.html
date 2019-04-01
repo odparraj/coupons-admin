@@ -1,0 +1,54 @@
+<div class="search-bar">
+  <nb-actions size="medium" style= "padding: 10px" fullWidth>
+    <nb-action>
+      <input type="text" fullWidth status="info" nbInput placeholder="Buscar Producto" [(ngModel)]="searchKey" autocomplete="off" (keyup) = "searchByKey()">
+    </nb-action>
+    <nb-action icon="fa fa-power-off" title="Reiniciar busqueda" badgeStatus="warning" (click)="searchClear()"></nb-action>
+    <nb-action icon="fa fa-shopping-cart" title="Ir a pagos" badgeText="Go to cart" badgePosition="bottom" badgeStatus="success" (click)="goToCart()"></nb-action>
+  </nb-actions>
+</div>
+<div class="row">
+  <nb-flip-card class="card" *ngFor="let product of products" >
+    <nb-card-front>
+      <nb-card accent="danger" class="inner-card">
+        <div class="product-image-container"><img src="{{product.image}}" class="card-img-top" alt="..."></div>
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <h4>{{product.name}}</h4>
+              <span class="final-date">{{product.final_date}}</span>
+            </div>
+        </div>
+        <div class="row action-bar">
+            <div class="col-sm-3">
+                <span class="badge badge-pill badge-success">{{product.current_price < product.full_price ? -100*(product.full_price-product.current_price)/product.full_price + '%' : ''}}</span>
+              </div>
+          <div class="col-sm-5">
+            {{product.brand}}
+          </div>
+          <div class ="col-sm-4">
+            <i class="fa fa-shopping-cart" title="Añadir al carrito" badgeText="Add" badgePosition="bottom" badgeStatus="warning"></i>
+            <span class="badge badge-pill badge-primary">Add</span>
+          </div>
+        </div>  
+        <div class="row text-center">
+          <div class="col-sm-12 full-price text-center">
+            {{product.full_price | currency}}
+          </div>   
+        </div>  
+        <div class="row">
+            <div class="col-sm-12 current-price text-center">
+              {{product.current_price | currency}}
+            </div>   
+          </div> 
+      </nb-card>
+    </nb-card-front>
+    <nb-card-back>
+      <nb-card accent="danger" class="inner-card">
+        <div class="card-body">
+            <p class="card-text">{{product.description}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </nb-card>
+    </nb-card-back>
+  </nb-flip-card>
+</div>

@@ -96,4 +96,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+  {
+    title: 'Store',
+    icon: 'nb-list',
+    data: {
+      permission: 'store',
+    },
+    children: [
+      {
+        title: 'Products List',
+        link: '/pages/store/products-list',
+        data: {
+          permission: 'store.products',
+        },
+      },
+    ],
+  },
 ];
