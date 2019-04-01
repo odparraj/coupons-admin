@@ -1,0 +1,35 @@
+<nb-card>
+  <nb-card-header>{{title}}</nb-card-header>
+  <nb-card-body>
+    <div class="mb-2">
+      <ng-content></ng-content>
+    </div>
+    <div class="table-responsive table-hover">
+      <table class="table">
+        <thead class="bg-default">
+          <tr>
+            <th width="5%" scope="col">#</th>
+            <th *ngFor="let column of columns" scope="col">{{column.name}}</th>
+            <th *ngIf="actions.length > 0" scope="col"><div class="float-right mr-2">Actions</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items | async | paginate: { id: 'server', itemsPerPage: perPage, currentPage: currentPage, totalItems: total }; let i = index;">
+            <th scope="row">{{ perPage*(currentPage-1)+(i+1) }}</th>
+            <td *ngFor="let column of columns">{{getProp(item, column.key)}}</td>
+            <td *ngIf="actions.length > 0">
+              <div class="float-right">
+
+                <custom-actions [actions]="actions" (action)="onAction($event, item)"></custom-actions>
+              </div>
+            </td>
+          </tr>
+          <!-- <pre>{{items|async|json}}</pre> -->
+        </tbody>
+      </table>
+      <div class="mt-5 float-right">
+        <pagination-controls (pageChange)="getPage($event)" id="server"></pagination-controls>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,14 @@
+<nb-card>
+  <nb-card-header>{{title}}</nb-card-header>
+  <nb-card-body>
+    <div *ngIf="formGroup">
+      <form [formGroup]="formGroup">
+        <dynamic-bootstrap-form [group]="formGroup" [layout]="formLayout" [model]="formModel">
+        </dynamic-bootstrap-form>
+      </form>
+      <button class="btn btn-xs btn-danger" (click)="onCancel()">Cancel</button>
+      <button class="ml-2 btn btn-xs btn-primary" (click)="send()">Send</button>
+      <pre *ngIf="debug">{{formGroup.value | json}}</pre>
+    </div>
+  </nb-card-body>
+</nb-card>

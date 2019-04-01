@@ -1,0 +1,6 @@
+<div class="btn-group" role="group">
+    <button  type="button" *ngFor="let action of actions" (click)="onClick(action.name)" [title]="action.title" class="{{action.btnClass}} btn-icon">
+      {{action?.text}} <i class="{{action.iconClass}}"></i>
+    </button>
+  <ng-content></ng-content>
+</div>

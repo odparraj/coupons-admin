@@ -1,29 +1,27 @@
-<nb-card>
-  <nb-card-header>
-    <nb-actions size="medium" style= "padding: 10px" fullWidth>
-      <nb-action>
-        <input type="text" fullWidth status="info" nbInput placeholder="Buscar Usuario" [(ngModel)]="searchKey" autocomplete="off" (keyup) = "searchByKey()">
-      </nb-action>
-      <!--
-        <nb-action icon="nb-search" title="Buscar" badgePosition="bottom right" badgeStatus="warning" (click) = "searchByKey()"></nb-action>
-        <nb-action><button nbButton hero status="primary" icon="nb-plus" (click)="addUser()"></button></nb-action>
-      -->
-      <nb-action icon="nb-power-circled" title="Reiniciar busqueda" badgeStatus="warning" (click)="searchClear()"></nb-action>
-      <nb-action icon="nb-person" title="Añadir usuario" badgeText="add" badgePosition="bottom" badgeStatus="success" (click)="addUser()"></nb-action>
-    </nb-actions>
-  </nb-card-header>
-  <nb-card-body>
-    <nb-list>
-      <nb-list-item *ngFor="let user of users | async">
-        <nb-actions size="small" badgePosition="bottom right" fullWidth>
-          <nb-action>
-            <nb-user [name]="user.name" [title]="user.email" [picture] = "user.picture" style="width: 200px"></nb-user>
-          </nb-action>
-          <nb-action icon="nb-edit" title="Editar usuario" badgeText="edit" badgePosition="bottom" badgeStatus="warning" (click)="editUser(user.id)"></nb-action>
-          <nb-action icon="nb-trash" title="Eliminar usuario" badgeText="delete" badgePosition="bottom" badgeStatus="danger" (click)="deleteUser(user.id)"></nb-action>
-        </nb-actions>
-      </nb-list-item>
-    </nb-list>
-  </nb-card-body>
-</nb-card>
-
+<custom-form *ngIf="currentAction=='create' && createModel" 
+    title="{{config.title}} / Create Form" 
+    [model]="createModel" 
+    (submit)= "onAction({action:'store', data:$event})" 
+    (cancel)="currentAction='index'">
+</custom-form>
+<custom-form *ngIf="currentAction=='edit' && editModel" 
+    title="{{config.title}} / Edit Form" 
+    [model]="editModel" 
+    (submit)= "onAction({action:'update', data:$event})" 
+    (cancel)="currentAction='index'">
+</custom-form>
+<custom-form *ngIf="currentAction=='editRoles'" 
+    title="{{config.title}} / Sync Roles Form" 
+    [model]="syncModel" 
+    (submit)= "onAction({action:'syncRoles', data:$event})" 
+    (cancel)="currentAction='index'">
+</custom-form>
+<custom-table *ngIf="currentAction=='index' && config && actions" 
+    [config]="config" 
+    [actions]="actions" 
+    (action)="onAction($event)">
+    <custom-actions *ngIf="globalActions"
+        [actions]="globalActions" 
+        (action)="onAction({action:$event, data:''})">
+    </custom-actions>
+</custom-table>
