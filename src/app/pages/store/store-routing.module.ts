@@ -4,6 +4,7 @@ import { ProductsListComponent } from './pages/products-list/products-list.compo
 import { StoreComponent } from './store.component';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { PaymentGatewayComponent } from './pages/payment-gateway/payment-gateway.component';
+import { BillComponent } from './pages/bill/bill.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,6 +21,10 @@ const routes: Routes = [{
     {
       path: 'payment-gateway',
       component: PaymentGatewayComponent,
+    },
+    {
+      path: 'bill',
+      component: BillComponent,
     },
   ],
 }];

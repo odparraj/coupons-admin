@@ -1,8 +1,20 @@
 <nb-card>
   <nb-card-header>
-    Carrito de compras
+    Carrito de compras:
   </nb-card-header>
   <nb-card-body>
+    <nb-alert status="primary">
+      <nb-actions fullWidth>
+        <nb-action badgeText="Envío no incluido" badgePosition="bottom" badgeStatus="danger">
+          <div class="total">
+            <b>Total:</b> {{ sum | currency }}
+          </div>
+        </nb-action>
+        <nb-action>
+          <button nbButton shape="round" hero status="primary" class="col-md-8 total" (click)="goToPayment()"><i class="fa fa-credit-card"></i> Pagar</button>
+        </nb-action>
+      </nb-actions>
+    </nb-alert>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -14,7 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of order; let i = index">
+        <tr *ngFor="let product of order; let i = index;">
           <th scope="row">{{i + 1}}</th>
           <td> 
             <nb-user name="{{product.name}}" title="{{product.brand}}"></nb-user>

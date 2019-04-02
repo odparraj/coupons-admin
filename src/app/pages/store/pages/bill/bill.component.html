@@ -1,0 +1,62 @@
+<nb-card>
+    <nb-card-header>
+      Factura de venta:
+    </nb-card-header>
+    <nb-card-body>
+      <nb-alert status="success">
+        <nb-actions fullWidth>
+          <nb-action badgeText="Felicidades" badgePosition="bottom" badgeStatus="success">
+            <div class="total">
+              Compra exitosa.
+            </div>
+          </nb-action>
+          <nb-action icon="fa fa-envelope" (click)="sendByEmail()">
+          </nb-action>
+          <nb-action icon="fa fa-print" (click)="print()">
+          </nb-action>
+        </nb-actions>
+      </nb-alert>
+      <div class="col-lg-6 sale-summary">
+        <table class="table table-striped" >
+          <tbody>
+            <tr>
+              <th>Valor Productos</th>
+              <td class="text-right">{{sale.price | currency}}</td>
+            </tr>
+            <tr>
+              <th>Valor Descuento</th>
+              <td class="text-right">{{sale.discount | currency}}</td>
+            </tr>
+            <tr>
+              <th>Valor Envío</th>
+              <td class="text-right">{{sale.shipping | currency}}</td>
+            </tr>
+            <tr>
+              <th>Total</th>
+              <td class="text-right">{{sale.payed  | currency}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Artículo</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col" class="text-right">Valor Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of sale.products; let i = index;">
+            <th scope="row">{{i + 1}}</th>
+            <td> 
+              <nb-user name="{{product.name}}" title="{{product.brand}}"></nb-user>
+            </td>
+            <td>{{product.amount}}</td>
+            <td class="text-right">{{product.price*product.amount | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </nb-card-body>
+  </nb-card>

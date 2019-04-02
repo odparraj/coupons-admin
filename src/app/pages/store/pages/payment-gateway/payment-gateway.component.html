@@ -1,3 +1,147 @@
-<p>
-  payment-gateway works!
-</p>
+<nb-card>
+    <nb-card-body>  
+      <nb-stepper #stepper >  
+        <nb-step [stepControl]="nameForm" label="Confirm data">
+
+          <div class="row">
+            <div class="col-lg-12">
+              <nb-card accent = "info">
+                <nb-card-header>Resumen de órden</nb-card-header>
+                <nb-card-body>
+                  <table class="table table-striped" >
+                    <tbody>
+                      <tr>
+                        <th>Valor Productos</th>
+                        <td>{{order.price | currency}}</td>
+                      </tr>
+                      <tr>
+                        <th>Valor Envío</th>
+                        <td>{{order.shipping | currency}}</td>
+                      </tr>
+                      <tr>
+                        <th>Total</th>
+                        <td>{{order.price | currency}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+
+          <nb-card accent = "warning">
+            <nb-card-header>Dirección de envío</nb-card-header>
+            <nb-card-body>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" nbInput fullWidth [(ngModel)]="first_name" status="success" placeholder="Nombre(s)">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" nbInput fullWidth [(ngModel)]="last_name" status="success" placeholder="Apellido(s)">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" nbInput fullWidth [(ngModel)]="address1" status="danger" placeholder="Dirección" title="Dirección que se pasará para despacho de los pedidos">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" nbInput fullWidth [(ngModel)]="address2" status="warning" placeholder="Dirección (continuación)" title="Dirección que se pasará para despacho de los pedidos">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" nbInput fullWidth [(ngModel)]="city" status="danger" placeholder="Ciudad" title="Dirección que se pasará para despacho de los pedidos">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" nbInput fullWidth [(ngModel)]="state" status="danger" placeholder="Estado" title="Dirección que se pasará para despacho de los pedidos">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" nbInput fullWidth [(ngModel)]="country" status="danger" placeholder="País" title="Dirección que se pasará para despacho de los pedidos">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" nbInput fullWidth [(ngModel)]="cellphone" status="info" placeholder="Teléfono">
+                  </div>
+                </div>
+              </div>
+            </nb-card-body>
+          </nb-card>
+          <div class="row text-center">
+            <div class="col-lg-12 text-center">
+              <button nbButton hero class="form-group" (click)="next()" status="primary" nbStepperNext>Continuar</button>
+            </div>
+          </div>
+        </nb-step>
+  
+        <nb-step [stepControl]="movieForm" label="Pay">
+          <div class="row">
+            <div class="col-lg-6">
+              <nb-card accent = "danger">
+                <nb-card-header>Confirmación de credenciales</nb-card-header>
+                <nb-card-body>
+                  <div class="form-group">
+                   <input type="email" nbInput fullWidth [(ngModel)]="confirm_email" status="danger" placeholder="E-mail (example@terapp.com)" autocomplete="off">
+                  </div>
+                  <div class="form-group">
+                    <input type="password" nbInput fullWidth [(ngModel)]="confirm_password" status="danger" placeholder="Contraseña" autocomplete="off">
+                  </div>
+                </nb-card-body>
+              </nb-card>
+            </div>
+            <div class="col-lg-6">
+              <nb-card accent = "info">
+                <nb-card-header>Resumen de orden</nb-card-header>
+                <nb-card-body>
+                  <table class="table table-striped" >
+                    <tbody>
+                      <tr>
+                        <th>Valor Productos</th>
+                        <td>{{order.price | currency}}</td>
+                      </tr>
+                      <tr>
+                        <th>Valor Envío</th>
+                        <td>{{order.shipping | currency}}</td>
+                      </tr>
+                      <tr>
+                        <th>Total</th>
+                        <td>{{order.price + order.shipping | currency}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </nb-card-body>
+              </nb-card>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <nb-card accent = "danger">
+              <nb-card-header>Cupón</nb-card-header>
+              <nb-card-body>
+                <div class="form-group">
+                  <input type="text" nbInput fullWidth [(ngModel)]="coupon" status="success" placeholder="Código de cupón" autocomplete="off">
+                </div>
+              </nb-card-body>
+            </nb-card>
+          </div>
+          <div class="row text-center">
+            <div class="col-lg-6 text-center">
+              <button nbButton hero class="form-group" (click)="back()" status="danger" nbStepperPrevious>Volver</button>
+            </div>
+            <div class="col-lg-6 text-center">
+              <button nbButton hero class="form-group" (click)="confirmPayment()" status="success" nbStepperNext>Confirmar Pago</button>
+            </div>
+          </div>
+        </nb-step>
+
+      </nb-stepper>
+    </nb-card-body>
+  </nb-card>
