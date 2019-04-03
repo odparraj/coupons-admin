@@ -21,7 +21,7 @@
         </div>
         <div class="row action-bar">
           <div class="col-sm-3">
-            <span class="badge badge-pill badge-success">{{product.current_price < product.full_price ? -100*(product.full_price-product.current_price)/product.full_price + '%' : ''}}</span>
+            <span class="badge badge-pill badge-success">{{product.current_price < product.full_price ? this.floatToInt(-100*(product.full_price-product.current_price)/product.full_price) + '%' : ''}}</span>
           </div>
           <div class="col-sm-5">
             {{product.brand}}
@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="card-body">
-          <p class="card-text">{{product.description}}</p>
+          <p class="card-text" [innerHTML]="product.description" ></p>
         </div>
         <div class="row">
           <div class="col-sm-12 full-price text-center">

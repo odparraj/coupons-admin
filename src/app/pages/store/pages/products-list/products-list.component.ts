@@ -38,30 +38,198 @@ export class ProductsListComponent implements OnInit {
   goToCart() {
     this.router.navigate(['/pages/store/shopping-cart']);
   }
-
+  floatToInt(n){
+    return Math.round(n);
+  }
   loadNext() {
     var next_page = [
-      { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
-      { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
-      { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
-      { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
-      { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
-      { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
-      { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
-      { name:"Balón", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://images-na.ssl-images-amazon.com/images/I/915sNertZ-L._SX425_.jpg", description: "Descripción y especificaciones del producto mencionado"},
+      { 
+        id:0,
+        name:"CABAÑA PARA 5 - LA LLANERITA", 
+        brand:"Cofrem", 
+        brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+        final_date: "", 
+        full_price:526200, 
+        current_price:439300, 
+        image: "https://lh4.googleusercontent.com/WE924j-Dvjjzp73NrmepILuFcrnU8Ocse5AHD-0p1ApBbsKO1R0A2hzxIf2nkWhod6rk-yHtIOrK5GgVvJfe=w792-h620", 
+        description: `
+        EN LA LLANERITA ENCONTRARÁS GRATIS: <br />
+        - Caminata Ecológica <br />
+        <br />
+        Y CON PAGOS ADICIONALES EN SITIO: <br />
+        - Ciclopaseo <br />
+        - Cabalgata <br />
+        - Pasadía (adultos / niños)
+        `
+      },
+      { 
+        id:1,
+        name:"CABAÑA PARA 6 - LA LLANERITA", 
+        brand:"Cofrem", 
+        brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+        final_date: "", 
+        full_price:588200, 
+        current_price:491200, 
+        image: "https://lh4.googleusercontent.com/WE924j-Dvjjzp73NrmepILuFcrnU8Ocse5AHD-0p1ApBbsKO1R0A2hzxIf2nkWhod6rk-yHtIOrK5GgVvJfe=w792-h620", 
+        description: `
+        EN LA LLANERITA ENCONTRARÁS GRATIS: <br />
+        - Caminata Ecológica <br />
+        <br />
+        Y CON PAGOS ADICIONALES EN SITIO: <br />
+        - Ciclopaseo <br />
+        - Cabalgata <br />
+        - Pasadía (adultos / niños)
+        `
+      },
+      { 
+        id:2,
+        name:"CABAÑA PARA 711.200 - LA LLANERITA", 
+        brand:"Cofrem", 
+        brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+        final_date: "", 
+        full_price:711200, 
+        current_price:593700, 
+        image: "https://lh4.googleusercontent.com/WE924j-Dvjjzp73NrmepILuFcrnU8Ocse5AHD-0p1ApBbsKO1R0A2hzxIf2nkWhod6rk-yHtIOrK5GgVvJfe=w792-h620", 
+        description: `
+        EN LA LLANERITA ENCONTRARÁS GRATIS: <br />
+        - Caminata Ecológica <br />
+        <br />
+        Y CON PAGOS ADICIONALES EN SITIO: <br />
+        - Ciclopaseo <br />
+        - Cabalgata <br />
+        - Pasadía (adultos / niños)
+        `
+      },
     ]
     this.products.push(...next_page);
   }
 
   products=[
-    { name:"Zapatos sadasda", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
-    { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
-    { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
-    { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
-    { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
-    { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
-    { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
-    { name:"Zapatos", brand:"Nike", brand_image: "", final_date: "03/06/2019", full_price:100000, current_price:80000, image: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/uwjw39b1xdsbtmfnxjqm/calzado-tanjun-NwTz9kxD.jpg", description: "Descripción y especificaciones del producto mencionado" },
+    { 
+      id:0,
+      name:"INGRESO PARQUE/PISCINA - LA VIDA", 
+      brand:"Cofrem", 
+      brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+      final_date: "", 
+      full_price:10000, 
+      current_price:8500, 
+      image: "https://lh4.googleusercontent.com/lbYpXe12X4QgowuSvdCRIJyP-PEYvrPzRIcQr3KFTBJJcY9zDDZKTJMxM_wn7iXobBMGBK1Ely5TK9EiT8Oz=w792-h620-rw",
+      description: `
+      ADICIONALES CON PAGO EN SITIO:
+      <br />JUEGOS INFANTILES X30 MINUTOS
+      <br />INGRESO PISCINA + GORRO DESECHABLE
+      <br />INGRESO PARQUE, PISCINA+GORRO DESECHABLE
+      <br />UNA HORA DE BOLOS
+      <br />UNA HORA DE BOLOS + MEDIAS DESECHABLES (4 UND)
+      <br />JUEGOS INFANTILES X 1 HORA 
+      <br />LINEA DE BOLOS PARA TORNEOS
+      <br />PASADIA 
+      `
+    },
+    { 
+      id:0,
+      name:"INGRESO PARQUE/PISCINA - ARIARI", 
+      brand:"Cofrem", 
+      brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+      final_date: "", 
+      full_price:10000, 
+      current_price:8500, 
+      image: "https://lh6.googleusercontent.com/KGQiq-GLVBcSsqd60gTUgEcpBu8skH0e7n71m8Q-mKM_EP1KKQ-SgyCYmBtaBzJwwtDvrsB0oGsFmtEUi-V6=w1299-h620",
+      description: `
+      `
+    },
+    { 
+      id:0,
+      name:"CABAÑA 4 PAX - YURIMENA", 
+      brand:"Cofrem", 
+      brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+      final_date: "", 
+      full_price:507300, 
+      current_price:427400, 
+      image: "https://lh5.googleusercontent.com/WfSlrQ1auhzJUamd3TCl2An30VvQAOsXz0oXmN2qXyjiAishZ-nGxuooBh05xx3o75xUZcmV1qk-rj9WHZcV=w792-h620-rw", 
+      description: `
+      EN YURIMENA ENCONTRARÁS GRATIS: <br />
+      - Caminata Ecológica <br />
+      - Recreación Dirigida <br />
+      <br />
+      Y CON PAGOS ADICIONALES EN SITIO: <br />
+      - Ciclopaseo <br />
+      - Cabalgata <br />
+      - Pasadía (adultos / niños) <br />
+      `
+    },
+    { 
+      id:1,
+      name:"CABAÑA ADICIONAL - YURIMENA", 
+      brand:"Cofrem", 
+      brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+      final_date: "", 
+      full_price:65300, 
+      current_price:53900, 
+      image: "https://lh5.googleusercontent.com/WfSlrQ1auhzJUamd3TCl2An30VvQAOsXz0oXmN2qXyjiAishZ-nGxuooBh05xx3o75xUZcmV1qk-rj9WHZcV=w792-h620-rw", 
+      description: "CABAÑAS YURIMENA ADICIONAL"
+    },
+    { 
+      id:2,
+      name:"CABAÑA HOTEL - YURIMENA", 
+      brand:"Cofrem", 
+      brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+      final_date: "", 
+      full_price:394800, 
+      current_price:272600, 
+      image: "https://lh5.googleusercontent.com/WfSlrQ1auhzJUamd3TCl2An30VvQAOsXz0oXmN2qXyjiAishZ-nGxuooBh05xx3o75xUZcmV1qk-rj9WHZcV=w792-h620-rw", 
+      description: `
+      EN YURIMENA ENCONTRARÁS GRATIS: <br />
+      - Caminata Ecológica <br />
+      - Recreación Dirigida <br />
+      <br />
+      Y CON PAGOS ADICIONALES EN SITIO: <br />
+      - Ciclopaseo <br />
+      - Cabalgata <br />
+      - Pasadía (adultos / niños)
+      `
+    },
+    { 
+      id:3,
+      name:"CABAÑA HOTEL ADICIONAL - YURIMENA", 
+      brand:"Cofrem", 
+      brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+      final_date: "", 
+      full_price:86900, 
+      current_price:72500, 
+      image: "https://lh5.googleusercontent.com/WfSlrQ1auhzJUamd3TCl2An30VvQAOsXz0oXmN2qXyjiAishZ-nGxuooBh05xx3o75xUZcmV1qk-rj9WHZcV=w792-h620-rw", 
+      description: "CABAÑAS HOTEL YURIMENA ADICIONAL"
+    },
+    { 
+      id:4,
+      name:"ALQUILER SALON YURIMENA DIA COMPLETO ( 220 PAX) - YURIMENA", 
+      brand:"Cofrem", 
+      brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+      final_date: "", 
+      full_price:505000, 
+      current_price:417000, 
+      image: "https://lh5.googleusercontent.com/WfSlrQ1auhzJUamd3TCl2An30VvQAOsXz0oXmN2qXyjiAishZ-nGxuooBh05xx3o75xUZcmV1qk-rj9WHZcV=w792-h620-rw", 
+      description: `
+      EN YURIMENA ENCONTRARÁS GRATIS: <br />
+      - Caminata Ecológica <br />
+      - Recreación Dirigida <br />
+      <br />
+      Y CON PAGOS ADICIONALES EN SITIO: <br />
+      - Ciclopaseo <br />
+      - Cabalgata <br />
+      - Pasadía (adultos / niños)
+      `
+    },
+    { 
+      id:3,
+      name:"SET DE CAFETERIA - YURIMENA", 
+      brand:"Cofrem", 
+      brand_image: "https://www.cofrem.com.co/sites/all/themes/bootstrap/images/logo.png", 
+      final_date: "",
+      current_price:84900, 
+      image: "https://lh5.googleusercontent.com/WfSlrQ1auhzJUamd3TCl2An30VvQAOsXz0oXmN2qXyjiAishZ-nGxuooBh05xx3o75xUZcmV1qk-rj9WHZcV=w792-h620-rw", 
+      description: "SERVICIO DE RESTAURANTE Y CAFETERIA"
+    },
   ];
 
 }
