@@ -22,6 +22,7 @@ export class BillComponent implements OnInit {
 
   sale = {
     uuid: "0000001",
+    shipping: "",
     price: "150000",
     discount: "15000",
     payed: "135000",

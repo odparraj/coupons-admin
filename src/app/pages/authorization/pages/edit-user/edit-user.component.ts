@@ -39,7 +39,10 @@ export class EditUserComponent implements OnInit {
 
   quota_tot = {
     'spent': 200000,
-    'date' : '2019-03-23'
+    'date' : '2019-03-23',
+    'available':'',
+    'orders':'',
+    'mean':'',
   };
   
   /*

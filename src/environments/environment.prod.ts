@@ -6,4 +6,5 @@
 export const environment = {
   production: true,
   appName: 'Terapp',
+  baseUrl: 'http://coupons.bytersoft.webfactional.com',
 };

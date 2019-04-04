@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { AppState } from '../../@core/store/reducer';
 import { Store } from '@ngrx/store';
 import * as AuthActions from '../../@core/store/actions/auth.actions';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -25,13 +26,16 @@ export class TokenInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.tokenService.get().pipe(
       flatMap( (token) => {
+        console.log(request.url);
         request = request.clone({
+          url: `${environment.baseUrl}/${request.url}`,
           setHeaders: {
             Authorization: `Bearer ${token}`,
             Accept: 'application/json',
             ContentType: 'application/json',
           },
         });
+        console.log(request.url);
         return next.handle(request).do((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {
             // do stuff with response if you want

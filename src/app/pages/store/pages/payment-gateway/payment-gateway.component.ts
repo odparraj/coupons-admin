@@ -18,6 +18,7 @@ export class PaymentGatewayComponent implements OnInit {
   state: string;
   country: string;
   cellphone: string;
+  coupon:any;
 
   linearMode = true;
 
@@ -31,6 +32,8 @@ export class PaymentGatewayComponent implements OnInit {
 
   next() { }
 
+  back(){ }
+
   confirmPayment() {
     let paymentCondition = true;
     if (paymentCondition) {
@@ -39,6 +42,8 @@ export class PaymentGatewayComponent implements OnInit {
   }
 
   order = {
+    price:'',
+    shipping:'',
 
   }
 }

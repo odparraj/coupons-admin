@@ -2,6 +2,7 @@
 /dist
 /tmp
 /out-tsc
+/docs
 
 # dependencies
 /node_modules
