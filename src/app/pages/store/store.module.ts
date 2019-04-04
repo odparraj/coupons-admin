@@ -10,6 +10,7 @@ import { PaymentGatewayComponent } from './pages/payment-gateway/payment-gateway
 import { BillComponent } from './pages/bill/bill.component';
 import { ServicesListComponent } from './pages/services-list/services-list.component';
 import { ServiceComponent } from './pages/service/service.component';
+import { StoreComponent } from './store.component';
 
 @NgModule({
   declarations: [ProductsListComponent, StoreComponent, ShoppingCartComponent, PaymentGatewayComponent, BillComponent, ServicesListComponent, ServiceComponent],
