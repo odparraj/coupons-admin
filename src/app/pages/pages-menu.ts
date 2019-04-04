@@ -104,10 +104,24 @@ export const MENU_ITEMS: NbMenuItem[] = [
     },
     children: [
       {
+        title: 'Services List',
+        link: '/pages/store/services-list',
+        data: {
+          permission: 'store.services',
+        },
+      },
+      {
         title: 'Products List',
         link: '/pages/store/products-list',
         data: {
           permission: 'store.products',
+        },
+      },
+      {
+        title: 'Shopping Cart',
+        link: '/pages/store/shopping-cart',
+        data: {
+          permission: 'store.shopping',
         },
       },
     ],

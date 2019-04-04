@@ -26,7 +26,7 @@
           <div class="col-sm-5">
             {{product.brand}}
           </div>
-          <div class ="col-sm-4">
+          <div class ="col-sm-4 link" (click)="addToCart('top-right', 'success')">
             <i class="fa fa-shopping-cart" title="Añadir al carrito" badgeText="Add" badgePosition="bottom" badgeStatus="warning"></i>
             <span class="badge badge-pill badge-primary">Add</span>
           </div>
@@ -73,8 +73,8 @@
           <div class="col-sm-8 brand-container">
             <nb-user picture="{{product.brand_image}}" name="{{product.brand}}"></nb-user>
           </div>   
-          <div class ="col-sm-4">
-            <i class="fa fa-shopping-cart" title="Añadir al carrito" badgeText="Add" badgePosition="bottom" badgeStatus="warning" (click)="addToCart()"></i>
+          <div class ="col-sm-4 link" (click)="addToCart('top-right', 'success')">
+            <i class="fa fa-shopping-cart" title="Añadir al carrito" badgeText="Add" badgePosition="bottom" badgeStatus="warning"></i>
             <span class="badge badge-pill badge-primary">Add</span>
           </div>
         </div>
