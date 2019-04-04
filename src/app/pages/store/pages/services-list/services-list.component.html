@@ -1,0 +1,80 @@
+<div class="search-bar">
+  <nb-actions size="medium" style= "padding: 10px" >
+    <nb-action>
+      <input type="text" fullWidth status="info" nbInput placeholder="Buscar serviceo" [(ngModel)]="searchKey" autocomplete="off" (keyup) = "searchByKey()">
+    </nb-action>
+    <nb-action class="action-icon-danger" icon="fa fa-power-off" title="Reiniciar busqueda" badgeStatus="warning" (click)="searchClear()"></nb-action>
+  </nb-actions>
+</div>
+<div class="space-search-bar"></div>
+<div class="row">
+  <nb-flip-card class="card" *ngFor="let service of services" >
+    <nb-card-front>
+      <nb-card accent="danger" class="inner-card">
+        <div class="service-image-container"><img src="{{service.image}}" class="card-img-top" alt="..."></div>
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <h4>{{service.name}}</h4>
+            <span class="final-date">{{service.final_date}}</span>
+          </div>
+        </div>
+        <div class="row brand-container">
+          <div class="col-sm-8 brand-container">
+            <nb-user picture="{{service.brand_image}}" name="{{service.brand}}"></nb-user>
+          </div>
+          <div class ="col-sm-4 link"(click)="goToService(service.id)">
+            <i class="fa fa-shopping-cart" title="Ver y pagar" badgeText="Pay" badgePosition="bottom" badgeStatus="warning" (click)="addToCart()"></i>
+            <span class="badge badge-pill badge-primary">Pay</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 discount text-center">
+            Hasta el {{service.max_discount}}% de descuento
+          </div>   
+        </div> 
+      </nb-card>
+    </nb-card-front>
+    <nb-card-back>
+      <nb-card accent="danger" class="inner-card">
+        <br />
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <h4>{{service.name}}</h4>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-text" [innerHTML]="service.description" ></p>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 full-price text-center">
+            {{service.full_price | currency}}
+          </div>   
+        </div>  
+        <div class="row">
+          <div class="col-sm-12 discount text-center">
+            {{service.current_price | currency}}
+          </div>   
+        </div>   
+        <div class="row">
+          <div class="col-sm-12 text-center">
+            <span class="final-date">{{service.final_date}}</span>
+          </div>
+        </div>
+        <div class="row brand-container">
+          <div class="col-sm-8 brand-container">
+            <nb-user picture="{{service.brand_image}}" name="{{service.brand}}"></nb-user>
+          </div>   
+          <div class ="col-sm-4 link" (click)="goToService(service.id)">
+            <i class="fa fa-shopping-cart" title="Añadir al carrito" badgeText="Add" badgePosition="bottom" badgeStatus="warning" (click)="addToCart()"></i>
+            <span class="badge badge-pill badge-primary">Pay</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 discount text-center">
+            Hasta el {{service.max_discount}}% de descuento
+          </div>   
+        </div> 
+      </nb-card>
+    </nb-card-back>
+  </nb-flip-card>
+</div>

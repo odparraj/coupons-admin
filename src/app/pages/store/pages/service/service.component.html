@@ -1,0 +1,75 @@
+<nb-card>
+  <nb-card-header>
+    Servicio:
+  </nb-card-header>
+  <nb-card-body>
+    <div class="text-center">
+      <h4>{{service.name}}</h4>
+      <br />
+    </div>
+    <nb-alert status="primary">
+      <nb-actions fullWidth>
+        <nb-action badgeText="Envío no incluido" badgePosition="bottom" badgeStatus="danger">
+          <div class="total">
+            <b>Total:</b> {{ sum | currency }}
+          </div>
+        </nb-action>
+        <nb-action>
+          <button nbButton shape="round" hero status="primary" class="col-md-8 total" (click)="goToPayment()"><i class="fa fa-credit-card"></i> Pagar</button>
+        </nb-action>
+      </nb-actions>
+    </nb-alert>
+    <nb-card accent="danger">
+      <nb-card-header>
+        <h5>Bases:</h5>
+      </nb-card-header>
+      <nb-card-body>
+        <nb-radio-group>
+          <nb-radio
+            *ngFor="let base of service.bases; let i = index;"
+            [value]="base.id"
+            (click)="select_base(base.id)">
+              <h6>{{base.name}}: {{base.price | currency}}</h6>
+              <p>{{base.description}}</p>
+          </nb-radio>
+        </nb-radio-group>
+      </nb-card-body>
+    </nb-card>
+    
+    <nb-card accent="warning">
+      <nb-card-header>
+        <h5>Adicionales:</h5>
+      </nb-card-header>
+      <nb-card-body>
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Adicional</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Valor Total</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let aditional of service.aditionals; let i = index;">
+                  <th scope="row"><nb-checkbox status="success" (click)="check_aditional($event, aditional.id)"></nb-checkbox></th>
+                  <td> 
+                    <nb-user name="{{aditional.name}}"></nb-user>
+                  </td>
+                  <td>{{aditional.amount}}</td>
+                  <td>{{aditional.price*aditional.amount | currency}}</td>
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-primary btn-icon" (click)="decrease_quantity(aditional.id)"><i class="fa fa-minus"></i></button>
+                      <button type="button" class="btn btn-success btn-icon" (click)="increase_quantity(aditional.id)"><i class="fa fa-plus"></i></button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+      </nb-card-body>
+    </nb-card>
+
+  </nb-card-body>
+</nb-card>
