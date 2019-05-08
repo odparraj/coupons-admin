@@ -58,6 +58,13 @@ const routes: Routes = [{
       },
     },
     {
+      path: 'products-manager',
+      loadChildren: './products-manager/products-manager.module#ProductsManagerModule',
+      data: {
+        permission: 'products_manager',
+      },
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },

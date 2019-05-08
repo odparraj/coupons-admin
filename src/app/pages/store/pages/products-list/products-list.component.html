@@ -1,4 +1,4 @@
-<div class="search-bar">
+<nb-card class="search-bar">
   <nb-actions size="medium" style= "padding: 10px" fullWidth>
     <nb-action>
       <input type="text" fullWidth status="info" nbInput placeholder="Buscar Producto" [(ngModel)]="searchKey" autocomplete="off" (keyup) = "searchByKey()">
@@ -6,7 +6,7 @@
     <nb-action class="action-icon-danger" icon="fa fa-power-off" title="Reiniciar busqueda" badgeStatus="warning" (click)="searchClear()"></nb-action>
     <nb-action class="action-icon-success" icon="fa fa-shopping-cart" title="Ver el carrito e ir a pagos" badgeText="Go to cart" badgePosition="bottom" badgeStatus="success" (click)="goToCart()"></nb-action>
   </nb-actions>
-</div>
+</nb-card>
 <div class="space-search-bar"></div>
 <div class="row">
   <nb-flip-card class="card" *ngFor="let product of products" >

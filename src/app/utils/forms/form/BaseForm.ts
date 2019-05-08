@@ -8,6 +8,7 @@ import { EmailField } from '../field/EmailField';
 import { PasswordField } from '../field/PasswordField';
 import { TextField } from '../field/TextField';
 import { CheckboxField } from '../field/CheckboxField';
+import { FileField } from '../field/FileField';
 
 const namespace = {
     NumberField: NumberField,
@@ -18,6 +19,7 @@ const namespace = {
     PasswordField: PasswordField,
     TextField: TextField,
     CheckboxField: CheckboxField,
+    FileField: FileField,
 };
 
 export class BaseForm extends aForm {

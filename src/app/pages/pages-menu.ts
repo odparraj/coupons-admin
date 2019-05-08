@@ -97,6 +97,29 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
+    title: 'Products Manager',
+    icon: 'nb-list',
+    data: {
+      permission: 'products_manager',
+    },
+    children: [
+      {
+        title: 'Products',
+        link: '/pages/products-manager/products',
+        data: {
+          permission: 'products_manager.products',
+        },
+      },
+      {
+        title: 'Category',
+        link: '/pages/products-manager/category',
+        data: {
+          permission: 'products_manager.products',
+        },
+      },
+    ],
+  },
+  {
     title: 'Store',
     icon: 'nb-list',
     data: {

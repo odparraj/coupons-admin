@@ -28,7 +28,7 @@ export class TokenInterceptor implements HttpInterceptor {
       flatMap( (token) => {
         console.log(request.url);
         request = request.clone({
-          url: `${environment.baseUrl}/${request.url}`,
+          //url: `${environment.baseUrl}/${request.url}`,
           setHeaders: {
             Authorization: `Bearer ${token}`,
             Accept: 'application/json',

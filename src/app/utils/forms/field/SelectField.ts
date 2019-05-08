@@ -6,7 +6,7 @@ import { of, Observable } from 'rxjs';
 
 export class SelectField extends aBaseField<string> {
   xtype: string = 'SelectField';
-  values: Array<string> = [];
+  values: Array<option> = [];
   constructor(data) {
     super();
     this.name = data.name;
@@ -51,10 +51,15 @@ export class SelectField extends aBaseField<string> {
     const result = [];
     for (let i = 0; i < this.values.length; i++){
       result.push({
-        label: this.getTitleCase(this.values[i]),
-        value: this.values[i],
+        label: this.getTitleCase(this.values[i].label),
+        value: this.values[i].value,
       });
     }
     return of(result);
   }
+}
+
+export class option {
+  value: string;
+  label: string;
 }

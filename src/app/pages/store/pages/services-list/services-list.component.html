@@ -1,11 +1,11 @@
-<div class="search-bar">
+<nb-card class="search-bar">
   <nb-actions size="medium" style= "padding: 10px" >
     <nb-action>
       <input type="text" fullWidth status="info" nbInput placeholder="Buscar servicio" [(ngModel)]="searchKey" autocomplete="off" (keyup) = "searchByKey()">
     </nb-action>
     <nb-action class="action-icon-danger" icon="fa fa-power-off" title="Reiniciar busqueda" badgeStatus="warning" (click)="searchClear()"></nb-action>
   </nb-actions>
-</div>
+</nb-card>
 <div class="space-search-bar"></div>
 <div class="row">
   <nb-flip-card class="card" *ngFor="let service of services" >
