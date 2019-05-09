@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
 import { CrudComponent } from '../../../../shared/components/crud/crud.component';
 import { Config } from '../../../../shared/models/Config';

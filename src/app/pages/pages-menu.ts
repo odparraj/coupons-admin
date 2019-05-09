@@ -111,10 +111,40 @@ export const MENU_ITEMS: NbMenuItem[] = [
         },
       },
       {
-        title: 'Category',
-        link: '/pages/products-manager/category',
+        title: 'Categories',
+        link: '/pages/products-manager/categories',
         data: {
-          permission: 'products_manager.products',
+          permission: 'products_manager.categories',
+        },
+      },
+    ],
+  },
+  {
+    title: 'Services Manager',
+    icon: 'nb-list',
+    data: {
+      permission: 'services_manager',
+    },
+    children: [
+      {
+        title: 'Services',
+        link: '/pages/services-manager/services',
+        data: {
+          permission: 'services_manager.services',
+        },
+      },
+      {
+        title: 'Categories',
+        link: '/pages/services-manager/categories',
+        data: {
+          permission: 'services_manager.categories',
+        },
+      },
+      {
+        title: 'Aditionals',
+        link: '/pages/services-manager/aditionals',
+        data: {
+          permission: 'services_manager.aditionals',
         },
       },
     ],

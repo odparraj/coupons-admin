@@ -65,6 +65,13 @@ const routes: Routes = [{
       },
     },
     {
+      path: 'services-manager',
+      loadChildren: './services-manager/services-manager.module#ServicesManagerModule',
+      data: {
+        permission: 'services_manager',
+      },
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },

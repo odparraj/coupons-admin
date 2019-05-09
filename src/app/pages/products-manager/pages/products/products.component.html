@@ -10,12 +10,6 @@
     (submit)= "onAction({action:'update', data:$event})" 
     (cancel)="currentAction='index'">
 </custom-form>
-<custom-form *ngIf="currentAction=='editRoles'" 
-    title="{{config.title}} / Sync Roles Form" 
-    [model]="syncModel" 
-    (submit)= "onAction({action:'syncRoles', data:$event})" 
-    (cancel)="currentAction='index'">
-</custom-form>
 <custom-table *ngIf="currentAction=='index' && config && actions" 
     [config]="config" 
     [actions]="actions" 

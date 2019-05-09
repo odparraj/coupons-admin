@@ -87,7 +87,7 @@ export class UsersComponent extends CrudComponent implements OnInit {
         key: 'email',
       },
     ],
-    endpoint: 'api/users',
+    endpoint: this.endpoint,
   };
 
   actions: Array<Action> = [

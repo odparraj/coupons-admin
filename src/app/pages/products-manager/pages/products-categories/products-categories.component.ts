@@ -71,7 +71,7 @@ export class ProductsCategoriesComponent extends CrudComponent implements OnInit
         key: 'description',
       },
     ],
-    endpoint: 'api/product-categories',
+    endpoint: this.endpoint,
   };
 
   actions: Array<Action> = [
@@ -79,13 +79,13 @@ export class ProductsCategoriesComponent extends CrudComponent implements OnInit
       name: 'edit',
       btnClass: 'btn btn-primary',
       iconClass: 'fas fa-edit',
-      title: 'Edit Product',
+      title: 'Edit Category',
     },
     {
       name: 'delete',
       btnClass: 'btn btn-danger',
       iconClass: 'fas fa-trash-alt',
-      title: 'Remove Product',
+      title: 'Remove Category',
     },
   ];
 
@@ -94,7 +94,7 @@ export class ProductsCategoriesComponent extends CrudComponent implements OnInit
       name: 'create',
       btnClass: 'btn btn-primary',
       iconClass: 'fas fa-plus',
-      title: 'Create Product',
+      title: 'Create Product Category',
       text: 'New',
     },
   ];
