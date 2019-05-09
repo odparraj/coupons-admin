@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CrudComponent } from '../../../../shared/components/crud/crud.component';
 import { Config } from '../../../../shared/models/Config';
 import { Action } from '../../../../shared/models/Action';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'service-aditionals',
@@ -10,6 +11,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./service-aditionals.component.scss']
 })
 export class ServiceAditionalsComponent extends CrudComponent implements OnInit {
+
+  @Input() service_id: number;
+  @Input() service_name: string = "";
 
   endpoint= 'api/service-aditionals';
   currentItem: string;
@@ -71,11 +75,9 @@ export class ServiceAditionalsComponent extends CrudComponent implements OnInit 
       },
     },
   };
-
-  syncModel= {};
   
   config: Config = {
-    title: 'Service Aditionals',
+    title: `${this.service_name} - Service Aditionals`,
     columns: [
       {
         name: 'Name',
@@ -86,7 +88,7 @@ export class ServiceAditionalsComponent extends CrudComponent implements OnInit 
         key: 'description',
       },
     ],
-    endpoint: this.endpoint,
+    endpoint: `${this.endpoint}/${this.service_id}`,
   };
 
   actions: Array<Action> = [
@@ -106,6 +108,13 @@ export class ServiceAditionalsComponent extends CrudComponent implements OnInit 
 
   globalActions: Array<Action> = [
     {
+      name: 'returnToServices',
+      btnClass: 'btn btn-danger',
+      iconClass: 'fas fa-undo-alt',
+      title: 'Return to Services',
+      text: 'Back',
+    },
+    {
       name: 'create',
       btnClass: 'btn btn-primary',
       iconClass: 'fas fa-plus',
@@ -114,7 +123,7 @@ export class ServiceAditionalsComponent extends CrudComponent implements OnInit 
     },
   ];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     super();
   }
 
@@ -156,5 +165,9 @@ export class ServiceAditionalsComponent extends CrudComponent implements OnInit 
       console.log('store', data);
       this.currentAction = 'index';
     }).catch(console.error);
+  }
+
+  returnToServices(data) {
+    this.router.navigate(['/pages/services-manager/services']);
   }
 }

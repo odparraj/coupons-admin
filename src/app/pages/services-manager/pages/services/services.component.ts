@@ -4,6 +4,7 @@ import { Config } from '../../../../shared/models/Config';
 import { HttpClient } from '@angular/common/http';
 import { option } from '../../../../utils/forms/field/SelectField';
 import { Action } from '../../../../shared/models/Action';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'services',
@@ -118,7 +119,7 @@ export class ServicesComponent extends CrudComponent implements OnInit {
       title: 'Edit Service',
     },
     {
-      name: 'admin_aditionals',
+      name: 'adminAditionals',
       btnClass: 'btn btn-warning',
       iconClass: 'fas fa-edit',
       title: 'Admin Aditionals',
@@ -141,7 +142,8 @@ export class ServicesComponent extends CrudComponent implements OnInit {
     },
   ];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
+    
     super();
   }
 
@@ -221,6 +223,10 @@ export class ServicesComponent extends CrudComponent implements OnInit {
       console.log('store', data);
       this.currentAction = 'index';
     }).catch(console.error);
+  }
+
+  adminAditionals(data){
+    this.router.navigate(['/pages/services-manager/aditionals'],{ queryParams: { service: data.id } });
   }
 
 }
