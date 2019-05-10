@@ -10,8 +10,8 @@
             <b>Total:</b> {{ sum | currency }}
           </div>
         </nb-action>
-        <nb-action>
-          <button nbButton shape="round" hero status="primary" class="col-md-8 total" (click)="goToPayment()"><i class="fa fa-credit-card"></i> Pagar</button>
+        <nb-action (click)="goToPayment()" class="menu_links">
+          <a class="col-md-8 total" ><i class="fa fa-credit-card"></i> Pagar</a>
         </nb-action>
       </nb-actions>
     </nb-alert>

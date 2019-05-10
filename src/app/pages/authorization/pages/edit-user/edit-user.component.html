@@ -35,35 +35,35 @@
               </nb-card>
             </div>
             <div class="col-lg-6">
-                <nb-card size="medium" accent = "primary">
-                  <nb-card-header>Estadísticas</nb-card-header>
-                  <nb-card-body>
-                    <table class="table">
-                        <tbody>
-                          <tr>
-                            <th scope="row">Total venta</th>
-                            <td class="text-right"> {{ quota_tot.spent | currency}} </td>
+              <nb-card size="medium" accent = "primary">
+                <nb-card-header>Estadísticas</nb-card-header>
+                <nb-card-body>
+                  <table class="table">
+                      <tbody>
+                        <tr>
+                          <th scope="row">Total venta</th>
+                          <td class="text-right"> {{ quota_tot.spent | currency}} </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Cupo disponible</th>
+                            <td class="text-right"> {{ quota_tot.available | currency}} </td>
                           </tr>
-                          <tr>
-                              <th scope="row">Cupo disponible</th>
-                              <td class="text-right"> {{ quota_tot.available | currency}} </td>
-                            </tr>
-                          <tr>
-                            <th scope="row">Numero de órdenes</th>
-                            <td class="text-right"> {{ quota_tot.orders | currency}} </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Valor medio de pedidos</th>
-                            <td class="text-right"> {{ quota_tot.mean | currency}} </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Fecha de ingreso</th>
-                            <td class="text-right"> {{ quota_tot.date}} </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                  </nb-card-body>
-                </nb-card>
+                        <tr>
+                          <th scope="row">Numero de órdenes</th>
+                          <td class="text-right"> {{ quota_tot.orders | currency}} </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Valor medio de pedidos</th>
+                          <td class="text-right"> {{ quota_tot.mean | currency}} </td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Fecha de ingreso</th>
+                          <td class="text-right"> {{ quota_tot.date}} </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </nb-card-body>
+              </nb-card>
             </div>
           </div> <!--row-->
         </nb-card>

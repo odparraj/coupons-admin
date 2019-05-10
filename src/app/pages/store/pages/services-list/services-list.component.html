@@ -1,12 +1,72 @@
-<nb-card class="search-bar">
-  <nb-actions size="medium" style= "padding: 10px" >
-    <nb-action>
-      <input type="text" fullWidth status="info" nbInput placeholder="Buscar servicio" [(ngModel)]="searchKey" autocomplete="off" (keyup) = "searchByKey()">
-    </nb-action>
-    <nb-action class="action-icon-danger" icon="fa fa-power-off" title="Reiniciar busqueda" badgeStatus="warning" (click)="searchClear()"></nb-action>
-  </nb-actions>
-</nb-card>
-<div class="space-search-bar"></div>
+<div class="row">
+  <nb-card class="col-md-12" accent="primary">
+    <nb-card-header class="text-center">
+      Cofrem
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-lg-6 text-center">
+          <nb-card accent="info" class="card-border-none">
+            <nb-card-body>
+              <img src="https://www.cofrem.com.co/sites/default/files/LOGO%20COFREM%20VERTICAL.jpg" class="img-fluid img-enterprise col-md-8">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis asperiores cupiditate accusantium repellendus ratione, incidunt id aut velit et nobis ex facere? Unde dolor aperiam minima doloremque modi debitis blanditiis?
+              </p>
+            </nb-card-body>
+          </nb-card>
+        </div>
+        <div class="col-lg-6">
+          <nb-card accent="warning" class="card-border-none">
+            <nb-card-header>
+              Filtrar Servicios
+            </nb-card-header>
+            <nb-card-body>
+              <nb-select name="category" id="category" [(ngModel)]="category" placeholder="Select Category">
+                <nb-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</nb-option>
+              </nb-select>
+              <br />
+              <br />
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input 
+                  placeholder="Min Price"
+                  type="text" 
+                  class="form-control" 
+                  step=1 
+                  aria-label="Amount (to the nearest dollar)"
+                  onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input 
+                  placeholder="Max Price"
+                  type="text" 
+                  class="form-control" 
+                  step=1 
+                  aria-label="Amount (to the nearest dollar)"
+                  onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+              <br />
+              <button nbButton hero status="info" class="col-md-12">Filter</button>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
+  
+
 <div class="row">
   <nb-flip-card class="card" *ngFor="let service of services" >
     <nb-card-front>
