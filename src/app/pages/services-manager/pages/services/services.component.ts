@@ -226,7 +226,7 @@ export class ServicesComponent extends CrudComponent implements OnInit {
   }
 
   adminAditionals(data){
-    this.router.navigate(['/pages/services-manager/aditionals'],{ queryParams: { service: data.id } });
+    this.router.navigate(['/pages/services-manager/aditionals'],{ queryParams: { service_id: data.id, service_name: data.name } });
   }
 
 }
