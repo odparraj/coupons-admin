@@ -1,4 +1,4 @@
 export interface ResponseData {
   data: any;
-  paginate: any;
+  pagination: any;
 }

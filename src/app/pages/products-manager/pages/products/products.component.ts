@@ -17,6 +17,14 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   currentAction: string = 'index';
   createModel = {
     items: {
+      'sku': {
+        'xtype': 'TextField',
+        'allowBlank': false,
+        'defaultValue': '',
+        'name': 'sku',
+        'value': '',
+        'levelSecurity': 0,
+      },
       'name': {
         'xtype': 'TextField',
         'allowBlank': false,
@@ -25,27 +33,11 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'value': '',
         'levelSecurity': 0,
       },
-      'full_price': {
+      'price': {
         'xtype': 'NumberField',
         'allowBlank': false,
         'defaultValue': '',
-        'name': 'full_price',
-        'value': '',
-        'levelSecurity': 0,
-      },
-      'current_price': {
-        'xtype': 'NumberField',
-        'allowBlank': false,
-        'defaultValue': '',
-        'name': 'current_price',
-        'value': '',
-        'levelSecurity': 0,
-      },
-      'discount_final_date': {
-        'xtype': 'DateField',
-        'allowBlank': true,
-        'defaultValue': '',
-        'name': 'discount_final_date',
+        'name': 'price',
         'value': '',
         'levelSecurity': 0,
       },
@@ -56,7 +48,7 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'name': 'description',
         'value': '',
         'levelSecurity': 0,
-      },
+      },/* 
       'image': {
         'xtype': 'FileField',
         'allowBlank': true,
@@ -64,12 +56,21 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'name': 'image',
         'value': '',
         'levelSecurity': 0,
-      },
+      }, */
     },
   };
 
   editModel = {
     items: {
+
+      'sku': {
+        'xtype': 'TextField',
+        'allowBlank': false,
+        'defaultValue': '',
+        'name': 'sku',
+        'value': '',
+        'levelSecurity': 0,
+      },
       'name': {
         'xtype': 'TextField',
         'allowBlank': false,
@@ -78,27 +79,11 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'value': '',
         'levelSecurity': 0,
       },
-      'full_price': {
+      'price': {
         'xtype': 'NumberField',
         'allowBlank': false,
         'defaultValue': '',
-        'name': 'full_price',
-        'value': '',
-        'levelSecurity': 0,
-      },
-      'current_price': {
-        'xtype': 'NumberField',
-        'allowBlank': false,
-        'defaultValue': '',
-        'name': 'current_price',
-        'value': '',
-        'levelSecurity': 0,
-      },
-      'discount_final_date': {
-        'xtype': 'DateField',
-        'allowBlank': true,
-        'defaultValue': '',
-        'name': 'discount_final_date',
+        'name': 'price',
         'value': '',
         'levelSecurity': 0,
       },
@@ -109,15 +94,15 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'name': 'description',
         'value': '',
         'levelSecurity': 0,
-      },
+      },/* 
       'image': {
         'xtype': 'FileField',
-        'allowBlank': false,
+        'allowBlank': true,
         'defaultValue': '',
         'name': 'image',
         'value': '',
         'levelSecurity': 0,
-      },
+      }, */
     },
   };
 
@@ -129,14 +114,6 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
       {
         name: 'Name',
         key: 'name',
-      },
-      {
-        name: 'Full Price',
-        key: 'full_price',
-      },
-      {
-        name: 'Current Price',
-        key: 'current_price',
       },
     ],
     endpoint: 'api/products',

@@ -48,10 +48,10 @@ export class CustomTableComponent implements OnInit {
   getData(page: number) {
     return this.http.get<ResponseData>(`${this.endpoint}?page=${page}`).pipe(
       flatMap((data) => {
-        this.paginate = data.paginate;
-        this.currentPage = data.paginate.current_page;
-        this.total = data.paginate.total;
-        this.perPage = data.paginate.per_page;
+        this.paginate = data.pagination;
+        this.currentPage = data.pagination.currentPage;
+        this.total = data.pagination.total;
+        this.perPage = data.pagination.perPage;
         return of(data['data']);
       }),
     );
