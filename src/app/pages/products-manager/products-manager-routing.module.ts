@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProductsManagerComponent } from './products-manager.component';
 import { ProductsComponent } from './pages/products/products.component';
-import { ProductsCategoriesComponent } from './pages/products-categories/products-categories.component';
+import { ProductTaxonomiesComponent } from './pages/product-taxonomies/product-taxonomies.component';
+import { ProductTaxonsComponent } from './pages/product-taxons/product-taxons.component';
 
 const routes: Routes = [{
   path: '',
@@ -13,8 +14,12 @@ const routes: Routes = [{
       component: ProductsComponent,
     },
     {
-      path: 'categories',
-      component: ProductsCategoriesComponent,
+      path: 'taxonomies',
+      component: ProductTaxonomiesComponent,
+    },
+    {
+      path: 'taxons',
+      component: ProductTaxonsComponent,
     }
   ]
 }];

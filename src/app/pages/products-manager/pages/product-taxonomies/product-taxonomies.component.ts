@@ -4,15 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { CrudComponent } from '../../../../shared/components/crud/crud.component';
 import { Config } from '../../../../shared/models/Config';
 import { Action } from '../../../../shared/models/Action';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'products-categories',
-  templateUrl: './products-categories.component.html',
-  styleUrls: ['./products-categories.component.scss']
+  selector: 'product-taxonomies',
+  templateUrl: './product-taxonomies.component.html',
+  styleUrls: ['./product-taxonomies.component.scss']
 })
-export class ProductsCategoriesComponent extends CrudComponent implements OnInit  {
+export class ProductTaxonomiesComponent extends CrudComponent implements OnInit  {
 
-  endpoint= 'api/product-categories';
+  endpoint= 'api/product-taxonomies';
   currentItem: string;
   currentAction: string = 'index';
   createModel = {
@@ -82,6 +83,12 @@ export class ProductsCategoriesComponent extends CrudComponent implements OnInit
       title: 'Edit Category',
     },
     {
+      name: 'addTaxon',
+      btnClass: 'btn btn-success',
+      iconClass: 'fas fa-plus',
+      title: 'Add Taxon',
+    },
+    {
       name: 'delete',
       btnClass: 'btn btn-danger',
       iconClass: 'fas fa-trash-alt',
@@ -99,7 +106,7 @@ export class ProductsCategoriesComponent extends CrudComponent implements OnInit
     },
   ];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     super();
   }
 
@@ -141,6 +148,10 @@ export class ProductsCategoriesComponent extends CrudComponent implements OnInit
       console.log('store', data);
       this.currentAction = 'index';
     }).catch(console.error);
+  }
+
+  addTaxon(data){
+    this.router.navigate(['/pages/products-manager/taxons'],{ queryParams: { taxonomy_id: data.id, taxonomy_name: data.name } });
   }
 
 }

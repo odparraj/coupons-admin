@@ -6,10 +6,11 @@ import { ProductsManagerComponent } from './products-manager.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { SharedModule } from '../../shared/shared.module';
-import { ProductsCategoriesComponent } from './pages/products-categories/products-categories.component';
+import { ProductTaxonomiesComponent } from './pages/product-taxonomies/product-taxonomies.component';
+import { ProductTaxonsComponent } from './pages/product-taxons/product-taxons.component';
 
 @NgModule({
-  declarations: [ProductsManagerComponent, ProductsComponent, ProductsCategoriesComponent],
+  declarations: [ProductsManagerComponent, ProductsComponent, ProductTaxonomiesComponent, ProductTaxonsComponent],
   imports: [
     CommonModule,
     ProductsManagerRoutingModule,

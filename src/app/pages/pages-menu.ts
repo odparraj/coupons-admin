@@ -114,7 +114,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Categories',
         link: '/pages/products-manager/categories',
         data: {
-          permission: 'products_manager.categories',
+          permission: 'products_manager.taxonomies',
         },
       },
     ],
