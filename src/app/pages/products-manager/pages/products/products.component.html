@@ -19,3 +19,9 @@
         (action)="onAction({action:$event, data:''})">
     </custom-actions>
 </custom-table>
+<custom-form *ngIf="currentAction=='editTaxons'" 
+    title="{{config.title}} / Categories" 
+    [model]="syncModel" 
+    (submit)= "onAction({action:'syncTaxons', data:$event})" 
+    (cancel)="currentAction='index'">
+</custom-form>

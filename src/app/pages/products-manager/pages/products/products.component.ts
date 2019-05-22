@@ -223,4 +223,59 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
     }).catch(console.error);
   }
 
+  async editTaxons(data) {
+    await this.http.get('api/product-taxons').toPromise().then((data) => {
+      let taxons = data['data'] as [];
+      this.syncModel = {};
+      this.syncModel['items'] = {}
+      taxons.forEach((taxon) => {
+        if(taxon['parent_id'] == null){
+          this.syncModel['items'][taxon['id']] = {
+            'xtype': 'CheckboxField',
+            'allowBlank': false,
+            'name': taxon['id'],
+            'label': taxon['name'],
+            'value': false,
+            'levelSecurity': 0,
+          };
+        } else {
+          this.syncModel['items'][taxon['id']] = {
+            'xtype': 'CheckboxField',
+            'allowBlank': false,
+            'name': taxon['id'],
+            'label': `${this.syncModel['items'][taxon['parent_id']]['label']} / ${taxon['name']}`,
+            'value': false,
+            'levelSecurity': 0,
+          };
+        }
+        
+      });
+    }).catch(console.error);
+
+    await this.http.get(`api/products/${data.id}/taxons`).toPromise().then((data)=>{
+      let taxons = data['data'] as [];
+      taxons.forEach((taxon) => {
+        if( this.syncModel['items'].hasOwnProperty(taxon['id']) ){
+          this.syncModel['items'][taxon['id']]['value'] = true;
+        }
+      }); 
+    }).catch(console.error);
+
+    this.currentAction = 'editTaxons';
+    this.currentItem = data.id;
+    console.log('edit Taxons', data, this.currentAction);
+  }
+  syncTaxons(data) {
+    console.log('syncTaxons', data);
+    let taxons= [];
+    for(let key in data){
+      if(data[key]){
+        taxons.push({id: key});
+      }
+    }
+    this.http.post(`${this.endpoint}/${this.currentItem}/sync-taxons`, taxons).toPromise().then((data) => {
+      console.log('syncTaxons...', data);
+      this.currentAction = 'index';
+    }).catch(console.error);
+  }
 }
