@@ -11,24 +11,24 @@
         </div>
         <div class="row action-bar">
           <div class="col-sm-3">
-            <span class="badge badge-pill badge-success">{{product.current_price < product.full_price ? this.floatToInt(-100*(product.full_price-product.current_price)/product.full_price) + '%' : ''}}</span>
+            <span class="badge badge-pill badge-success">{{product.current_price < product.full_price ? this.floatToInt(-100*(product.full_price-product.current_price)/product.full_price) + '%' : '0 %'}}</span>
           </div>
           <div class="col-sm-5">
             {{product.brand}}
           </div>
-          <div class ="col-sm-4 link" (click)="addToCart('top-right', 'success')">
+          <div class ="col-sm-4 link" (click)="addToCart(product.id,'top-right', 'success')">
             <i class="fa fa-shopping-cart" title="Añadir al carrito" badgeText="Add" badgePosition="bottom" badgeStatus="warning"></i>
             <span class="badge badge-pill badge-primary">Add</span>
           </div>
-        </div>  
+        </div>
         <div class="row">
           <div class="col-sm-12 full-price text-center">
-            {{product.full_price | currency}}
+            {{product.price | currency}}
           </div>   
-        </div>  
+        </div>
         <div class="row">
           <div class="col-sm-12 current-price text-center">
-            {{product.current_price | currency}}
+            {{product.price | currency}}
           </div>   
         </div> 
       </nb-card>
@@ -63,7 +63,7 @@
           <div class="col-sm-8 brand-container">
             <nb-user picture="{{product.brand_image}}" name="{{product.brand}}"></nb-user>
           </div>   
-          <div class ="col-sm-4 link" (click)="addToCart('top-right', 'success')">
+          <div class ="col-sm-4 link" (click)="addToCart(product.id,'top-right', 'success')">
             <i class="fa fa-shopping-cart" title="Añadir al carrito" badgeText="Add" badgePosition="bottom" badgeStatus="warning"></i>
             <span class="badge badge-pill badge-primary">Add</span>
           </div>

@@ -3,6 +3,6 @@
         "target": "https://coupons.bytersoft.webfactional.com/",
         "secure": false,
         "logLevel": "debug",
-        "changeOrigin": false
+        "changeOrigin": true
     }
 }

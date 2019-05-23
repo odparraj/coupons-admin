@@ -48,15 +48,15 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'name': 'description',
         'value': '',
         'levelSecurity': 0,
-      },/* 
-      'image': {
+      },
+      'images': {
         'xtype': 'FileField',
         'allowBlank': true,
         'defaultValue': '',
-        'name': 'image',
+        'name': 'images',
         'value': '',
         'levelSecurity': 0,
-      }, */
+      },
     },
   };
 
@@ -94,7 +94,7 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'name': 'description',
         'value': '',
         'levelSecurity': 0,
-      },/* 
+      },
       'image': {
         'xtype': 'FileField',
         'allowBlank': true,
@@ -102,7 +102,7 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'name': 'image',
         'value': '',
         'levelSecurity': 0,
-      }, */
+      },
     },
   };
 

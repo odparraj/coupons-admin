@@ -8,51 +8,64 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./shopping-cart.component.scss']
 })
 export class ShoppingCartComponent implements OnInit {
-  order = [];
+  items = [];
 
   constructor(private router: Router, private http: HttpClient) { }
   sum: number;
+  cart: any = {total : 0};
   ngOnInit() {
     this.sum = 0;
-    for (let i =0;i<this.order.length; i++) {
-      this.sum += this.order[i].amount*this.order[i].price;
+    for (let i =0;i<this.items.length; i++) {
+      this.sum += this.items[i].amount*this.items[i].price;
     }
     this.get_cart();
-    this.update_sum();
   }
   async get_cart(){
     await this.http.get('api/me/cart').toPromise().then((data) => {
-      let items = data['data'] as [];
-      this.order = items;
+      this.cart = data['data'];
+      let items = data['data']['items'] as [];
+      this.items = items;
       // items.forEach((item) => {
-      //   this.order['data'][item['id']] = item;
+      //   this.items['data'][item['id']] = item;
       // });
     }).catch(console.error);
+    console.log(this.items);
   }
-  update_sum(){
-    this.sum = 0;
-    this.order.forEach((item) => {
-      this.sum += item.price*item.quantity;
-    });
-  }
-  increase_quantity(product_id:Number) {
-    this.http.post('api/me/cart', {product_id: product_id, quantity: 1}).toPromise().then((data) => {
+  increase_quantity(item) {
+    this.http.post('api/me/cart', {product_id: item.product.id, quantity: 1}).toPromise().then((data) => {
       console.log('add...', data);
+      this.items = data['data']['items'];
+      this.cart = data['data'];
     });
-    this.update_sum();
   }
-  decrease_quantity(product_id:Number) {
-    this.http.post('api/me/cart', {product_id: product_id, quantity: -1}).toPromise().then((data) => {
-      console.log('delete...', data);
-    });
-    this.update_sum();
+  decrease_quantity(item) {
+    console.log(item);
+    if(item.quantity >1){
+      this.http.post('api/me/cart', {product_id: item.product.id, quantity: -1}).toPromise().then((data) => {
+        console.log('delete...', data);
+        this.cart = data['data'];
+        this.items = data['data']['items'];
+      });
+    } else {
+      this.delete_product(item);
+    }
     // this.sum = 0;
-    // for (let i =0;i<this.order.length; i++) {
-    //   if (this.order[i].id === id && this.order[i].amount > 1){
-    //     this.order[i].amount--;
+    // for (let i =0;i<this.items.length; i++) {
+    //   if (this.items[i].id === id && this.items[i].amount > 1){
+    //     this.items[i].amount--;
     //   }
-    //   this.sum += this.order[i].amount*this.order[i].price;
+    //   this.sum += this.items[i].amount*this.items[i].price;
     // }
+  }
+  delete_product(item){
+    this.http.delete(`api/me/cart?product_id=${item.product.id}`).toPromise().then((data) => {
+      console.log('delete...', data);
+      this.items = data['data']['items'];
+    });
+    // this.http.post('api/me/cart', {product_id: product_id, quantity: -this.items[]}).toPromise().then((data) => {
+    //   console.log('delete...', data);
+    // });
+    // this.update_sum();
   }
   update_cart(){
     

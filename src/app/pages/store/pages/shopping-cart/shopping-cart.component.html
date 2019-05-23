@@ -7,7 +7,7 @@
       <nb-actions fullWidth>
         <nb-action badgeText="Envío no incluido" badgePosition="bottom" badgeStatus="danger">
           <div class="total">
-            <b>Total:</b> {{ sum | currency }}
+            <b>Total:</b> {{ cart.total | currency }}
           </div>
         </nb-action>
         <nb-action (click)="goToPayment()" class="menu_links">
@@ -26,18 +26,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of order; let i = index;">
+        <tr *ngFor="let product of items; let i = index;">
           <th scope="row">{{i + 1}}</th>
           <td> 
-            <nb-user name="{{product.name}}" title="{{product.brand}}"></nb-user>
+            <nb-user name="{{product.product.name}}" title="{{product.product.brand}}"></nb-user>
           </td>
-          <td>{{product.amount}}</td>
-          <td>{{product.price*product.amount | currency}}</td>
+          <td>{{product.quantity}}</td>
+          <td>{{product.total | currency}}</td>
           <td>
             <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-primary btn-icon" (click)="decrease_quantity(product.id)"><i class="fa fa-minus"></i></button>
-              <button type="button" class="btn btn-danger btn-icon" (click)="delete_product(product.id)"><i class="fa fa-trash-alt"></i></button>
-              <button type="button" class="btn btn-success btn-icon" (click)="increase_quantity(product.id)"><i class="fa fa-plus"></i></button>
+              <button type="button" class="btn btn-primary btn-icon" (click)="decrease_quantity(product)"><i class="fa fa-minus"></i></button>
+              <button type="button" class="btn btn-danger btn-icon" (click)="delete_product(product)"><i class="fa fa-trash-alt"></i></button>
+              <button type="button" class="btn btn-success btn-icon" (click)="increase_quantity(product)"><i class="fa fa-plus"></i></button>
             </div>
           </td>
         </tr>
