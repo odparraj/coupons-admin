@@ -88,6 +88,7 @@ export class UsersComponent extends CrudComponent implements OnInit {
       },
     ],
     endpoint: this.endpoint,
+    filters:[]
   };
 
   actions: Array<Action> = [

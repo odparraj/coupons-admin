@@ -49,6 +49,7 @@ export class PermissionsComponent extends CrudComponent implements OnInit {
       },
     ],
     endpoint: 'api/permissions',
+    filters:[]
   };
 
   actions: Array<Action> = [

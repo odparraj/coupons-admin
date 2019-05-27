@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CrudComponent } from '../../../../shared/components/crud/crud.component';
 import { Config } from '../../../../shared/models/Config';
@@ -12,6 +12,7 @@ import { option } from '../../../../utils/forms/field/SelectField';
 })
 export class ProductsComponent extends CrudComponent implements OnInit  {
 
+  @Input() parent: number = null;
   endpoint= 'api/products';
   currentItem: string;
   currentAction: string = 'index';
@@ -117,6 +118,12 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
       },
     ],
     endpoint: 'api/products',
+    filters:[
+      {
+        name: "type",
+        value: "product"
+      }
+    ]
   };
 
   actions: Array<Action> = [
@@ -149,6 +156,16 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   }
 
   ngOnInit() {
+    if (this.parent == null) {
+      this.actions.push(
+        {
+          name: 'addAditionals',
+          btnClass: 'btn btn-primary',
+          iconClass: 'fas fa-trash-alt',
+          title: 'Add Aditionals',
+        },
+      );
+    }
   }
 
   delete(data) {

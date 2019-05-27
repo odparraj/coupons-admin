@@ -52,6 +52,7 @@ export class RolesComponent extends CrudComponent implements OnInit {
       },
     ],
     endpoint: 'api/roles',
+    filters:[]
   };
 
   actions: Array<Action> = [

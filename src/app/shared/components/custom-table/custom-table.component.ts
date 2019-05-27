@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { flatMap } from 'rxjs/operators';
+import { flatMap, concat } from 'rxjs/operators';
 import { Config } from '../../models/Config';
 import { Action } from '../../models/Action';
 import { ResponseData } from '../../models/ResponseData';
+import { NbSearchService } from '@nebular/theme';
 
 @Component({
   selector: 'custom-table',
@@ -17,6 +18,7 @@ export class CustomTableComponent implements OnInit {
     title: '',
     columns: [],
     endpoint: '',
+    filters: [],
   };
 
   @Input() actions: Array<Action> = [];
@@ -25,6 +27,7 @@ export class CustomTableComponent implements OnInit {
 
   title: string = '';
   columns: Array<any> = [];
+  filters: Array<any> = [];
   items: Observable<ResponseData>;
   endpoint: string = '';
   paginate: any = {};
@@ -33,9 +36,15 @@ export class CustomTableComponent implements OnInit {
   total: number;
   perPage: number = 15;
   loading: boolean;
-
-  constructor(private http: HttpClient) {
-
+  search: string = "";
+  filter: string = "";
+  column: string = "";
+  constructor(private http: HttpClient, private searchService: NbSearchService) {
+    this.searchService.onSearchSubmit()
+      .subscribe((data: any) => {
+        this.search = data.term;
+        this.getPage(1);
+      })
   }
 
   ngOnInit() {
@@ -46,7 +55,16 @@ export class CustomTableComponent implements OnInit {
   }
 
   getData(page: number) {
-    return this.http.get<ResponseData>(`${this.endpoint}?page=${page}`).pipe(
+    this.filter="";
+    for(let i = 0; i < this.filters.length; i++){
+      this.filter=this.filter.concat("&",this.filters[i].name,"=",this.filters[i].value);
+    }
+    if(this.column != "" && this.search != "" && this.search != null && this.column !== null){
+      this.filter=this.filter.concat("&",this.column,"=",this.search);
+      console.log(this.filter);
+    }
+    console.log(`${this.endpoint}?page=${page}${this.filter}`);
+    return this.http.get<ResponseData>(`${this.endpoint}?page=${page}${this.filter}`).pipe(
       flatMap((data) => {
         this.paginate = data.pagination;
         this.currentPage = data.pagination.currentPage;

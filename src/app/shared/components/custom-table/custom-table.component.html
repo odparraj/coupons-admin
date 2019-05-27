@@ -1,8 +1,23 @@
 <nb-card>
-  <nb-card-header>{{title}}</nb-card-header>
+  <nb-card-header>
+    {{title}}
+  </nb-card-header>
   <nb-card-body>
-    <div class="mb-2">
-      <ng-content></ng-content>
+    <div class="row">
+      <div class="col-md-4 mb-2">
+        <ng-content></ng-content>  
+      </div>
+      <div class="col-md-4 mb-2">
+        <nb-select name="search_field" id="search_field" [(ngModel)]="column" placeholder="Select column for filtering" status="info">
+          <nb-option [value]="" (click)="getPage(1)" >No Filter</nb-option>
+          <nb-option *ngFor="let column of columns" (click)="getPage(1)" [value]="column.key">Filter by {{ column.name }}</nb-option>
+        </nb-select>
+      </div>
+      <div class="col-md-4 mb-2">
+        <div class="float-right">  
+          {{ search != "" && column != null && column != "" ? "Searching: ".concat(column,"= ",search):"" }}<nb-search type="rotate-layout"></nb-search>
+        </div>
+      </div>
     </div>
     <div class="table-responsive table-hover">
       <table class="table">
@@ -19,7 +34,6 @@
             <td *ngFor="let column of columns">{{getProp(item, column.key)}}</td>
             <td *ngIf="actions.length > 0">
               <div class="float-right">
-
                 <custom-actions [actions]="actions" (action)="onAction($event, item)"></custom-actions>
               </div>
             </td>
