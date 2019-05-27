@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class ProductTaxonomiesComponent extends CrudComponent implements OnInit  {
 
-  endpoint= 'api/product-taxonomies';
+  endpoint= 'api/taxonomies';
   currentItem: string;
   currentAction: string = 'index';
   createModel = {
@@ -23,14 +23,6 @@ export class ProductTaxonomiesComponent extends CrudComponent implements OnInit 
         'allowBlank': false,
         'defaultValue': '',
         'name': 'name',
-        'value': '',
-        'levelSecurity': 0,
-      },
-      'description': {
-        'xtype': 'TextField',
-        'allowBlank': false,
-        'defaultValue': '',
-        'name': 'description',
         'value': '',
         'levelSecurity': 0,
       },
@@ -47,14 +39,6 @@ export class ProductTaxonomiesComponent extends CrudComponent implements OnInit 
         'value': '',
         'levelSecurity': 0,
       },
-      'description': {
-        'xtype': 'TextField',
-        'allowBlank': false,
-        'defaultValue': '',
-        'name': 'description',
-        'value': '',
-        'levelSecurity': 0,
-      },
     },
   };
 
@@ -67,12 +51,9 @@ export class ProductTaxonomiesComponent extends CrudComponent implements OnInit 
         name: 'Name',
         key: 'name',
       },
-      {
-        name: 'Description',
-        key: 'description',
-      },
     ],
     endpoint: this.endpoint,
+    filters: []
   };
 
   actions: Array<Action> = [

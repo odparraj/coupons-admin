@@ -112,7 +112,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Categories',
-        link: '/pages/products-manager/categories',
+        link: '/pages/products-manager/taxonomies',
         data: {
           permission: 'products_manager.taxonomies',
         },

@@ -3,7 +3,8 @@ import { Config } from '../../../../shared/models/Config';
 import { Action } from '../../../../shared/models/Action';
 import { CrudComponent } from '../../../../shared/components/crud/crud.component';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'product-taxons',
@@ -12,12 +13,10 @@ import { Router } from '@angular/router';
 })
 export class ProductTaxonsComponent extends CrudComponent implements OnInit {
 
-  @Input() taxonomy_id: number;
-  @Input() taxomomy_name: string = "";
-  @Input() parent_id: number = null;
-  @Input() parent_name: string = "";
+  @Input() taxonomy_id: string;
+  @Input() parent_id: string = null;
 
-  endpoint= 'api/product-taxons';
+  endpoint= 'api/taxons';
   currentItem: string;
   currentAction: string = 'index';
   createModel = {
@@ -32,7 +31,7 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
       },
       'taxonomy_id': {
         'xtype': 'HiddenField',
-        'allowBlank': false,
+        'allowBlank': true,
         'defaultValue': '',
         'name': 'taxonomy_id',
         'value': this.taxonomy_id,
@@ -40,18 +39,10 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
       },
       'parent_id': {
         'xtype': 'HiddenField',
-        'allowBlank': false,
+        'allowBlank': true,
         'defaultValue': '',
         'name': 'parent_id',
         'value': this.parent_id,
-        'levelSecurity': 0,
-      },
-      'description': {
-        'xtype': 'TextField',
-        'allowBlank': false,
-        'defaultValue': '',
-        'name': 'description',
-        'value': '',
         'levelSecurity': 0,
       },
     },
@@ -83,14 +74,6 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
         'value': this.parent_id,
         'levelSecurity': 0,
       },
-      'description': {
-        'xtype': 'TextField',
-        'allowBlank': false,
-        'defaultValue': '',
-        'name': 'description',
-        'value': '',
-        'levelSecurity': 0,
-      },
     },
   };
 
@@ -103,13 +86,12 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
         name: 'Name',
         key: 'name',
       },
-      {
-        name: 'Description',
-        key: 'ext_title',
-      }
     ],
-    endpoint: `${this.endpoint}?taxonomy_id=${this.taxonomy_id}&parent_id=${this.parent_id}`,
+    endpoint: this.endpoint,
+    filters:[],
   };
+
+  configObservable = new Observable()
 
   actions: Array<Action> = [
     {
@@ -134,6 +116,13 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
 
   globalActions: Array<Action> = [
     {
+      name: 'return',
+      btnClass: 'btn btn-danger',
+      iconClass: 'fas fa-undo-alt',
+      title: 'Return',
+      text: 'Back',
+    },
+    {
       name: 'create',
       btnClass: 'btn btn-primary',
       iconClass: 'fas fa-plus',
@@ -142,11 +131,24 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
     },
   ];
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     super();
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.taxonomy_id = params['taxonomy_id'];
+      this.parent_id = params['parent_id'];
+      this.config.filters.push({name:"taxonomy_id",value: params['taxonomy_id']});
+      this.createModel.items.taxonomy_id.value = params['taxonomy_id'];
+      if(params['parent_id']){
+        this.config.filters.push({name:"parent_id",value: params['parent_id']});
+        this.createModel.items.parent_id.value = params['parent_id'];
+      }
+    });
   }
 
   delete(data) {
@@ -186,8 +188,15 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
     }).catch(console.error);
   }
 
-  addChildren(data){
-    this.router.navigate(['/pages/products-manager/taxons'],{ queryParams: { taxonomy_id: this.taxonomy_id, parent_id: data.parent_id } });
+  async addChildren(data){
+    console.log('addChildren');
+    await this.router.navigate(['/pages/products-manager/taxons'],{ queryParams: { taxonomy_id: this.taxonomy_id, parent_id: data.id } });
+  }
+
+  return(data){
+    window.history.back();
+    //this.router.navigate(['/pages/products-manager/taxons'],{ queryParams: { taxonomy_id: this.taxonomy_id, parent_id: data.parent_id } });
   }
 
 }
+

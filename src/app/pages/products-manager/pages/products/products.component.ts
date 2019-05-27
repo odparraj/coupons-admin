@@ -50,14 +50,6 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'value': '',
         'levelSecurity': 0,
       },
-      'images': {
-        'xtype': 'FileField',
-        'allowBlank': true,
-        'defaultValue': '',
-        'name': 'images',
-        'value': '',
-        'levelSecurity': 0,
-      },
     },
   };
 
@@ -116,6 +108,10 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         name: 'Name',
         key: 'name',
       },
+      {
+        name: 'Description',
+        key: 'description',
+      },
     ],
     endpoint: 'api/products',
     filters:[
@@ -132,6 +128,12 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
       btnClass: 'btn btn-primary',
       iconClass: 'fas fa-edit',
       title: 'Edit Product',
+    },
+    {
+      name: 'editTaxons',
+      btnClass: 'btn btn-warning',
+      iconClass: 'fas fa-sitemap',
+      title: 'Edit Categories',
     },
     {
       name: 'delete',
@@ -160,8 +162,8 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
       this.actions.push(
         {
           name: 'addAditionals',
-          btnClass: 'btn btn-primary',
-          iconClass: 'fas fa-trash-alt',
+          btnClass: 'btn btn-info',
+          iconClass: 'fas fa-plus',
           title: 'Add Aditionals',
         },
       );
@@ -241,7 +243,14 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   }
 
   async editTaxons(data) {
-    await this.http.get('api/product-taxons').toPromise().then((data) => {
+    let taxonomies = {};
+    await this.http.get('api/taxonomies').toPromise().then((data) => {
+      let taxonomies_local = data['data'] as [];
+      taxonomies_local.forEach(taxonomie => {
+        taxonomies[taxonomie['id']] = taxonomie;
+      });
+    });
+    await this.http.get('api/taxons').toPromise().then((data) => {
       let taxons = data['data'] as [];
       this.syncModel = {};
       this.syncModel['items'] = {}
@@ -251,7 +260,7 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
             'xtype': 'CheckboxField',
             'allowBlank': false,
             'name': taxon['id'],
-            'label': taxon['name'],
+            'label': `${taxonomies[taxon['taxonomy_id']]['name']} / ${taxon['name']}`,
             'value': false,
             'levelSecurity': 0,
           };
