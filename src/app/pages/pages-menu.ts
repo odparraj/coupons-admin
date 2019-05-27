@@ -109,6 +109,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
         data: {
           permission: 'products_manager.products',
         },
+        queryParams: {
+          type: 'product'
+        }
       },
       {
         title: 'Categories',
@@ -116,6 +119,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
         data: {
           permission: 'products_manager.taxonomies',
         },
+        queryParams: {
+          type: 'product'
+        }
       },
     ],
   },
@@ -132,20 +138,19 @@ export const MENU_ITEMS: NbMenuItem[] = [
         data: {
           permission: 'services_manager.services',
         },
+        queryParams: {
+          type: 'service'
+        }
       },
       {
         title: 'Categories',
-        link: '/pages/services-manager/categories',
+        link: '/pages/services-manager/taxonomies',
         data: {
-          permission: 'services_manager.categories',
+          permission: 'services_manager.taxonomies',
         },
-      },
-      {
-        title: 'Aditionals',
-        link: '/pages/services-manager/aditionals',
-        data: {
-          permission: 'services_manager.aditionals',
-        },
+        queryParams: {
+          type: 'service'
+        }
       },
     ],
   },

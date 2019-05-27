@@ -4,6 +4,7 @@ import { CrudComponent } from '../../../../shared/components/crud/crud.component
 import { Config } from '../../../../shared/models/Config';
 import { Action } from '../../../../shared/models/Action';
 import { option } from '../../../../utils/forms/field/SelectField';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'products',
@@ -12,7 +13,9 @@ import { option } from '../../../../utils/forms/field/SelectField';
 })
 export class ProductsComponent extends CrudComponent implements OnInit  {
 
-  @Input() parent: number = null;
+  @Input() parent_id: number = null;
+  @Input() parent_name: string = null;
+  @Input() type: string = "";
   endpoint= 'api/products';
   currentItem: string;
   currentAction: string = 'index';
@@ -47,6 +50,14 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'allowBlank': false,
         'defaultValue': '',
         'name': 'description',
+        'value': '',
+        'levelSecurity': 0,
+      },
+      'parent_id': {
+        'xtype': 'HiddenField',
+        'allowBlank': true,
+        'defaultValue': '',
+        'name': 'parent_id',
         'value': '',
         'levelSecurity': 0,
       },
@@ -96,13 +107,21 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'value': '',
         'levelSecurity': 0,
       },
+      'parent_id': {
+        'xtype': 'HiddenField',
+        'allowBlank': true,
+        'defaultValue': '',
+        'name': 'parent_id',
+        'value': '',
+        'levelSecurity': 0,
+      },
     },
   };
 
   syncModel= {};
   
   config: Config = {
-    title: 'Products',
+    title: '',
     columns: [
       {
         name: 'Name',
@@ -114,12 +133,7 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
       },
     ],
     endpoint: 'api/products',
-    filters:[
-      {
-        name: "type",
-        value: "product"
-      }
-    ]
+    filters:[]
   };
 
   actions: Array<Action> = [
@@ -153,21 +167,57 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
     },
   ];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     super();
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
   }
 
   ngOnInit() {
-    if (this.parent == null) {
-      this.actions.push(
-        {
-          name: 'addAditionals',
-          btnClass: 'btn btn-info',
-          iconClass: 'fas fa-plus',
-          title: 'Add Aditionals',
-        },
-      );
-    }
+    this.route.queryParams.subscribe((params) => {
+      this.type = params['type'];
+      if(params['parent_id']) {
+        this.parent_id = params['parent_id'];
+        this.parent_name = params['parent_name'];
+      }
+      this.config.filters.push({name: 'type', value: params['type']});
+      switch(params['type']) {
+        case "product": {
+          this.config.title = "Products";
+          break;
+        }
+        case "service": {
+          this.config.title = "Services";
+          this.actions.push(
+            {
+              name: 'addAditionals',
+              btnClass: 'btn btn-info',
+              iconClass: 'fas fa-plus',
+              title: 'Add Aditionals',
+            },
+          );
+          break;
+        }
+        case "aditional": {
+          this.config.title = `${params['parent_name']} - Aditionals`;
+          this.createModel.items.parent_id.value = params['parent_id'];
+          this.editModel.items.parent_id.value = params['parent_id'];
+          this.globalActions.unshift({
+            name: 'return',
+            btnClass: 'btn btn-danger',
+            iconClass: 'fas fa-undo-alt',
+            title: 'Return',
+            text: 'Back',
+          });
+          break;
+        }
+        default: {
+          this.config.title = "Products";
+          break;
+        }
+      }
+    });
   }
 
   delete(data) {
@@ -303,5 +353,13 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
       console.log('syncTaxons...', data);
       this.currentAction = 'index';
     }).catch(console.error);
+  }
+
+  addAditionals(data) {
+    console.log('addAditionals');
+    this.router.navigate(['/pages/products-manager/products'],{ queryParams: { type: 'aditional', parent_id: data.id, parent_name: data.name } });
+  }
+  return(data){
+    window.history.back();
   }
 }

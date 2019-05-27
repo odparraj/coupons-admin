@@ -8,7 +8,7 @@
         <ng-content></ng-content>  
       </div>
       <div class="col-md-4 mb-2">
-        <nb-select name="search_field" id="search_field" [(ngModel)]="column" placeholder="Select column for filtering" status="info">
+        <nb-select size="small" name="search_field" id="search_field" [(ngModel)]="column" placeholder="Select column to filter" status="info">
           <nb-option [value]="" (click)="getPage(1)" >No Filter</nb-option>
           <nb-option *ngFor="let column of columns" (click)="getPage(1)" [value]="column.key">Filter by {{ column.name }}</nb-option>
         </nb-select>

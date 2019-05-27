@@ -14,6 +14,10 @@ const routes: Routes = [{
       component: ProductsComponent,
     },
     {
+      path: 'services',
+      component: ProductsComponent,
+    },
+    {
       path: 'taxonomies',
       component: ProductTaxonomiesComponent,
     },

@@ -66,7 +66,7 @@ const routes: Routes = [{
     },
     {
       path: 'services-manager',
-      loadChildren: './services-manager/services-manager.module#ServicesManagerModule',
+      loadChildren: './products-manager/products-manager.module#ProductsManagerModule',
       data: {
         permission: 'services_manager',
       },

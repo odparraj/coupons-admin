@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 import { CrudComponent } from '../../../../shared/components/crud/crud.component';
 import { Config } from '../../../../shared/models/Config';
 import { Action } from '../../../../shared/models/Action';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'product-taxonomies',
@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./product-taxonomies.component.scss']
 })
 export class ProductTaxonomiesComponent extends CrudComponent implements OnInit  {
+
+  @Input() type : string = null;
 
   endpoint= 'api/taxonomies';
   currentItem: string;
@@ -45,7 +47,7 @@ export class ProductTaxonomiesComponent extends CrudComponent implements OnInit 
   syncModel= {};
   
   config: Config = {
-    title: 'Product Categories',
+    title: 'Categories',
     columns: [
       {
         name: 'Name',
@@ -66,7 +68,7 @@ export class ProductTaxonomiesComponent extends CrudComponent implements OnInit 
     {
       name: 'addTaxon',
       btnClass: 'btn btn-success',
-      iconClass: 'fas fa-plus',
+      iconClass: 'fas fa-sitemap',
       title: 'Add Taxon',
     },
     {
@@ -87,11 +89,15 @@ export class ProductTaxonomiesComponent extends CrudComponent implements OnInit 
     },
   ];
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     super();
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      this.type = params['type'];
+      this.config.title = `${params['type'].charAt(0).toUpperCase() + params['type'].slice(1)} ${this.config.title}`;
+    });
   }
 
   delete(data) {
@@ -132,7 +138,7 @@ export class ProductTaxonomiesComponent extends CrudComponent implements OnInit 
   }
 
   addTaxon(data){
-    this.router.navigate(['/pages/products-manager/taxons'],{ queryParams: { taxonomy_id: data.id, taxonomy_name: data.name } });
+    this.router.navigate(['/pages/products-manager/taxons'],{ queryParams: { taxonomy_id: data.id, taxonomy_name: data.name, type: this.type } });
   }
 
 }

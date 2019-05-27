@@ -13,8 +13,11 @@ import { Observable } from 'rxjs';
 })
 export class ProductTaxonsComponent extends CrudComponent implements OnInit {
 
+  @Input() type: string;
   @Input() taxonomy_id: string;
+  @Input() taxonomy_name: string;
   @Input() parent_id: string = null;
+  @Input() parent_name: string = null;
 
   endpoint= 'api/taxons';
   currentItem: string;
@@ -31,10 +34,10 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
       },
       'taxonomy_id': {
         'xtype': 'HiddenField',
-        'allowBlank': true,
+        'allowBlank': false,
         'defaultValue': '',
         'name': 'taxonomy_id',
-        'value': this.taxonomy_id,
+        'value': '',
         'levelSecurity': 0,
       },
       'parent_id': {
@@ -42,7 +45,7 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
         'allowBlank': true,
         'defaultValue': '',
         'name': 'parent_id',
-        'value': this.parent_id,
+        'value': '',
         'levelSecurity': 0,
       },
     },
@@ -63,15 +66,15 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
         'allowBlank': false,
         'defaultValue': '',
         'name': 'taxonomy_id',
-        'value': this.taxonomy_id,
+        'value': '',
         'levelSecurity': 0,
       },
       'parent_id': {
         'xtype': 'HiddenField',
-        'allowBlank': false,
+        'allowBlank': true,
         'defaultValue': '',
         'name': 'parent_id',
-        'value': this.parent_id,
+        'value': '',
         'levelSecurity': 0,
       },
     },
@@ -80,7 +83,7 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
   syncModel= {};
   
   config: Config = {
-    title: 'Product Categories',
+    title: 'Subcategories',
     columns: [
       {
         name: 'Name',
@@ -103,7 +106,7 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
     {
       name: 'addChildren',
       btnClass: 'btn btn-success',
-      iconClass: 'fas fa-plus',
+      iconClass: 'fas fa-sitemap',
       title: 'Add Children',
     },
     {
@@ -140,13 +143,20 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
+      this.type = params['type'];
       this.taxonomy_id = params['taxonomy_id'];
-      this.parent_id = params['parent_id'];
+      this.taxonomy_name = params['taxonomy_name'];
       this.config.filters.push({name:"taxonomy_id",value: params['taxonomy_id']});
       this.createModel.items.taxonomy_id.value = params['taxonomy_id'];
+      this.editModel.items.taxonomy_id.value = params['taxonomy_id'];
+      this.config.title = `${params['type'].charAt(0).toUpperCase() + params['type'].slice(1)} ${this.config.title} of ${params['taxonomy_name']}`;
       if(params['parent_id']){
+        this.parent_id = params['parent_id'];
+        this.parent_name = params['parent_name'];
         this.config.filters.push({name:"parent_id",value: params['parent_id']});
         this.createModel.items.parent_id.value = params['parent_id'];
+        this.editModel.items.parent_id.value = params['parent_id'];
+        this.config.title = this.config.title.concat(` / ${params['parent_name']}`);
       }
     });
   }
@@ -190,12 +200,11 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
 
   async addChildren(data){
     console.log('addChildren');
-    await this.router.navigate(['/pages/products-manager/taxons'],{ queryParams: { taxonomy_id: this.taxonomy_id, parent_id: data.id } });
+    await this.router.navigate(['/pages/products-manager/taxons'],{ queryParams: { taxonomy_id: this.taxonomy_id, taxonomy_name: this.taxonomy_name, parent_id: data.id, parent_name: this.parent_name ? `${this.parent_name} / ${data.name}` : data.name, type: this.type} });
   }
 
   return(data){
     window.history.back();
-    //this.router.navigate(['/pages/products-manager/taxons'],{ queryParams: { taxonomy_id: this.taxonomy_id, parent_id: data.parent_id } });
   }
 
 }
