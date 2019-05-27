@@ -10,18 +10,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductsListComponent implements OnInit {
   products=[];
+  page: number = 1;
+  products_per_page = 10;
   constructor(private scroll: NbLayoutScrollService, private ruler: NbLayoutRulerService, private router: Router, private toastrService: NbToastrService, private http: HttpClient) {
     this.scroll.onScroll()
       .subscribe((event) => this.onScroll());
   }
   ngOnInit() {
-    this.getProducts();
+    this.getProducts(1);
   }
   scroll_heigth: Number;
   scroll_position: Number;
   onScroll() {
-    this.scroll.getPosition().subscribe(position => this.scroll_position = position.y);
-    this.ruler.getDimensions().subscribe(position => this.scroll_heigth = position.scrollHeight - position.clientHeight);
     if(this.scroll_heigth == this.scroll_position) {
       this.loadNext();
     }
@@ -55,7 +55,7 @@ export class ProductsListComponent implements OnInit {
   loadNext() {
     //this.products.push(...next_page);
   }
-  async getProducts(){
+  async getProducts(page){
     await this.http.get('api/products').toPromise().then((data) => {
       let products = data['data'] as [];
       this.products = products;
