@@ -61,6 +61,14 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'value': '',
         'levelSecurity': 0,
       },
+      'type': {
+        'xtype': 'HiddenField',
+        'allowBlank': true,
+        'defaultValue': '',
+        'name': 'type',
+        'value': '',
+        'levelSecurity': 0,
+      },
     },
   };
 
@@ -112,6 +120,14 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'allowBlank': true,
         'defaultValue': '',
         'name': 'parent_id',
+        'value': '',
+        'levelSecurity': 0,
+      },
+      'type': {
+        'xtype': 'HiddenField',
+        'allowBlank': true,
+        'defaultValue': '',
+        'name': 'type',
         'value': '',
         'levelSecurity': 0,
       },
@@ -182,6 +198,8 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         this.parent_name = params['parent_name'];
       }
       this.config.filters.push({name: 'type', value: params['type']});
+      this.createModel.items.type.value = params['type'];
+      this.editModel.items.type.value = params['type'];
       switch(params['type']) {
         case "product": {
           this.config.title = "Products";
@@ -296,8 +314,8 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
     let taxonomies = {};
     await this.http.get('api/taxonomies').toPromise().then((data) => {
       let taxonomies_local = data['data'] as [];
-      taxonomies_local.forEach(taxonomie => {
-        taxonomies[taxonomie['id']] = taxonomie;
+      taxonomies_local.forEach(taxonomy => {
+        taxonomies[taxonomy['id']] = taxonomy;
       });
     });
     await this.http.get('api/taxons').toPromise().then((data) => {

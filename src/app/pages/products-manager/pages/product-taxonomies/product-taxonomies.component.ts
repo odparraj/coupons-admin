@@ -28,6 +28,14 @@ export class ProductTaxonomiesComponent extends CrudComponent implements OnInit 
         'value': '',
         'levelSecurity': 0,
       },
+      'type': {
+        'xtype': 'HiddenField',
+        'allowBlank': true,
+        'defaultValue': '',
+        'name': 'type',
+        'value': '',
+        'levelSecurity': 0,
+      },
     },
   };
 
@@ -38,6 +46,14 @@ export class ProductTaxonomiesComponent extends CrudComponent implements OnInit 
         'allowBlank': false,
         'defaultValue': '',
         'name': 'name',
+        'value': '',
+        'levelSecurity': 0,
+      },
+      'type': {
+        'xtype': 'HiddenField',
+        'allowBlank': true,
+        'defaultValue': '',
+        'name': 'type',
         'value': '',
         'levelSecurity': 0,
       },
@@ -96,6 +112,8 @@ export class ProductTaxonomiesComponent extends CrudComponent implements OnInit 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.type = params['type'];
+      this.createModel.items.type.value = params['type'];
+      this.editModel.items.type.value = params['type'];
       this.config.title = `${params['type'].charAt(0).toUpperCase() + params['type'].slice(1)} ${this.config.title}`;
     });
   }

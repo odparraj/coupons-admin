@@ -1,7 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { NbLayoutScrollService, NbLayoutRulerService, NbLayoutDimensions, NbToastrService } from '@nebular/theme';
+import { NbLayoutScrollService, NbLayoutRulerService, NbLayoutDimensions, NbToastrService, NbSearchService } from '@nebular/theme';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'products-list',
@@ -10,19 +11,69 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductsListComponent implements OnInit {
   products=[];
+  taxons=[];
+  form: FormGroup;
   page: number = 1;
   products_per_page = 10;
-  constructor(private scroll: NbLayoutScrollService, private ruler: NbLayoutRulerService, private router: Router, private toastrService: NbToastrService, private http: HttpClient) {
-    this.scroll.onScroll()
-      .subscribe((event) => this.onScroll());
+  scroll_allowed = true;
+  en_consulta = false;
+  search = "";
+
+  constructor(private scroll: NbLayoutScrollService, private ruler: NbLayoutRulerService, private router: Router, private toastrService: NbToastrService, private http: HttpClient, private formBuilder: FormBuilder, private searchService: NbSearchService) {
+    this.scroll.onScroll().subscribe((event) => this.onScroll());
+    this.form = this.formBuilder.group({
+      taxons: new FormArray([])
+    });
+    this.searchService.onSearchSubmit()
+    .subscribe((data: any) => {
+      this.search = data.term;
+    })
   }
-  ngOnInit() {
+
+  async ngOnInit() {
     this.getProducts(1);
+    let taxonomies = {};
+    await this.http.get('api/taxonomies').toPromise().then((data) => {
+      let taxonomies_local = data['data'] as [];
+      taxonomies_local.forEach(taxonomy => {
+        taxonomies[taxonomy['id']] = taxonomy;
+      });
+    });
+    await this.http.get('api/taxons').toPromise().then((data) => {
+      let taxons = data['data'] as [];
+      let taxons_local = [];
+      taxons.forEach((taxon) => {
+        if(taxon['parent_id'] == null){
+          taxons_local[taxon['id']] = {
+            'id': taxon['id'],
+            'name': `${taxonomies[taxon['taxonomy_id']]['name']} / ${taxon['name']}`,
+          };
+        } else {
+          taxons_local[taxon['id']] = {
+            'id': taxon['id'],
+            'name': `${taxons_local[taxon['parent_id']]['name']} / ${taxon['name']}`,
+          };
+        }
+        this.taxons.push(taxons_local[taxon['id']]);        
+      });
+    }).catch(console.error);
+    console.log(this.taxons);
+    this.addCheckboxes();
   }
+
+  private addCheckboxes() {
+    this.taxons.map((o, i) => {
+      const control = new FormControl(true); // if first item set to true, else false
+      (this.form.controls.taxons as FormArray).push(control);
+    });
+    console.log(this.form.value);
+  }
+
   scroll_heigth: Number;
   scroll_position: Number;
+
   onScroll() {
-    if(this.scroll_heigth == this.scroll_position) {
+    if(this.scroll_heigth == this.scroll_position && this.scroll_allowed) {
       this.loadNext();
     }
   }
@@ -40,6 +91,7 @@ export class ProductsListComponent implements OnInit {
   goToCart() {
     this.router.navigate(['/pages/store/shopping-cart']);
   }
+
   addToCart(id, position, status) {
     this.http.post('api/me/cart', {product_id: id, quantity: 1}).toPromise().then((data) => {
       console.log('add...', data);
@@ -49,49 +101,38 @@ export class ProductsListComponent implements OnInit {
       `Añadido al carrito`,
       { position, status });
   }
+
   floatToInt(n){
     return Math.round(n);
   }
+
   loadNext() {
-    //this.products.push(...next_page);
+    if(this.scroll_allowed){
+      this.page ++;
+      this.getProducts(this.page);
+    }
   }
+  
+  loadFirst() {
+    this.scroll_allowed = true;
+    this.page = 1;
+    this.products = [];
+    this.getProducts(this.page);
+  }
+
   async getProducts(page){
-    await this.http.get('api/products').toPromise().then((data) => {
-      let products = data['data'] as [];
-      this.products = products;
-      // items.forEach((item) => {
-      //   this.order['data'][item['id']] = item;
-      // });
-    }).catch(console.error);
+    if(!this.en_consulta){
+      this.en_consulta = true;
+      await this.http.get(`api/products?page=${page}&type=product`).toPromise().then((data) => {
+        let products = data['data'] as [];
+        console.log(products);
+        if(products.length) {
+          Array.prototype.push.apply(this.products, products);
+        } else {
+          this.scroll_allowed = false;
+        }
+        this.en_consulta = false;
+      }).catch(console.error);
+    }
   }
-
-  // products=[
-  //   { 
-  //     id:0,
-  //     name:"Zapatos", 
-  //     brand:"Nike", 
-  //     brand_image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1200px-Logo_NIKE.svg.png", 
-  //     final_date: "", 
-  //     full_price:250000, 
-  //     current_price:100000, 
-  //     image: "https://cdnvos.lavoz.com.ar/sites/default/files/styles/width_1072/public/nota_periodistica/2015-nike-mag-02_hd_1600.jpg",
-  //     description: `
-  //     La legión de fanáticos de Volver Al Futuro seguramente alucinó con tener alguna vez en sus pies las Nike “autoajustables” que Marty McFly usaba en el futuro. 
-  //     `
-  //   },
-  //   { 
-  //     id:0,
-  //     name:"Balón", 
-  //     brand:"Adidas", 
-  //     brand_image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJ8JcbKaY6BoBsZwLni3SvqBf-enGRikUxvXTR5odBoTlxZEcv", 
-  //     final_date: "", 
-  //     full_price:100000, 
-  //     current_price:50000, 
-  //     image: "https://i.ebayimg.com/images/g/ieIAAOSwuspY98ZW/s-l300.jpg",
-  //     description: `
-  //     Adidas Jabulani: El balón de la copa confederaciones 2010
-  //     `
-  //   },
-  // ];
-
 }
