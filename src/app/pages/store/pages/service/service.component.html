@@ -4,7 +4,7 @@
   </nb-card-header>
   <nb-card-body>
     <div class="text-center">
-      <h4>{{service.name}}</h4>
+      <h4>{{service_name}}</h4>
       <br />
     </div>
     <nb-alert status="primary">
@@ -21,18 +21,24 @@
     </nb-alert>
     <nb-card accent="danger">
       <nb-card-header>
-        <h5>Bases:</h5>
+        <h5>Service:</h5>
       </nb-card-header>
       <nb-card-body>
-        <nb-radio-group>
-          <nb-radio
-            *ngFor="let base of service.bases; let i = index;"
-            [value]="base.id"
-            (click)="select_base(base.id)">
-              <h6>{{base.name}}: {{base.price | currency}}</h6>
-              <p>{{base.description}}</p>
-          </nb-radio>
-        </nb-radio-group>
+        <div class="row">
+          <div class="col-md-3">
+            <nb-user name="{{service_name}}"></nb-user>
+          </div>
+          <div class="col-md-6 text-center">
+            <p>
+              {{service_description}}
+            </p>
+          </div>
+          <div class="col-md-3">
+            <div class="float-right">
+                <h6>{{service_price | currency}}</h6>
+            </div>
+          </div>
+        </div>
       </nb-card-body>
     </nb-card>
     
@@ -52,17 +58,17 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let aditional of service.aditionals; let i = index;">
-                  <th scope="row"><nb-checkbox status="success" (click)="check_aditional($event, aditional.id)"></nb-checkbox></th>
+                <tr *ngFor="let additional of additionals; let i = index;">
+                  <th scope="row"><nb-checkbox status="success" (click)="check_additional($event, additional, i)"></nb-checkbox></th>
                   <td> 
-                    <nb-user name="{{aditional.name}}"></nb-user>
+                    <nb-user name="{{additional.name}}"></nb-user>
                   </td>
-                  <td>{{aditional.amount}}</td>
-                  <td>{{aditional.price*aditional.amount | currency}}</td>
+                  <td>{{additional.amount}}</td>
+                  <td>{{additional.price*additional.amount | currency}}</td>
                   <td>
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                      <button type="button" class="btn btn-primary btn-icon" (click)="decrease_quantity(aditional.id)"><i class="fa fa-minus"></i></button>
-                      <button type="button" class="btn btn-success btn-icon" (click)="increase_quantity(aditional.id)"><i class="fa fa-plus"></i></button>
+                      <button type="button" class="btn btn-primary btn-icon" (click)="decrease_quantity(additional, i)"><i class="fa fa-minus"></i></button>
+                      <button type="button" class="btn btn-success btn-icon" (click)="increase_quantity(additional, i)"><i class="fa fa-plus"></i></button>
                     </div>
                   </td>
                 </tr>

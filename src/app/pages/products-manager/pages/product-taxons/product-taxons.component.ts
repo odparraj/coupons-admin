@@ -48,14 +48,14 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
         'value': '',
         'levelSecurity': 0,
       },
-      'type': {
-        'xtype': 'HiddenField',
-        'allowBlank': true,
-        'defaultValue': '',
-        'name': 'type',
-        'value': '',
-        'levelSecurity': 0,
-      },
+      // 'type': {
+      //   'xtype': 'HiddenField',
+      //   'allowBlank': true,
+      //   'defaultValue': '',
+      //   'name': 'type',
+      //   'value': '',
+      //   'levelSecurity': 0,
+      // },
     },
   };
 
@@ -85,14 +85,14 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
         'value': '',
         'levelSecurity': 0,
       },
-      'type': {
-        'xtype': 'HiddenField',
-        'allowBlank': true,
-        'defaultValue': '',
-        'name': 'type',
-        'value': '',
-        'levelSecurity': 0,
-      },
+      // 'type': {
+      //   'xtype': 'HiddenField',
+      //   'allowBlank': true,
+      //   'defaultValue': '',
+      //   'name': 'type',
+      //   'value': '',
+      //   'levelSecurity': 0,
+      // },
     },
   };
 
@@ -162,11 +162,10 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
       this.type = params['type'];
       this.taxonomy_id = params['taxonomy_id'];
       this.taxonomy_name = params['taxonomy_name'];
-      this.config.filters.push({name:"taxonomy_id",value: params['taxonomy_id']});
       this.createModel.items.taxonomy_id.value = params['taxonomy_id'];
-      this.createModel.items.type.value = params['type'];
+      // this.createModel.items.type.value = params['type'];
       this.editModel.items.taxonomy_id.value = params['taxonomy_id'];
-      this.editModel.items.type.value = params['type'];
+      // this.editModel.items.type.value = params['type'];
       this.config.title = `${params['type'].charAt(0).toUpperCase() + params['type'].slice(1)} ${this.config.title} of ${params['taxonomy_name']}`;
       if(params['parent_id']){
         this.parent_id = params['parent_id'];
@@ -175,6 +174,8 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
         this.createModel.items.parent_id.value = params['parent_id'];
         this.editModel.items.parent_id.value = params['parent_id'];
         this.config.title = this.config.title.concat(` / ${params['parent_name']}`);
+      } else {
+        this.config.filters.push({name:"taxonomy_id",value: params['taxonomy_id']});
       }
     });
   }

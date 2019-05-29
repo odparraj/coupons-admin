@@ -101,14 +101,26 @@ export class ProductsListComponent implements OnInit {
     this.router.navigate(['/pages/store/shopping-cart']);
   }
 
-  addToCart(id, position, status) {
-    this.http.post('api/me/cart', {product_id: id, quantity: 1}).toPromise().then((data) => {
-      console.log('add...', data);
-    });
-    this.toastrService.show(
-      status || 'Success',
-      `Añadido al carrito`,
-      { position, status });
+  addToCart(data, position, status) {
+    switch(this.type){
+      case 'product': {
+        this.http.post('api/me/cart', {product_id: data.id, quantity: 1}).toPromise().then((data) => {
+          console.log('add...', data);
+        });
+        this.toastrService.show(
+          status || 'Success',
+          `Añadido al carrito`,
+          { position, status });
+        break;
+      }
+      case 'service': {
+        this.router.navigate(['/pages/store/service'],{ queryParams: {service_id: data.id, service_name: data.name, service_price: data.price, service_description: data.description} });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   }
 
   floatToInt(n){

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'service',
@@ -7,88 +8,61 @@ import { Router } from '@angular/router';
   styleUrls: ['./service.component.scss']
 })
 export class ServiceComponent implements OnInit {
-
-  constructor(private router: Router) { }
-  base_selected;
-  //aditionals_selected = [];
+  service_id : number;
+  service_price : number;
+  service_name : string = "";
+  service_description : string = "";
+  additionals = [];
   sum: number = 0;
-  ngOnInit() {
+
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) {
   }
-  select_base(id:number) {
-    this.sum = this.service.bases[id].price;
-    this.base_selected = id;
+  
+  async ngOnInit() {
+    this.service_id = this.route.snapshot.queryParams.service_id;
+    this.service_price = parseFloat(this.route.snapshot.queryParams.service_price);
+    this.service_name = this.route.snapshot.queryParams.service_name;
+    this.service_description = this.route.snapshot.queryParams.service_description;
+    await this.http.get(`api/products?type=additional&parent_id=${this.service_id}`).toPromise().then((data) => {
+      let additionals = data['data'] as [];
+      let additionals_local = [];
+      additionals.forEach((additional) => {
+        additionals_local[additional['id']] = {
+          'id': additional['id'],
+          'name': additional['name'],
+          'price': additional['price'],
+          'amount': 1,
+          'checked': false,
+          'description': additional['description'],
+        };
+        this.additionals.push(additionals_local[additional['id']]);        
+      });
+    }).catch(console.error);
+    this.sum = this.service_price;
   }
-  check_aditional(e,id:number) {
-    this.sum = this.service.bases[this.base_selected].price;
-    for (let i =0;i<this.service.aditionals.length; i++) {
-      if (this.service.aditionals[i].id === id && e.target.checked){
-        this.sum += this.service.aditionals[i].amount*this.service.aditionals[i].price;
-      }
+
+  check_additional(e,aditional,id:number) {
+    this.additionals[id].checked = e.target.checked;
+    this.update_sum();
+  }
+  update_sum(){
+    this.sum = this.service_price;
+    for(let i = 0; i < this.additionals.length; i++){
+      this.sum += this.additionals[i].checked ? this.additionals[i].price * this.additionals[i].amount : 0;
     }
   }
-  increase_quantity(id:number) {
-    this.sum = 0;
-    for (let i =0;i<this.service.aditionals.length; i++) {
-      if (this.service.aditionals[i].id === id && this.service.aditionals[i].amount !== this.service.aditionals[i].max_amount){
-        this.service.aditionals[i].amount++;
-      }
-      this.sum += this.service.aditionals[i].amount*this.service.aditionals[i].price;
-    }
+  increase_quantity(aditional, i) {
+    this.additionals[i].amount++;
+    this.update_sum();
   }
-  decrease_quantity(id:number) {
-    this.sum = 0;
-    for (let i =0;i<this.service.aditionals.length; i++) {
-      if (this.service.aditionals[i].id === id && this.service.aditionals[i].amount > 1){
-        this.service.aditionals[i].amount--;
-      }
-      this.sum += this.service.aditionals[i].amount*this.service.aditionals[i].price;
-    }
+  decrease_quantity(aditional, i) {
+    this.additionals[i].amount = this.additionals[i].amount > 1 ? this.additionals[i].amount - 1 : 1;
+    this.update_sum();
   }
   delete_product(id:number){
-    this.order = this.order.filter(product => product.id !== id);
-    this.ngOnInit()
   }
   goToPayment(){
     this.router.navigate(['/pages/store/payment-gateway']);
-  }
-  order = [
-    {id:0, name:"Zapatos", brand:"Nike", price:100000, image:"", amount:1},
-    {id:1, name:"Balón", brand:"Nike", price:50000, image:"", amount:1},
-  ]
-  service = {
-    name: "Cabañas Yurimena",
-    bases: [
-      {
-        id: 0,
-        name: "4 cabañas", 
-        price: 200000,
-        description: "Descripción de la base a adquirir"
-      },
-      {
-        id:1,
-        name: "6 cabañas", 
-        price: 300000,
-        description: "Descripción de la base a adquirir"
-      },
-    ],
-    aditionals: [
-      {
-        id: 0,
-        name: "Cabaña extra",
-        price: 80000,
-        description: "Descripción del adicional a adquirir",
-        max_amount:5,
-        amount:1,
-      },
-      {
-        id: 1,
-        name: "Día extra",
-        price: 100000,
-        description: "Descripción del adicional a adquirir",
-        max_amount:5,
-        amount:1,
-      },
-    ]
   }
 
 }

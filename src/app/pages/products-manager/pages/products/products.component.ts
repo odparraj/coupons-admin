@@ -16,7 +16,7 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   @Input() parent_id: number = null;
   @Input() parent_name: string = null;
   @Input() type: string = "";
-  endpoint= 'api/products';
+  endpoint= 'api/me/products';
   currentItem: string;
   currentAction: string = 'index';
   createModel = {
@@ -50,14 +50,6 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'allowBlank': false,
         'defaultValue': '',
         'name': 'description',
-        'value': '',
-        'levelSecurity': 0,
-      },
-      'parent_id': {
-        'xtype': 'HiddenField',
-        'allowBlank': true,
-        'defaultValue': '',
-        'name': 'parent_id',
         'value': '',
         'levelSecurity': 0,
       },
@@ -115,14 +107,6 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'value': '',
         'levelSecurity': 0,
       },
-      'parent_id': {
-        'xtype': 'HiddenField',
-        'allowBlank': true,
-        'defaultValue': '',
-        'name': 'parent_id',
-        'value': '',
-        'levelSecurity': 0,
-      },
       'type': {
         'xtype': 'HiddenField',
         'allowBlank': true,
@@ -148,7 +132,7 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         key: 'description',
       },
     ],
-    endpoint: 'api/products',
+    endpoint: this.endpoint,
     filters:[]
   };
 
@@ -193,10 +177,6 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.type = params['type'];
-      if(params['parent_id']) {
-        this.parent_id = params['parent_id'];
-        this.parent_name = params['parent_name'];
-      }
       this.config.filters.push({name: 'type', value: params['type']});
       this.createModel.items.type.value = params['type'];
       this.editModel.items.type.value = params['type'];
@@ -218,9 +198,19 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
           break;
         }
         case "additional": {
+          this.parent_id = params['parent_id'];
+          this.parent_name = params['parent_name'];
           this.config.title = `${params['parent_name']} - Additionals`;
-          this.createModel.items.parent_id.value = params['parent_id'];
-          this.editModel.items.parent_id.value = params['parent_id'];
+          this.config.filters.push({name: 'parent_id', value: params['parent_id']});
+          this.createModel.items['parent_id'] = {
+            'xtype': 'HiddenField',
+            'allowBlank': true,
+            'defaultValue': '',
+            'name': 'parent_id',
+            'value': params['parent_id'],
+            'levelSecurity': 0,
+          };
+          this.editModel.items['parent_id'] = this.createModel.items['parent_id'];
           this.globalActions.unshift({
             name: 'return',
             btnClass: 'btn btn-danger',
@@ -251,46 +241,11 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   }
 
   async create(data) {
-    await this.http.get('api/product-categories').toPromise().then((data_categories) => {
-      let product_categories = data_categories['data'] as [];
-      let options : Array<option>;
-      product_categories.forEach((category) => {
-        options.push({
-          label: category['name'],
-          value: category['id']
-        });
-      });
-      this.createModel['items']['category'] = {
-        'xtype': 'SelectField',
-        'allowBlank': false,
-        'name': 'category',
-        'label': 'Category',
-        'value': false,
-        'values': options,
-        'levelSecurity': 0,
-      };
-    }).catch(console.error);
     this.currentAction = 'create';
     console.log('create', data);
   }
 
   async edit(data) {
-    await this.http.get('api/product-categories').toPromise().then((data_categories) => {
-      let product_categories = data_categories['data'] as [];
-      let product_categories_names : Array<string>;
-      product_categories.forEach((category) => {
-        product_categories_names.push(category['name']);
-      });
-      this.editModel['items']['category'] = {
-        'xtype': 'SelectField',
-        'allowBlank': false,
-        'name': 'category',
-        'label': 'Categiry',
-        'value': data.category,
-        'values': product_categories,
-        'levelSecurity': 0,
-      };
-    }).catch(console.error);
     this.editModel.items.name.value = data.name;
     this.currentAction = 'edit';
     console.log('edit', data);

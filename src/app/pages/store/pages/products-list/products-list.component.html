@@ -1,22 +1,27 @@
 <div class="row" *ngIf="type=='service'">
-  <nb-card accent="danger">
+  <nb-card accent="warning">
     <nb-card-body>
       <div class="row">
         <div class="col-md-4">
-          <nb-card accent="info" class="card-border-none text-center">
+          <nb-card accent="primary" class="card-border-none text-center">
             <nb-card-body class="img-enterprise-container">
               <img src="https://www.cofrem.com.co/sites/default/files/LOGO%20COFREM%20VERTICAL.jpg" class="img-fluid img-enterprise col-md-8">
             </nb-card-body>
           </nb-card>
         </div>
-        <div class="col-md-8 pre-scrollable">
-          <nb-card accent="info" class="card-border-none">
+        <div class="col-md-8">
+          <nb-card accent="info" class="card-border-none" size="xsmall">
             <nb-card-header>
               Cofrem
             </nb-card-header>
             <nb-card-body>
               <p>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis asperiores cupiditate accusantium repellendus ratione, incidunt id aut velit et nobis ex facere? Unde dolor aperiam minima doloremque modi debitis blanditiis?
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur molestiae eum possimus quis itaque mollitia, vero, ullam cum rem nam eaque a sequi eos beatae quos quae ab, minima doloribus.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit quae quia commodi dicta harum nesciunt aliquam necessitatibus porro ad quas et repellendus, debitis qui cum modi eveniet, aut dignissimos officiis.
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vero ea beatae ex sint voluptatum et eos, aut dicta recusandae blanditiis neque fugit atque modi quibusdam expedita dolores ipsum explicabo tenetur.
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Obcaecati ducimus quaerat cum exercitationem voluptatibus ea necessitatibus optio eos nulla assumenda aliquid, dignissimos nisi hic dicta? Debitis est totam veniam assumenda?
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores dicta illum libero porro voluptatibus voluptatum sequi perspiciatis nam in dolorem odio, fugiat tempore natus velit possimus et quaerat doloribus quibusdam.
               </p>
             </nb-card-body>
           </nb-card>
@@ -121,7 +126,7 @@
           <div class="col-sm-5">
             {{product.brand}}
           </div>
-          <div class ="col-sm-4 link" (click)="addToCart(product.id,'top-right', 'success')">
+          <div class ="col-sm-4 link" (click)="addToCart(product,'top-right', 'success')">
             <i class="fa fa-shopping-cart" title="Añadir al carrito" badgeText="Add" badgePosition="bottom" badgeStatus="warning"></i>
             <span class="badge badge-pill badge-primary">Add</span>
           </div>
@@ -168,7 +173,7 @@
           <div class="col-sm-8 brand-container">
             <nb-user picture="{{product.brand_image}}" name="{{product.brand}}"></nb-user>
           </div>   
-          <div class ="col-sm-4 link" (click)="addToCart(product.id,'top-right', 'success')">
+          <div class ="col-sm-4 link" (click)="addToCart(product,'top-right', 'success')">
             <i class="fa fa-shopping-cart" title="Añadir al carrito" badgeText="Add" badgePosition="bottom" badgeStatus="warning"></i>
             <span class="badge badge-pill badge-primary">Add</span>
           </div>
