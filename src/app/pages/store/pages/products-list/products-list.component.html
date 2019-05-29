@@ -1,14 +1,42 @@
+<div class="row" *ngIf="type=='service'">
+  <nb-card accent="danger">
+    <nb-card-body>
+      <div class="row">
+        <div class="col-md-4">
+          <nb-card accent="info" class="card-border-none text-center">
+            <nb-card-body class="img-enterprise-container">
+              <img src="https://www.cofrem.com.co/sites/default/files/LOGO%20COFREM%20VERTICAL.jpg" class="img-fluid img-enterprise col-md-8">
+            </nb-card-body>
+          </nb-card>
+        </div>
+        <div class="col-md-8 pre-scrollable">
+          <nb-card accent="info" class="card-border-none">
+            <nb-card-header>
+              Cofrem
+            </nb-card-header>
+            <nb-card-body>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis asperiores cupiditate accusantium repellendus ratione, incidunt id aut velit et nobis ex facere? Unde dolor aperiam minima doloremque modi debitis blanditiis?
+              </p>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
+
 <div class="row">
-  <nb-card class="col-md-12" accent="primary" status="warning">
+  <nb-card class="col-md-12" accent="primary" status="primary">
     <nb-card-header class="text-center">
-      Products
+      {{type.charAt(0).toUpperCase().concat(type.slice(1),'s')}}
     </nb-card-header>
     <nb-card-body>
       <div class="row">
         <div class="col-lg-6 pre-scrollable">
-          <nb-card accent="danger" class="card-border-none" size="xxsmall">
+          <nb-card accent="danger" class="card-border-none" size="small" status="warning">
             <nb-card-header>
-              Seleccionar Categorías
+              Select Categories
             </nb-card-header>
             <form [formGroup]="form" (ngSubmit)="submit()">
               <nb-list>
@@ -20,9 +48,9 @@
           </nb-card>
         </div>
         <div class="col-lg-6">
-          <nb-card accent="danger" class="card-border-none">
+          <nb-card accent="danger" class="card-border-none" status="warning">
             <nb-card-header>
-              Filtrar Productos
+              Filter {{type.charAt(0).toUpperCase() + type.slice(1)}}
             </nb-card-header>
             <nb-card-body>
               <div class="row mb-2">
@@ -41,7 +69,8 @@
                   placeholder="Min Price"
                   type="text" 
                   class="form-control" 
-                  step=1 
+                  step=1
+                  [(ngModel)]="min_price"
                   aria-label="Amount (to the nearest dollar)"
                   onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 <div class="input-group-append">
@@ -57,6 +86,7 @@
                   type="text" 
                   class="form-control" 
                   step=1 
+                  [(ngModel)]="max_price"
                   aria-label="Amount (to the nearest dollar)"
                   onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                 <div class="input-group-append">
@@ -98,7 +128,7 @@
         </div>
         <div class="row">
           <div class="col-sm-12 full-price text-center">
-            {{product.price | currency}}
+            {{product.full_price ? product.full_price : product.price | currency}}
           </div>   
         </div>
         <div class="row">

@@ -1,8 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { NbLayoutScrollService, NbLayoutRulerService, NbLayoutDimensions, NbToastrService, NbSearchService } from '@nebular/theme';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { FormsModule, FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'products-list',
@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
   styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit {
+  type:string = "";
   products=[];
   taxons=[];
   form: FormGroup;
@@ -18,8 +19,10 @@ export class ProductsListComponent implements OnInit {
   scroll_allowed = true;
   en_consulta = false;
   search = "";
+  min_price : string;
+  max_price : string;
 
-  constructor(private scroll: NbLayoutScrollService, private ruler: NbLayoutRulerService, private router: Router, private toastrService: NbToastrService, private http: HttpClient, private formBuilder: FormBuilder, private searchService: NbSearchService) {
+  constructor(private scroll: NbLayoutScrollService, private ruler: NbLayoutRulerService, private router: Router, private toastrService: NbToastrService, private http: HttpClient, private formBuilder: FormBuilder, private searchService: NbSearchService, private route: ActivatedRoute) {
     this.scroll.onScroll().subscribe((event) => this.onScroll());
     this.form = this.formBuilder.group({
       taxons: new FormArray([])
@@ -27,10 +30,16 @@ export class ProductsListComponent implements OnInit {
     this.searchService.onSearchSubmit()
     .subscribe((data: any) => {
       this.search = data.term;
-    })
+    });
+    this.router.routeReuseStrategy.shouldReuseRoute = function() {
+      return false;
+    };
   }
 
   async ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      this.type = params['type'];
+    })
     this.getProducts(1);
     let taxonomies = {};
     await this.http.get('api/taxonomies').toPromise().then((data) => {
@@ -63,10 +72,10 @@ export class ProductsListComponent implements OnInit {
 
   private addCheckboxes() {
     this.taxons.map((o, i) => {
-      const control = new FormControl(true); // if first item set to true, else false
+      const control = new FormControl(false);
       (this.form.controls.taxons as FormArray).push(control);
     });
-    console.log(this.form.value);
+    console.log(this.form.value.taxons);
   }
 
   scroll_heigth: Number;
@@ -114,6 +123,8 @@ export class ProductsListComponent implements OnInit {
   }
   
   loadFirst() {
+    console.log(this.min_price);
+    console.log(this.max_price);
     this.scroll_allowed = true;
     this.page = 1;
     this.products = [];
@@ -122,10 +133,16 @@ export class ProductsListComponent implements OnInit {
 
   async getProducts(page){
     if(!this.en_consulta){
+      let filter = "";
+      filter = filter.concat(this.min_price ? '&min_price='.concat(this.min_price) : "" );
+      filter = filter.concat(this.max_price ? '&max_price='.concat(this.max_price) : "" );
+      filter = filter.concat(this.search ? '&name='.concat(this.search,'&description=',this.search) : "" );
+      this.form.value.taxons.forEach((taxon,id) => {
+        filter = filter.concat(taxon ? '&taxon[]='.concat(this.taxons[id].id) : "");
+      });
       this.en_consulta = true;
-      await this.http.get(`api/products?page=${page}&type=product`).toPromise().then((data) => {
+      await this.http.get(`api/products?page=${page}&type=${this.type}${filter}`).toPromise().then((data) => {
         let products = data['data'] as [];
-        console.log(products);
         if(products.length) {
           Array.prototype.push.apply(this.products, products);
         } else {

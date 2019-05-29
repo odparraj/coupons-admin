@@ -163,10 +163,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Services List',
-        link: '/pages/store/services-list',
+        link: '/pages/store/products-list',
         data: {
           permission: 'store.services',
         },
+        queryParams: {
+          type: 'service'
+        }
       },
       {
         title: 'Products List',
@@ -174,6 +177,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
         data: {
           permission: 'store.products',
         },
+        queryParams: {
+          type: 'product'
+        }
       },
       {
         title: 'Shopping Cart',

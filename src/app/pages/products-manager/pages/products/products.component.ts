@@ -209,16 +209,16 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
           this.config.title = "Services";
           this.actions.push(
             {
-              name: 'addAditionals',
+              name: 'addAdditionals',
               btnClass: 'btn btn-info',
               iconClass: 'fas fa-plus',
-              title: 'Add Aditionals',
+              title: 'Add Additionals',
             },
           );
           break;
         }
-        case "aditional": {
-          this.config.title = `${params['parent_name']} - Aditionals`;
+        case "additional": {
+          this.config.title = `${params['parent_name']} - Additionals`;
           this.createModel.items.parent_id.value = params['parent_id'];
           this.editModel.items.parent_id.value = params['parent_id'];
           this.globalActions.unshift({
@@ -373,9 +373,9 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
     }).catch(console.error);
   }
 
-  addAditionals(data) {
-    console.log('addAditionals');
-    this.router.navigate(['/pages/products-manager/products'],{ queryParams: { type: 'aditional', parent_id: data.id, parent_name: data.name } });
+  addAdditionals(data) {
+    console.log('addAdditionals');
+    this.router.navigate(['/pages/products-manager/products'],{ queryParams: { type: 'additional', parent_id: data.id, parent_name: data.name } });
   }
   return(data){
     window.history.back();

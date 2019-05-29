@@ -73,3 +73,13 @@
 .taxon {
     display: block;
 }
+.img-enterprise {
+    max-height: 150px;
+    margin: 10px auto;
+    width: auto;
+    display: table-cell;
+	vertical-align: middle;
+}
+.img-enterprise-container{
+    display: table;
+}

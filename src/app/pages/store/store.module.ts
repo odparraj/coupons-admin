@@ -8,12 +8,11 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { ShoppingCartComponent } from './pages/shopping-cart/shopping-cart.component';
 import { PaymentGatewayComponent } from './pages/payment-gateway/payment-gateway.component';
 import { BillComponent } from './pages/bill/bill.component';
-import { ServicesListComponent } from './pages/services-list/services-list.component';
 import { ServiceComponent } from './pages/service/service.component';
 import { StoreComponent } from './store.component';
 
 @NgModule({
-  declarations: [ProductsListComponent, StoreComponent, ShoppingCartComponent, PaymentGatewayComponent, BillComponent, ServicesListComponent, ServiceComponent],
+  declarations: [ProductsListComponent, StoreComponent, ShoppingCartComponent, PaymentGatewayComponent, BillComponent, ServiceComponent],
   imports: [
     CommonModule,
     StoreRoutingModule,
