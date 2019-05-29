@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { IterableChangeRecord_ } from '@angular/core/src/change_detection/differs/default_iterable_differ';
 
 @Component({
   selector: 'shopping-cart',
@@ -47,7 +48,7 @@ export class ShoppingCartComponent implements OnInit {
         this.items = data['data']['items'];
       });
     } else {
-      this.delete_product(item);
+      this.delete_product(item, true);
     }
     // this.sum = 0;
     // for (let i =0;i<this.items.length; i++) {
@@ -57,11 +58,19 @@ export class ShoppingCartComponent implements OnInit {
     //   this.sum += this.items[i].amount*this.items[i].price;
     // }
   }
-  delete_product(item){
-    this.http.delete(`api/me/cart?product_id=${item.product.id}`).toPromise().then((data) => {
-      console.log('delete...', data);
-      this.items = data['data']['items'];
-    });
+  delete_product(data, request_confirm){
+    let continue_deleting = request_confirm ? window.confirm('Are you sure you want to delete?') : true;
+    if (continue_deleting) {
+      this.http.delete(`api/me/cart?product_id=${data.product.id}`).toPromise().then((response) => {
+        console.log('delete...', response);
+        this.items = response['data']['items'];
+      });
+      this.items.forEach(item => {
+        if(item.product.parent_id == data.product.id){
+          this.delete_product(item, false);
+        }
+      });
+    }
     // this.http.post('api/me/cart', {product_id: product_id, quantity: -this.items[]}).toPromise().then((data) => {
     //   console.log('delete...', data);
     // });

@@ -14,8 +14,8 @@
             <b>Total:</b> {{ sum | currency }}
           </div>
         </nb-action>
-        <nb-action (click)="goToPayment()" class="menu_links">
-          <a class="col-md-8 total" ><i class="fa fa-credit-card"></i> Pagar</a>
+        <nb-action (click)="addToCart('top-right', 'success')" class="menu_links">
+          <a class="col-md-8 total" ><i class="fa fa-shopping-cart"></i> Add to Cart</a>
         </nb-action>
       </nb-actions>
     </nb-alert>
@@ -63,8 +63,8 @@
                   <td> 
                     <nb-user name="{{additional.name}}"></nb-user>
                   </td>
-                  <td>{{additional.amount}}</td>
-                  <td>{{additional.price*additional.amount | currency}}</td>
+                  <td>{{additional.quantity}}</td>
+                  <td>{{additional.price*additional.quantity | currency}}</td>
                   <td>
                     <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                       <button type="button" class="btn btn-primary btn-icon" (click)="decrease_quantity(additional, i)"><i class="fa fa-minus"></i></button>

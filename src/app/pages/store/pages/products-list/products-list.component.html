@@ -38,17 +38,19 @@
     </nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-lg-6 pre-scrollable">
-          <nb-card accent="danger" class="card-border-none" size="small" status="warning">
+        <div class="col-lg-6">
+          <nb-card accent="danger" class="card-border-none" size="xsmall" status="warning">
             <nb-card-header>
               Select Categories
             </nb-card-header>
             <form [formGroup]="form" (ngSubmit)="submit()">
+              <div class="pre-scrollable categories-list">
               <nb-list>
                 <nb-list-item class="taxon" formArrayName="taxons" *ngFor="let taxon of form.controls.taxons.controls; let i = index">
                   <nb-checkbox status="success" type="checkbox" [formControlName]="i">{{taxons[i].name}}</nb-checkbox>
                 </nb-list-item>
               </nb-list>
+            </div>
             </form>
           </nb-card>
         </div>
