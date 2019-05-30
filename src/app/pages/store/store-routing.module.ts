@@ -16,6 +16,10 @@ const routes: Routes = [{
       component: ProductsListComponent,
     },
     {
+      path: 'services-list',
+      component: ProductsListComponent,
+    },
+    {
       path: 'shopping-cart',
       component: ShoppingCartComponent,
     },

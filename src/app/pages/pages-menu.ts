@@ -30,7 +30,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Edit User',
-        link: '/pages/authorization/edit-user',
+        link: '/pages/authorization/admin-quota',
         data: {
           permission: 'authorization.users',
         },
@@ -163,7 +163,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Services List',
-        link: '/pages/store/products-list',
+        link: '/pages/store/services-list',
         data: {
           permission: 'store.services',
         },

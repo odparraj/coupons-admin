@@ -176,6 +176,7 @@ export class ProductTaxonsComponent extends CrudComponent implements OnInit {
         this.config.title = this.config.title.concat(` / ${params['parent_name']}`);
       } else {
         this.config.filters.push({name:"taxonomy_id",value: params['taxonomy_id']});
+        this.config.filters.push({name:"parent_id",value: 'null'});
       }
     });
   }

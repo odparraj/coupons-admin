@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'edit-user',
-  templateUrl: './edit-user.component.html',
-  styleUrls: ['./edit-user.component.scss']
+  selector: 'admin-quota',
+  templateUrl: './admin-quota.component.html',
+  styleUrls: ['./admin-quota.component.scss']
 })
-export class EditUserComponent implements OnInit {
+export class AdminQuotaComponent implements OnInit {
+
+  @Input() user_id = null;
+  @Input() user_name = null;
 
   constructor() { }
   
