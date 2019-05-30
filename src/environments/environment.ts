@@ -11,5 +11,5 @@
 export const environment = {
   production: false,
   appName: 'Terap',
-  baseUrl: 'http://localhost/coupons-api/public',
+  baseUrl: 'https://coupons.bytersoft.webfactional.com',
 };

@@ -66,7 +66,6 @@ export class ProductsListComponent implements OnInit {
         this.taxons.push(taxons_local[taxon['id']]);        
       });
     }).catch(console.error);
-    console.log(this.taxons);
     this.addCheckboxes();
   }
 
@@ -75,7 +74,6 @@ export class ProductsListComponent implements OnInit {
       const control = new FormControl(false);
       (this.form.controls.taxons as FormArray).push(control);
     });
-    console.log(this.form.value.taxons);
   }
 
   scroll_heigth: Number;
@@ -162,6 +160,7 @@ export class ProductsListComponent implements OnInit {
         }
         this.en_consulta = false;
       }).catch(console.error);
+      console.log(this.products);
     }
   }
 }
