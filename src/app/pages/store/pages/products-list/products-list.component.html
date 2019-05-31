@@ -32,32 +32,28 @@
 </div>
 
 <div class="row">
-  <nb-card class="col-md-12" accent="primary" status="primary">
+  <nb-card class="col-md-12" accent="primary">
     <nb-card-header class="text-center">
       {{type.charAt(0).toUpperCase().concat(type.slice(1),'s')}}
     </nb-card-header>
     <nb-card-body>
       <div class="row">
         <div class="col-lg-6">
-          <nb-card accent="danger" class="card-border-none" size="xsmall" status="warning">
+          <nb-card accent="danger" class="card-border-none" size="small">
             <nb-card-header>
               Select Categories
             </nb-card-header>
-            <!--
-            <form [formGroup]="form">
               <div class="pre-scrollable categories-list">
               <nb-list>
-                <nb-list-item class="taxon" formArrayName="taxons" *ngFor="let taxon of form?.controls?.taxons?.controls; let i = index">
-                  <nb-checkbox status="success" type="checkbox" [formControlName]="i">{{taxons[i].name}}</nb-checkbox>
+                <nb-list-item class="taxon" *ngFor="let taxon of taxons">
+                  <nb-checkbox status="success" type="checkbox" [(ngModel)]="taxon.checked">{{taxon.name}}</nb-checkbox>
                 </nb-list-item>
               </nb-list>
             </div>
-            </form>
-            -->
           </nb-card>
         </div>
         <div class="col-lg-6">
-          <nb-card accent="danger" class="card-border-none" status="warning">
+          <nb-card accent="danger" class="card-border-none">
             <nb-card-header>
               Filter {{type.charAt(0).toUpperCase() + type.slice(1)}}
             </nb-card-header>

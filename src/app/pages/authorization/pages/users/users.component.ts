@@ -105,6 +105,12 @@ export class UsersComponent extends CrudComponent implements OnInit {
       title: 'Edit Role',
     },
     {
+      name: 'adminQuota',
+      btnClass: 'btn btn-warning',
+      iconClass: 'fas fa-credit-card',
+      title: 'Edit Role',
+    },
+    {
       name: 'delete',
       btnClass: 'btn btn-danger',
       iconClass: 'fas fa-trash-alt',
@@ -210,5 +216,8 @@ export class UsersComponent extends CrudComponent implements OnInit {
       this.currentAction = 'index';
     }).catch(console.error);
   }
-
+  adminQuota(data){
+    this.currentItem = data.id;
+    this.currentAction="adminQuota";
+  }
 }

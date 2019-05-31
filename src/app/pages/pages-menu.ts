@@ -29,7 +29,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         },
       },
       {
-        title: 'Edit User',
+        title: 'Admin Quota',
         link: '/pages/authorization/admin-quota',
         data: {
           permission: 'authorization.users',

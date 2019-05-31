@@ -13,7 +13,6 @@ export class ProductsListComponent implements OnInit {
   type:string = "";
   products=[];
   taxons=[];
-  form: FormGroup;
   page: number = 1;
   products_per_page = 10;
   scroll_allowed = true;
@@ -22,11 +21,8 @@ export class ProductsListComponent implements OnInit {
   min_price : string;
   max_price : string;
 
-  constructor(private scroll: NbLayoutScrollService, private ruler: NbLayoutRulerService, private router: Router, private toastrService: NbToastrService, private http: HttpClient, private formBuilder: FormBuilder, private searchService: NbSearchService, private route: ActivatedRoute) {
+  constructor(private scroll: NbLayoutScrollService, private ruler: NbLayoutRulerService, private router: Router, private toastrService: NbToastrService, private http: HttpClient, private searchService: NbSearchService, private route: ActivatedRoute) {
     this.scroll.onScroll().subscribe((event) => this.onScroll());
-    this.form = this.formBuilder.group({
-      taxons: new FormArray([])
-    });
     this.searchService.onSearchSubmit()
     .subscribe((data: any) => {
       this.search = data.term;
@@ -56,24 +52,19 @@ export class ProductsListComponent implements OnInit {
           taxons_local[taxon['id']] = {
             'id': taxon['id'],
             'name': `${taxonomies[taxon['taxonomy_id']]['name']} / ${taxon['name']}`,
+            'checked': false
           };
         } else {
           taxons_local[taxon['id']] = {
             'id': taxon['id'],
             'name': `${taxons_local[taxon['parent_id']]['name']} / ${taxon['name']}`,
+            'checked': false
           };
         }
         this.taxons.push(taxons_local[taxon['id']]);        
       });
     }).catch(console.error);
-    this.addCheckboxes();
-  }
-
-  private addCheckboxes() {
-    this.taxons.map((o, i) => {
-      const control = new FormControl(false);
-      (this.form.controls.taxons as FormArray).push(control);
-    });
+    console.log(this.taxons);
   }
 
   scroll_heigth: Number;
@@ -147,8 +138,8 @@ export class ProductsListComponent implements OnInit {
       filter = filter.concat(this.min_price ? '&min_price='.concat(this.min_price) : "" );
       filter = filter.concat(this.max_price ? '&max_price='.concat(this.max_price) : "" );
       filter = filter.concat(this.search ? '&name='.concat(this.search,'&description=',this.search) : "" );
-      this.form.value.taxons.forEach((taxon,id) => {
-        filter = filter.concat(taxon ? '&taxon[]='.concat(this.taxons[id].id) : "");
+      this.taxons.forEach((taxon) => {
+        filter = filter.concat(taxon.checked ? '&taxon[]='.concat(taxon.id) : "");
       });
       this.en_consulta = true;
       await this.http.get(`api/products?page=${page}&type=${this.type}${filter}`).toPromise().then((data) => {

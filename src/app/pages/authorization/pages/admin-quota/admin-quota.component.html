@@ -1,41 +1,40 @@
-<nb-card>
+<nb-card *ngIf="currentAction=='index' && config && actions">
+  <nb-card-header>
+    <div class="btn-group btn-group-sm" role="group">
+      <button  type="button" [title]="Return" class="btn btn-danger btn-sm btn-icon">
+        BACK &nbsp; <i class="fa fa-undo-alt"></i>
+      </button>
+    </div> &nbsp;
+    Admin Quota
+  </nb-card-header>
   <nb-card-body>
     <nb-tabset>
       <nb-tab tabTitle="Cuenta" tabIcon="fa fa-address-card" responsive>
         <nb-card accent="info">
           <div class="row">
             <div class="col-lg-6">
-              <nb-card size="medium" accent = "primary">
-                <nb-card-header>Configuración general</nb-card-header>
+              <nb-card accent="info">     
                 <nb-card-body>
-                  <div class="form-group">
-                    <input type="text" nbInput fullWidth [(ngModel)]="email" status="danger" placeholder="E-mail (example@terapp.com)">
-                  </div>
-                  <div class="form-group">
-                    <input type="text" nbInput fullWidth [(ngModel)]="address" status="warning" placeholder="Dirección" title="Dirección que se pasará para despacho de los pedidos">
-                  </div>
-                  <div class="form-group">
-                    <input type="text" nbInput fullWidth [(ngModel)]="cellphone" status="info" placeholder="Teléfono">
-                  </div>
-                  <div class="form-group validation-checkboxes row">
-                    <nb-checkbox status="success" class="col-sm-6">Cliente</nb-checkbox>
-                    <nb-checkbox status="danger" class="col-sm-6" title="El rol admin tiene acceso a todos los permisos">Admin</nb-checkbox>
-                    <nb-checkbox status="warning" class="col-sm-6">Entidad Solidaria</nb-checkbox>
-                    <nb-checkbox status="warning" class="col-sm-6">Marca</nb-checkbox>
-                  </div>
-                  <div class="row">
-                    <div class="col-sm-6">
-                      <button nbButton hero class="form-group" (click)="updateUser()" status="success">Actualizar</button>
-                    </div>
-                    <div class="col-sm-6">
-                      <button nbButton hero class="form-group" (click)="eraseChanges()" status="danger">Borrar cambios</button>
-                    </div>
-                  </div>
+                  <nb-accordion multi>
+                    <nb-accordion-item *ngFor="let order of orders">
+                      <nb-accordion-item-header>
+                        <div class="col-lg-6">Orden {{ order.date }}</div>
+                        <div class="col-lg-6 text-right">{{ order.price | currency }}</div>
+                      </nb-accordion-item-header>
+                      <nb-accordion-item-body>
+                        <tr *ngFor="let product of order.products">
+                          <td class="col-lg-4">{{ product.name }}</td>
+                          <td class="col-lg-4">{{ product.brand }}</td>
+                          <td class="col-lg-4 text-right">{{ product.price | currency }}</td>  
+                        </tr>
+                      </nb-accordion-item-body>
+                    </nb-accordion-item>
+                  </nb-accordion>
                 </nb-card-body>
               </nb-card>
             </div>
             <div class="col-lg-6">
-              <nb-card size="medium" accent = "primary">
+              <nb-card size="small" accent = "primary">
                 <nb-card-header>Estadísticas</nb-card-header>
                 <nb-card-body>
                   <table class="table">
@@ -68,27 +67,6 @@
           </div> <!--row-->
         </nb-card>
       </nb-tab> <!--Cuenta-->
-      <nb-tab tabTitle="Órdenes" tabIcon="fa fa-shopping-cart" responsive>
-        <nb-card accent="info">     
-          <nb-card-body>
-            <nb-accordion multi>
-              <nb-accordion-item *ngFor="let order of orders">
-                <nb-accordion-item-header>
-                  <div class="col-lg-6">Orden {{ order.date }}</div>
-                  <div class="col-lg-6 text-right">{{ order.price | currency }}</div>
-                </nb-accordion-item-header>
-                <nb-accordion-item-body>
-                  <tr *ngFor="let product of order.products">
-                    <td class="col-lg-4">{{ product.name }}</td>
-                    <td class="col-lg-4">{{ product.brand }}</td>
-                    <td class="col-lg-4 text-right">{{ product.price | currency }}</td>  
-                  </tr>
-                </nb-accordion-item-body>
-              </nb-accordion-item>
-            </nb-accordion>
-          </nb-card-body>
-        </nb-card>
-      </nb-tab><!--Órdenes-->
       <nb-tab tabTitle="Cupo" tabIcon="fa fa-dollar-sign" badgeText="Admin" badgeStatus="danger" badgePosition="bottom right" responsive>
         <nb-card accent="info">
           <div class="row">
@@ -97,16 +75,13 @@
                 <nb-card-header>Asignar nuevo cupo</nb-card-header>
                 <nb-card-body>
                   <div class="form-group">
-                    <input type="text" nbInput [(ngModel)]="value_new_quota" fullWidth status="danger" placeholder="Valor del cupo">
+                    <input type="text" nbInput [(ngModel)]="new_quota.amount" fullWidth status="danger" placeholder="Valor del cupo">
                   </div>
                   <div class="form-group">
-                    <input type="text" nbInput [(ngModel)]="category" fullWidth status="warning" placeholder="Categoría">
-                  </div>
-                  <div class="form-group">
-                    <textarea rows="5" status="info" [(ngModel)]="comments" placeholder="Comentarios" class="form-control"></textarea>
+                    <textarea rows="5" status="info" [(ngModel)]="new_quota.description" placeholder="Comentarios" class="form-control"></textarea>
                     </div>
                   <div class="form-group text-center">
-                    <button nbButton hero status="success" (click)="assign_new_quota()">Asignar</button>
+                    <button nbButton hero status="success" (click)="add_quota()">Asignar</button>
                   </div>
                 </nb-card-body>
               </nb-card>
@@ -143,35 +118,26 @@
                 </nb-card>
             </div>
           </div> <!--row-->
-          <div class="row">
-            <div class = "col-lg-12">
-              <nb-card class = "col-md-12" accent = "info">
-                <nb-card-header>Cupos asignados</nb-card-header>
-                <nb-card-body>
-                  <table class="table">
-                      <thead class="thead-dark">
-                        <th>Valor</th>
-                        <th>Categoría</th>
-                        <th>Comentarios</th>
-                        <th>Asignado por</th>
-                        <th>Fecha de asignación</th>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let quota of quotas">
-                          <td> {{ quota.value | currency}} </td>
-                          <td> {{ quota.category }} </td>
-                          <td> {{ quota.comments }} </td>
-                          <td> {{ quota.created_by }} </td>
-                          <td> {{ quota.date }} </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                </nb-card-body>
-              </nb-card>
-            </div>
-          </div>
+
+          <custom-table
+              [config]="config" 
+              [actions]="actions" 
+              (action)="onAction($event)">
+              <custom-actions *ngIf="globalActions"
+                  [actions]="globalActions" 
+                  (action)="onAction({action:$event, data:''})">
+              </custom-actions>
+          </custom-table>
+
         </nb-card>
       </nb-tab><!--Cupo-->
     </nb-tabset>
+  </nb-card-body>
+</nb-card>
+<nb-card *ngIf="currentAction=='viewTransactionDetails'">
+  <nb-card-header>
+    Transaction details
+  </nb-card-header>
+  <nb-card-body [innerHtml]=" '<pre>' + syntaxHighlight(currentTransactionDetails) + '<pre>'">
   </nb-card-body>
 </nb-card>
