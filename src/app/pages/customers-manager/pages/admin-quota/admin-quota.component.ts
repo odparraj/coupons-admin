@@ -13,8 +13,8 @@ import { Action } from '../../../../shared/models/Action';
 export class AdminQuotaComponent implements OnInit {
   currentAction: string = 'index';
   currentTransactionDetails: any;
-  transactions_endpoint='api/transactions';
   @Input() user = null;
+  transactions_endpoint=`api/customers/${this.user}/transactions`;
   new_quota : Quota = {
     amount: null,
     description: null,
@@ -173,5 +173,5 @@ class Quota {
   amount: number;
   user_id: string;
   description: string;
-  input_data: any;
+  input_data: any = null;
 }

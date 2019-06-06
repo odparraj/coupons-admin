@@ -37,17 +37,10 @@ const routes: Routes = [{
       },
     },
     {
-      path: 'customers',
-      loadChildren: './customers/customers.module#CustomersModule',
+      path: 'customers-manager',
+      loadChildren: './customers-manager/customers-manager.module#CustomersManagerModule',
       data: {
-        permission: 'customers',
-      },
-    },
-    {
-      path: 'products',
-      loadChildren: './products/products.module#ProductsModule',
-      data: {
-        permission: 'products',
+        permission: 'customers_manager',
       },
     },
     {

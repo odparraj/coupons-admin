@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-
-import { HttpClient } from '@angular/common/http';
-import { CrudComponent } from '../../../../shared/components/crud/crud.component';
 import { Config } from '../../../../shared/models/Config';
 import { Action } from '../../../../shared/models/Action';
+import { HttpClient } from '@angular/common/http';
+import { CrudComponent } from '../../../../shared/components/crud/crud.component';
 
 @Component({
-  selector: 'users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss'],
+  selector: 'customers',
+  templateUrl: './customers.component.html',
+  styleUrls: ['./customers.component.scss']
 })
-export class UsersComponent extends CrudComponent implements OnInit {
+export class CustomersComponent extends CrudComponent implements OnInit {
 
-  endpoint= 'api/users';
+  endpoint= 'api/me/customers';
   currentItem: string;
   currentAction: string = 'index';
   createModel = {
@@ -76,7 +75,7 @@ export class UsersComponent extends CrudComponent implements OnInit {
   syncModel= {};
   
   config: Config = {
-    title: 'Users',
+    title: 'Customers',
     columns: [
       {
         name: 'Name',
@@ -99,9 +98,15 @@ export class UsersComponent extends CrudComponent implements OnInit {
       title: 'Edit User',
     },
     {
-      name: 'editRoles',
+      name: 'editCategory',
       btnClass: 'btn btn-success',
       iconClass: 'fas fa-user-plus',
+      title: 'Edit Category',
+    },
+    {
+      name: 'adminQuota',
+      btnClass: 'btn btn-warning',
+      iconClass: 'fas fa-credit-card',
       title: 'Edit Role',
     },
     {
@@ -167,33 +172,33 @@ export class UsersComponent extends CrudComponent implements OnInit {
     }).catch(console.error);
   }
 
-  async editRoles(data) {
-    await this.http.get('api/roles').toPromise().then((data) => {
-      let roles = data['data'] as [];
+  async editCategory(data) {
+    await this.http.get('api/me/categories').toPromise().then((data) => {
+      let categories = data['data'] as [];
       this.syncModel = {};
       this.syncModel['items'] = {}
-      roles.forEach((role) => {
-        this.syncModel['items'][role['id']] = {
+      categories.forEach((category) => {
+        this.syncModel['items'][category['id']] = {
           'xtype': 'CheckboxField',
           'allowBlank': false,
-          'name': role['id'],
-          'label': role['name'],
+          'name': category['id'],
+          'label': category['name'],
           'value': false,
           'levelSecurity': 0,
         };
       });
     }).catch(console.error);
 
-    await this.http.get(`api/users/${data.id}/roles`).toPromise().then((data)=>{
-      let roles = data['data'] as [];
-      roles.forEach((role) => {
-        if( this.syncModel['items'].hasOwnProperty(role['id']) ){
-          this.syncModel['items'][role['id']]['value'] = true;
+    await this.http.get(`api/customers/${data.id}/category`).toPromise().then((data)=>{
+      let categories = data['data'] as [];
+      categories.forEach((category) => {
+        if( this.syncModel['items'].hasOwnProperty(category['id']) ){
+          this.syncModel['items'][category['id']]['value'] = true;
         }
       }); 
     }).catch(console.error);
 
-    this.currentAction = 'editRoles';
+    this.currentAction = 'editCategory';
     this.currentItem = data.id;
     console.log('edit Roles', data, this.currentAction);
   }
@@ -210,4 +215,9 @@ export class UsersComponent extends CrudComponent implements OnInit {
       this.currentAction = 'index';
     }).catch(console.error);
   }
+  adminQuota(data){
+    this.currentItem = data.id;
+    this.currentAction="adminQuota";
+  }
+
 }

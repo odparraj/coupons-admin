@@ -8,11 +8,9 @@ import { RolesComponent } from './pages/roles/roles.component';
 import { PermissionsComponent } from './pages/permissions/permissions.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { SharedModule } from '../../shared/shared.module';
-import { AdminQuotaComponent } from './pages/admin-quota/admin-quota.component';
-import { CustomersCategoriesComponent } from './pages/customers-categories/customers-categories.component';
 
 @NgModule({
-  declarations: [AuthorizationComponent, UsersComponent, RolesComponent, PermissionsComponent, AdminQuotaComponent, CustomersCategoriesComponent],
+  declarations: [AuthorizationComponent, UsersComponent, RolesComponent, PermissionsComponent],
   imports: [
     CommonModule,
     AuthorizationRoutingModule,

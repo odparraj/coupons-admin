@@ -29,13 +29,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         },
       },
       {
-        title: 'Admin Quota',
-        link: '/pages/authorization/admin-quota',
-        data: {
-          permission: 'authorization.users',
-        },
-      },
-      {
         title: 'Roles',
         link: '/pages/authorization/roles',
         data: {
@@ -52,47 +45,32 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Customers',
+    title: 'Customers Manager',
     icon: 'nb-list',
     data: {
-      permission: 'customers',
+      permission: 'customers_manager',
     },
     children: [
       {
-        title: 'SubMenu 1',
-        link: '/pages/submenu/1',
-      },
-      {
-        title: 'SubMenu 2',
-        link: '/pages/submenu/2',
-      },
-      {
-        title: 'SubMenu 3',
-        link: '/pages/submenu/3',
-      },
-    ],
-  },
-  {
-    title: 'Products',
-    icon: 'nb-list',
-    data: {
-      permission: 'products',
-    },
-    children: [
-      {
-        title: 'Home',
-        link: '/pages/products/home',
+        title: 'Customers',
+        link: '/pages/customers-manager/customers',
         data: {
-          permission: 'product.home',
+          permission: 'customers_manager.customers',
         },
       },
       {
-        title: 'SubMenu 2',
-        link: '/pages/submenu/2',
+        title: 'Customer Categories',
+        link: '/pages/customers-manager/customer-categories',
+        data: {
+          permission: 'customers_manager.customer_categories',
+        },
       },
       {
-        title: 'SubMenu 3',
-        link: '/pages/submenu/3',
+        title: 'Admin Quota',
+        link: '/pages/customers-manager/admin-quota',
+        data: {
+          permission: 'customers_manager.admin_quota',
+        },
       },
     ],
   },

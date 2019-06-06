@@ -25,3 +25,6 @@
         (action)="onAction({action:$event, data:''})">
     </custom-actions>
 </custom-table>
+<admin-quota *ngIf="currentAction=='adminQuota'"
+    [user]="currentItem">
+</admin-quota>
