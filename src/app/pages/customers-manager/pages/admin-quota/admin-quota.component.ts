@@ -14,34 +14,45 @@ export class AdminQuotaComponent implements OnInit {
   currentAction: string = 'index';
   currentTransactionDetails: any;
   @Input() user = null;
-  transactions_endpoint=`api/customers/${this.user}/transactions`;
-  new_quota : Quota = {
+  transactions_endpoint: string;
+  get_quota_endpoint: string;
+  update_quota_endpoint: string;
+  quota: any = {};
+  new_quota = {
     amount: null,
-    description: null,
-    input_data: null,
-    user_id: this.user,
+    is_active: this.quota.is_active,
   };
   constructor(private http: HttpClient) {
   }
-  ngOnInit() {
-
+  async ngOnInit() {
+    this.transactions_endpoint=`api/me/customers/${this.user}/transactions`;
+    this.get_quota_endpoint=`api/me/customers/${this.user}/quota`;
+    this.update_quota_endpoint=`api/me/customers/${this.user}/quota-update`;
+    await this.http.get(this.get_quota_endpoint).toPromise().then((data) => {
+      this.quota = data['data'];
+    }).catch(console.error);
   }
   private reset_new_quota(){
     this.new_quota = {
       amount: null,
-      description: null,
-      input_data: null,
-      user_id: this.user,
+      is_active: this.quota.is_active
     };
   }
   async add_quota() {
     if(this.new_quota.amount){
-      await this.http.post(`${this.transactions_endpoint}`, this.new_quota).toPromise().then((data) => {
+      await this.http.post(this.update_quota_endpoint, this.new_quota).toPromise().then((data) => {
         console.log('add_quota...', data);
         this.currentAction = 'index';
       }).catch(console.error);
       this.reset_new_quota();
     }
+  }
+  async change_quota_status() {
+    await this.http.post(`${this.update_quota_endpoint}`, this.new_quota).toPromise().then((data) => {
+      console.log('add_quota...', data);
+      this.currentAction = 'index';
+    }).catch(console.error);
+    this.reset_new_quota();
   }
   /*
   *--Data de Ejemplo para Cuenta
@@ -59,7 +70,7 @@ export class AdminQuotaComponent implements OnInit {
       },
       {
         name: 'Description',
-        key: 'description',
+        key: 'operation.name',
       },
     ],
     endpoint: this.transactions_endpoint,
@@ -104,7 +115,7 @@ export class AdminQuotaComponent implements OnInit {
         }
         return '<span class="' + cls + '">' + match + '</span>';
     });
-}
+  }
 
 
   quota_tot = {
@@ -171,7 +182,5 @@ export class AdminQuotaComponent implements OnInit {
 
 class Quota {
   amount: number;
-  user_id: string;
-  description: string;
-  input_data: any = null;
+  is_active: boolean;
 }

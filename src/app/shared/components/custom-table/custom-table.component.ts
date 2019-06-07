@@ -57,13 +57,15 @@ export class CustomTableComponent implements OnInit {
 
   getData(page: number) {
     this.filter="";
-    for(let i = 0; i < this.config.filters.length; i++){
-      this.filter=this.filter.concat("&",this.config.filters[i].name,"=",this.config.filters[i].value);
+    let params = {};
+    this.config.filters.forEach(filter => {
+      params[filter.name] = filter.value;
+    });
+    if(this.column && this.search){
+      params[this.column] = this.search;
     }
-    if(this.column != "" && this.search != "" && this.search != null && this.column !== null){
-      this.filter=this.filter.concat("&",this.column,"=",this.search);
-    }
-    return this.http.get<ResponseData>(`${this.endpoint}?page=${page}${this.filter}`).pipe(
+    params['page'] = page;
+    return this.http.get<ResponseData>(this.endpoint, {params: params}).pipe(
       flatMap((data) => {
         this.paginate = data.pagination;
         this.currentPage = data.pagination.currentPage;

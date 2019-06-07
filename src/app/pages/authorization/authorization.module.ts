@@ -5,12 +5,11 @@ import { AuthorizationRoutingModule } from './authorization-routing.module';
 import { AuthorizationComponent } from './authorization.component';
 import { UsersComponent } from './pages/users/users.component';
 import { RolesComponent } from './pages/roles/roles.component';
-import { PermissionsComponent } from './pages/permissions/permissions.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-  declarations: [AuthorizationComponent, UsersComponent, RolesComponent, PermissionsComponent],
+  declarations: [AuthorizationComponent, UsersComponent, RolesComponent],
   imports: [
     CommonModule,
     AuthorizationRoutingModule,

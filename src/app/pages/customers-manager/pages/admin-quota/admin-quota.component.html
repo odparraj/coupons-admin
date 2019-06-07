@@ -77,9 +77,9 @@
                   <div class="form-group">
                     <input type="text" nbInput [(ngModel)]="new_quota.amount" fullWidth status="danger" placeholder="Valor del cupo">
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <textarea rows="5" status="info" [(ngModel)]="new_quota.description" placeholder="Comentarios" class="form-control"></textarea>
-                    </div>
+                  </div> -->
                   <div class="form-group text-center">
                     <button nbButton hero status="success" (click)="add_quota()">Asignar</button>
                   </div>
@@ -92,6 +92,16 @@
                   <nb-card-body>
                     <table class="table">
                         <tbody>
+                          <tr>
+                            <th scope="row">Estado</th>
+                            <td class="text-right">
+                              {{new_quota.is_active ? "Activo" : "Inactivo"}}
+                              <label class="switch">
+                                <input type="checkbox" [(ngModel)]="new_quota.is_active">
+                                <span class="slider round"></span>
+                              </label>
+                            </td>
+                          </tr>
                           <tr>
                             <th scope="row">Total venta</th>
                             <td class="text-right"> {{ quota_tot.spent | currency}} </td>

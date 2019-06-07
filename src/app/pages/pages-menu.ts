@@ -35,13 +35,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
           permission: 'authorization.roles',
         },
       },
-      {
-        title: 'Permissions',
-        link: '/pages/authorization/permissions',
-        data: {
-          permission: 'authorization.permissions',
-        },
-      },
     ],
   },
   {

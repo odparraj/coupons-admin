@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthorizationComponent } from './authorization.component';
 import { UsersComponent } from './pages/users/users.component';
 import { RolesComponent } from './pages/roles/roles.component';
-import { PermissionsComponent } from './pages/permissions/permissions.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,10 +15,6 @@ const routes: Routes = [{
     {
       path: 'roles',
       component: RolesComponent,
-    },
-    {
-      path: 'permissions',
-      component: PermissionsComponent,
     },
   ],
 }];
