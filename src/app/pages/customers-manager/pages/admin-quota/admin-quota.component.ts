@@ -17,42 +17,40 @@ export class AdminQuotaComponent implements OnInit {
   transactions_endpoint: string;
   get_quota_endpoint: string;
   update_quota_endpoint: string;
+  change_quota_status_endpoint: string;
   quota: any = {};
-  new_quota = {
-    amount: null,
-    is_active: this.quota.is_active,
-  };
+  new_quota_amount: number;
+  quota_status: boolean;
   constructor(private http: HttpClient) {
   }
   async ngOnInit() {
     this.transactions_endpoint=`api/me/customers/${this.user}/transactions`;
     this.get_quota_endpoint=`api/me/customers/${this.user}/quota`;
     this.update_quota_endpoint=`api/me/customers/${this.user}/quota-update`;
+    this.change_quota_status_endpoint= `me/customers/${this.user}/quota-change-active`;
     await this.http.get(this.get_quota_endpoint).toPromise().then((data) => {
       this.quota = data['data'];
     }).catch(console.error);
+    this.quota_status=this.quota.is_active;
+    console.log(this.quota);
   }
   private reset_new_quota(){
-    this.new_quota = {
-      amount: null,
-      is_active: this.quota.is_active
-    };
+    this.new_quota_amount = null;
   }
   async add_quota() {
-    if(this.new_quota.amount){
-      await this.http.post(this.update_quota_endpoint, this.new_quota).toPromise().then((data) => {
+    if(this.new_quota_amount){
+      await this.http.post(this.change_quota_status_endpoint, {amount: this.new_quota_amount}).toPromise().then((data) => {
         console.log('add_quota...', data);
-        this.currentAction = 'index';
+        this.quota = data['data'];
       }).catch(console.error);
       this.reset_new_quota();
     }
   }
   async change_quota_status() {
-    await this.http.post(`${this.update_quota_endpoint}`, this.new_quota).toPromise().then((data) => {
+    await this.http.post(this.change_quota_status_endpoint, {is_active: this.quota_status}).toPromise().then((data) => {
       console.log('add_quota...', data);
-      this.currentAction = 'index';
+      this.quota = data['data'];
     }).catch(console.error);
-    this.reset_new_quota();
   }
   /*
   *--Data de Ejemplo para Cuenta
@@ -178,9 +176,4 @@ export class AdminQuotaComponent implements OnInit {
     {value:100000, category:'Prueba', comments:"Any comment", created_by:"David", date:"2019-03-22"},
     {value:200000, category:'Birthday', comments:"Any comment", created_by:"David", date:"2019-03-23"},
   ];
-}
-
-class Quota {
-  amount: number;
-  is_active: boolean;
 }

@@ -107,7 +107,7 @@ export class CustomersComponent extends CrudComponent implements OnInit {
       name: 'adminQuota',
       btnClass: 'btn btn-warning',
       iconClass: 'fas fa-credit-card',
-      title: 'Edit Role',
+      title: 'Admin Quota',
     },
     {
       name: 'delete',

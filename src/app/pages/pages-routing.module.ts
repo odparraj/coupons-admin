@@ -65,6 +65,13 @@ const routes: Routes = [{
       },
     },
     {
+      path: 'my-data',
+      loadChildren: './my-data/my-data.module#MyDataModule',
+      data: {
+        permission: 'my_data',
+      },
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },

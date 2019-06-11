@@ -68,6 +68,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
+    title: 'My Data',
+    icon: 'nb-list',
+    data: {
+      permission: 'my_data',
+    },
+    children: [
+      {
+        title: 'Quota',
+        link: '/pages/my-data/quota',
+        data: {
+          permission: 'my_data.quota',
+        },
+      },
+    ],
+  },
+  {
     title: 'Products Manager',
     icon: 'nb-list',
     data: {

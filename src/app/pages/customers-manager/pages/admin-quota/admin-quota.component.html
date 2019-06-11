@@ -39,26 +39,26 @@
                 <nb-card-body>
                   <table class="table">
                       <tbody>
-                        <tr>
+                        <!-- <tr>
                           <th scope="row">Total venta</th>
                           <td class="text-right"> {{ quota_tot.spent | currency}} </td>
-                        </tr>
+                        </tr> -->
                         <tr>
-                            <th scope="row">Cupo disponible</th>
-                            <td class="text-right"> {{ quota_tot.available | currency}} </td>
+                            <th scope="row">Cupo habilitado</th>
+                            <td class="text-right"> {{ quota.amount_enabled | currency}} </td>
                           </tr>
                         <tr>
-                          <th scope="row">Numero de órdenes</th>
-                          <td class="text-right"> {{ quota_tot.orders | currency}} </td>
+                          <th scope="row">Cupo disponible</th>
+                          <td class="text-right"> {{ quota.amount_available | currency}} </td>
                         </tr>
                         <tr>
-                          <th scope="row">Valor medio de pedidos</th>
-                          <td class="text-right"> {{ quota_tot.mean | currency}} </td>
+                          <th scope="row">Total gastado</th>
+                          <td class="text-right"> {{ quota.amount_enabled - quota.amount_available | currency}} </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                           <th scope="row">Fecha de ingreso</th>
                           <td class="text-right"> {{ quota_tot.date}} </td>
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>
                 </nb-card-body>
@@ -71,11 +71,11 @@
         <nb-card accent="info">
           <div class="row">
             <div class="col-lg-6">
-              <nb-card size="medium" accent = "danger">
+              <nb-card size="small" accent = "danger">
                 <nb-card-header>Asignar nuevo cupo</nb-card-header>
                 <nb-card-body>
                   <div class="form-group">
-                    <input type="text" nbInput [(ngModel)]="new_quota.amount" fullWidth status="danger" placeholder="Valor del cupo">
+                    <input type="text" nbInput [(ngModel)]="new_quota_amount" fullWidth status="danger" placeholder="Valor del cupo">
                   </div>
                   <!-- <div class="form-group">
                     <textarea rows="5" status="info" [(ngModel)]="new_quota.description" placeholder="Comentarios" class="form-control"></textarea>
@@ -87,7 +87,7 @@
               </nb-card>
             </div>
             <div class="col-lg-6">
-                <nb-card size="medium" accent = "primary">
+                <nb-card size="small" accent = "primary">
                   <nb-card-header>Estadísticas</nb-card-header>
                   <nb-card-body>
                     <table class="table">
@@ -95,32 +95,24 @@
                           <tr>
                             <th scope="row">Estado</th>
                             <td class="text-right">
-                              {{new_quota.is_active ? "Activo" : "Inactivo"}}
+                              {{quota_status ? "Activo" : "Inactivo"}}
                               <label class="switch">
-                                <input type="checkbox" [(ngModel)]="new_quota.is_active">
+                                <input type="checkbox" [(ngModel)]="quota_status" (change)="change_quota_status()">
                                 <span class="slider round"></span>
                               </label>
                             </td>
                           </tr>
                           <tr>
-                            <th scope="row">Total venta</th>
-                            <td class="text-right"> {{ quota_tot.spent | currency}} </td>
+                            <th scope="row">Cupo habilitado</th>
+                            <td class="text-right"> {{ quota.amount_enabled | currency}} </td>
                           </tr>
                           <tr>
-                            <th scope="row">Total cupo disponible</th>
-                            <td class="text-right"> {{ quota_tot.available | currency}} </td>
+                            <th scope="row">Cupo disponible</th>
+                            <td class="text-right"> {{ quota.amount_available | currency}} </td>
                           </tr>
                           <tr>
-                            <th scope="row">Numero de órdenes</th>
-                            <td class="text-right"> {{ quota_tot.orders | currency}} </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Valor medio de pedidos</th>
-                            <td class="text-right"> {{ quota_tot.mean | currency}} </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">Fecha de ingreso</th>
-                            <td class="text-right"> {{ quota_tot.date}} </td>
+                            <th scope="row">Total gastado</th>
+                            <td class="text-right"> {{ quota.amount_enabled - quota.amount_available | currency}} </td>
                           </tr>
                         </tbody>
                       </table>

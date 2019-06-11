@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "https://coupons.bytersoft.webfactional.com/",
+        "target": "http://localhost/coupons-api/public/",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true
