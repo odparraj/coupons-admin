@@ -1,4 +1,4 @@
-<nb-card *ngIf="currentAction=='index' && config && actions">
+<nb-card *ngIf="currentAction=='index'">
   <nb-card-header>
     <div class="btn-group btn-group-sm" role="group">
       <button  type="button" [title]="Return" class="btn btn-danger btn-sm btn-icon">
@@ -121,14 +121,8 @@
             </div>
           </div> <!--row-->
 
-          <custom-table
-              [config]="config" 
-              [actions]="actions" 
-              (action)="onAction($event)">
-              <custom-actions *ngIf="globalActions"
-                  [actions]="globalActions" 
-                  (action)="onAction({action:$event, data:''})">
-              </custom-actions>
+          <custom-table *ngIf="config"
+              [config]="config">
           </custom-table>
 
         </nb-card>

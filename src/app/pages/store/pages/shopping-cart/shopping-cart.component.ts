@@ -12,6 +12,7 @@ export class ShoppingCartComponent implements OnInit {
   items = [];
 
   constructor(private router: Router, private http: HttpClient) { }
+  current_action="view_cart";
   sum: number;
   cart: any = {total : 0};
   ngOnInit() {
@@ -80,6 +81,31 @@ export class ShoppingCartComponent implements OnInit {
     
   }
   goToPayment(){
-    this.router.navigate(['/pages/store/payment-gateway']);
+    // this.router.navigate(['/pages/store/payment-gateway']);
+    this.current_action = "checkout";
+  }
+
+  checkout = {
+    billpayer: {
+      firstname: '',
+      lastname: '',
+      company_name: '',
+      address: {
+        address: ''
+      },
+    },
+    ship_to_billing_address: 1,
+    shippingAddress: {
+      address: '',
+    }
+  }
+
+  payment_processed: boolean = false;
+  pay() {
+    this.http.post('api/me/checkout', this.checkout).toPromise().then((data)=>{
+      console.log('add...', data);
+      this.payment_processed = true;
+    }).catch(console.error);
+    this.current_action="confirm";
   }
 }

@@ -8,6 +8,8 @@ import { NbTokenService } from '@nebular/auth';
 import { MENU_ITEMS } from './pages-menu';
 import { NbMenuItem } from '@nebular/theme';
 import { NbAccessChecker } from '@nebular/security';
+import { HttpClient } from '@angular/common/http';
+import { SyncRolesAction } from '../@core/store/actions/roles.actions';
 
 @Component({
   selector: 'ngx-pages',
@@ -26,24 +28,14 @@ export class PagesComponent implements OnInit {
     private accessChecker: NbAccessChecker,
     private tokenService: NbTokenService,
     private appStore: Store<AppState>,
+    private http: HttpClient,
   ) { }
 
   ngOnInit() {
+    this.updateStore();
     this.menu.forEach((item: NbMenuItem) => {
       this.resolvePermisision(item);
     });
-
-    const getToken = this.tokenService.get().pipe(
-      tap( (token) => {
-        this.appStore.dispatch(new AuthActions.SingInAction({
-          isLogin: true,
-          token: token.getValue(),
-        }));
-      }),
-      take(1),
-    );
-
-    getToken.subscribe(token => {});
   }
 
   private resolvePermisision(item: NbMenuItem) {
@@ -65,5 +57,29 @@ export class PagesComponent implements OnInit {
 
   private hasChildren(item: NbMenuItem): boolean {
     return item.children ? item.children.length > 0 : false;
+  }
+
+  private updateStore() {
+    this.appStore.select('roles').subscribe((roles)=>{
+      if(roles[0]=='guest'){
+        this.tokenService.get().toPromise().then((token)=>{
+          this.appStore.dispatch(new AuthActions.SingInAction({
+            isLogin: true,
+            token: token.getValue(),
+          }));
+        }).catch(console.error);
+
+        this.http.get('api/me/roles').toPromise().then((response)=>{
+          console.log(response);
+          let roles = response['data'] as [];
+          this.appStore.dispatch(new SyncRolesAction( roles.map((role)=>{return role['name']}) ));
+          let profile = {
+            name: response['data']['name'],
+            email: response['data']['email'],
+          }
+
+        }).catch(console.error);
+      }
+    });
   }
 }

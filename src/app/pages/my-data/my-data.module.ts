@@ -14,6 +14,7 @@ import { SharedModule } from '../../shared/shared.module';
     MyDataRoutingModule,
     ThemeModule,
     SharedModule
-  ]
+  ],
+  entryComponents: [MyDataComponent],
 })
 export class MyDataModule { }

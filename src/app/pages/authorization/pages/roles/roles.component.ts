@@ -132,7 +132,7 @@ export class RolesComponent extends CrudComponent implements OnInit {
   }
 
   async editPermissions(data) {
-    await this.http.get('api/permissions').toPromise().then((data) => {
+    await this.http.get('api/permissions-all').toPromise().then((data) => {
       let permissions = data['data'] as [];
       this.syncModel = {};
       this.syncModel['items'] = {}

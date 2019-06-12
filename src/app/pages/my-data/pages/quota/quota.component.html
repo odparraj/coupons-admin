@@ -1,4 +1,4 @@
-<nb-card *ngIf="currentAction=='index' && config && actions">
+<nb-card *ngIf="currentAction=='index'">
   <nb-card-header>
     My Quota
   </nb-card-header>
@@ -30,13 +30,7 @@
         </div>
       </div> <!--row-->
       <custom-table
-          [config]="config" 
-          [actions]="actions" 
-          (action)="onAction($event)">
-          <custom-actions *ngIf="globalActions"
-              [actions]="globalActions" 
-              (action)="onAction({action:$event, data:''})">
-          </custom-actions>
+          [config]="config">
       </custom-table>
     </nb-card>
   </nb-card-body>

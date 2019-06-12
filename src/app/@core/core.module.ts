@@ -11,6 +11,7 @@ import { StoreModule } from '@ngrx/store';
 import { Appreducers, metaReducers } from './store/reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
+import { RoleProvider } from './utils/role.provider';
 
 const socialLinks = [
   /* {
@@ -69,16 +70,47 @@ export const NB_CORE_PROVIDERS = [
   NbSecurityModule.forRoot({
     accessControl: {
       guest: {
-        view: ['pages', 'authorization', 'authorization.users'],
+        view: ['pages'],
       },
-      admin: {
-        view: '*',
+      Admin: {
+        view: [
+          'user',
+          'dashboard',
+          'pages',
+          'authorization',
+          'authorization.users',
+          'authorization.roles',
+          'customers_manager',
+          'customers_manager.customers',
+          'customers_manager.customer_categories',
+          'customers_manager.admin_quota',
+          'products_manager',
+          'products_manager.products',
+          'products_manager.taxonomies',
+          'services_manager',
+          'services_manager.services',
+          'services_manager.taxonomies',
+          
+        ]
       },
+      customer: {
+        view: [
+          'user',
+          'dashboard',
+          'pages',
+          'my_data',
+          'my_data.quota',
+          'store',
+          'store.services',
+          'store.products',
+          'store.shopping'
+        ]
+      }
     },
   }).providers,
 
   {
-    provide: NbRoleProvider, useClass: NbSimpleRoleProvider,
+    provide: NbRoleProvider, useClass: RoleProvider,
   },
   AnalyticsService,
 ];

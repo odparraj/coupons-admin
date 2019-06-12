@@ -43,39 +43,4 @@ export class QuotaComponent implements OnInit {
     endpoint: this.transactions_endpoint,
     filters:[]
   };
-
-  actions: Array<Action> = [
-    {
-      name: 'viewTransactionDetails',
-      btnClass: 'btn btn-danger',
-      iconClass: 'fas fa-eye',
-      title: 'View Details',
-    },
-  ];
-
-  viewTransactionDetails(data) {
-    this.currentTransactionDetails = data.input_data;
-    this.currentAction = 'viewTransactionDetails';
-  }
-
-  syntaxHighlight(json: JSON) {
-    let str = JSON.stringify(json, undefined, 4)
-    str = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    console.log(str);
-    return str.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-        var cls = 'number';
-        if (/^"/.test(match)) {
-            if (/:$/.test(match)) {
-                cls = 'key';
-            } else {
-                cls = 'string';
-            }
-        } else if (/true|false/.test(match)) {
-            cls = 'boolean';
-        } else if (/null/.test(match)) {
-            cls = 'null';
-        }
-        return '<span class="' + cls + '">' + match + '</span>';
-    });
-  }
 }
