@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MyDataModule } from './my-data.module';
 import { QuotaComponent } from './pages/quota/quota.component';
+import { MyDataComponent } from './my-data.component';
 
 const routes: Routes = [{
   path: '',
-  component: MyDataModule,
+  component: MyDataComponent,
   children: [
     {
       path: 'quota',
