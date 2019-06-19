@@ -5,6 +5,7 @@
       <form [formGroup]="formGroup">
         <dynamic-bootstrap-form [group]="formGroup" [layout]="formLayout" [model]="formModel">
         </dynamic-bootstrap-form>
+        <ng-content></ng-content>  
       </form>
       <button class="btn btn-xs btn-danger" (click)="onCancel()">Cancel</button>
       <button class="ml-2 btn btn-xs btn-primary" (click)="send()">Send</button>

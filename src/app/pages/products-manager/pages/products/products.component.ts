@@ -16,6 +16,7 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   @Input() parent_id: number = null;
   @Input() parent_name: string = null;
   @Input() type: string = "";
+  image: any;
   endpoint= 'api/me/products';
   currentItem: string;
   currentAction: string = 'index';
@@ -96,14 +97,6 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         'allowBlank': false,
         'defaultValue': '',
         'name': 'description',
-        'value': '',
-        'levelSecurity': 0,
-      },
-      'image': {
-        'xtype': 'FileField',
-        'allowBlank': true,
-        'defaultValue': '',
-        'name': 'image',
         'value': '',
         'levelSecurity': 0,
       },
@@ -259,10 +252,27 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   }
 
   store(data){
-    this.http.post(this.endpoint, data).toPromise().then(() => {
+    let input = new FormData();
+    for (let item in data) {
+      input.append(item, data[item]);
+    }
+    input.append('image', this.image);
+    console.log(this.image);
+    this.http.post(this.endpoint, input).toPromise().then(() => {
       console.log('store', data);
       this.currentAction = 'index';
     }).catch(console.error);
+  }
+
+  onFileChange(event) {
+    if(event.target.files.length > 0) {
+      let file = event.target.files[0];
+      this.image = file;
+    }
+  }
+
+  clearFile() {
+    this.image = null;
   }
 
   async editTaxons(data) {

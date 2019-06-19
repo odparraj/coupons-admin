@@ -3,6 +3,13 @@
     [model]="createModel" 
     (submit)= "onAction({action:'store', data:$event})" 
     (cancel)="currentAction='index'">
+    <div class="form-group">
+        <label>Product Image</label><br />
+        <div class="form-control">
+            <input type="file" id="image" (change)="onFileChange($event)" #fileInput>
+            <button type="button" class="btn btn-xs" (click)="clearFile()">clear file</button>
+        </div>
+    </div>
 </custom-form>
 <custom-form *ngIf="currentAction=='edit' && editModel" 
     title="{{config.title}} / Edit Form" 
