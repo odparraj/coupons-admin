@@ -256,11 +256,11 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
     for (let item in data) {
       input.append(item, data[item]);
     }
-    input.append('image', this.image);
+    input.append('images[]', this.image);
     console.log(this.image);
     this.http.post(this.endpoint, input).toPromise().then(() => {
-      console.log('store', data);
-      this.currentAction = 'index';
+      // console.log('store', data);
+      // this.currentAction = 'index';
     }).catch(console.error);
   }
 
@@ -269,10 +269,6 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
       let file = event.target.files[0];
       this.image = file;
     }
-  }
-
-  clearFile() {
-    this.image = null;
   }
 
   async editTaxons(data) {
