@@ -29,7 +29,7 @@
         <tr *ngFor="let product of items; let i = index;">
           <th scope="row">{{i + 1}}</th>
           <td> 
-            <nb-user name="{{product.product.name}}" title="{{product.product.brand}}"></nb-user>
+            <nb-user size="giant" picture="{{product.product.imege ? api_url.concat(product.product.imege) : ''}}" name="{{product.product.name}}" title="{{product.product.brand}}"></nb-user>
           </td>
           <td>{{product.quantity}}</td>
           <td>{{product.total | currency}}</td>

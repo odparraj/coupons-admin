@@ -307,7 +307,7 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
       });
     }).catch(console.error);
 
-    await this.http.get(`api/products/${data.id}/taxons`).toPromise().then((data)=>{
+    await this.http.get(`${this.endpoint}/${data.id}/taxons`).toPromise().then((data)=>{
       let taxons = data['data'] as [];
       taxons.forEach((taxon) => {
         if( this.syncModel['items'].hasOwnProperty(taxon['id']) ){
@@ -328,7 +328,7 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
         taxons.push({id: key});
       }
     }
-    this.http.post(`${this.endpoint}/${this.currentItem}/sync-taxons`, taxons).toPromise().then((data) => {
+    this.http.put(`${this.endpoint}/${this.currentItem}/sync-taxons`, taxons).toPromise().then((data) => {
       console.log('syncTaxons...', data);
       this.currentAction = 'index';
     }).catch(console.error);

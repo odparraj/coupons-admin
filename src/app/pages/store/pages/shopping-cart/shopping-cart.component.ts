@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { IterableChangeRecord_ } from '@angular/core/src/change_detection/differs/default_iterable_differ';
+import { environment } from '../../../../../environments/environment.prod';
 
 @Component({
   selector: 'shopping-cart',
@@ -10,6 +11,7 @@ import { IterableChangeRecord_ } from '@angular/core/src/change_detection/differ
 })
 export class ShoppingCartComponent implements OnInit {
   items = [];
+  api_url = environment.baseUrl;
 
   constructor(private router: Router, private http: HttpClient) { }
   current_action="view_cart";

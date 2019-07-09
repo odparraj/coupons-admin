@@ -3,6 +3,7 @@ import { NbLayoutScrollService, NbLayoutRulerService, NbLayoutDimensions, NbToas
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule, FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+import { environment } from '../../../../../environments/environment.prod';
 
 @Component({
   selector: 'products-list',
@@ -20,6 +21,7 @@ export class ProductsListComponent implements OnInit {
   search = "";
   min_price : string;
   max_price : string;
+  api_url = environment.baseUrl;
 
   constructor(private scroll: NbLayoutScrollService, private ruler: NbLayoutRulerService, private router: Router, private toastrService: NbToastrService, private http: HttpClient, private searchService: NbSearchService, private route: ActivatedRoute) {
     this.scroll.onScroll().subscribe((event) => this.onScroll());
@@ -35,7 +37,7 @@ export class ProductsListComponent implements OnInit {
   async ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.type = params['type'];
-    })
+    });
     this.getProducts(1);
     let taxonomies = {};
     await this.http.get('api/taxonomies').toPromise().then((data) => {
@@ -139,7 +141,7 @@ export class ProductsListComponent implements OnInit {
       filter = filter.concat(this.max_price ? '&max_price='.concat(this.max_price) : "" );
       filter = filter.concat(this.search ? '&name='.concat(this.search,'&description=',this.search) : "" );
       this.taxons.forEach((taxon) => {
-        filter = filter.concat(taxon.checked ? '&taxon[]='.concat(taxon.id) : "");
+        filter = filter.concat(taxon.checked ? '&taxons[]='.concat(taxon.id) : "");
       });
       this.en_consulta = true;
       await this.http.get(`api/products?page=${page}&type=${this.type}${filter}`).toPromise().then((data) => {
@@ -151,7 +153,7 @@ export class ProductsListComponent implements OnInit {
         }
         this.en_consulta = false;
       }).catch(console.error);
-      console.log(this.products);
+      console.log("https://coupons.bytersoft.webfactional.com".concat(this.products[this.products.length -1].imege));
     }
   }
 }

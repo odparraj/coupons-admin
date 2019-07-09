@@ -112,7 +112,7 @@
   <nb-flip-card class="card" *ngFor="let product of products" >
     <nb-card-front>
       <nb-card accent="danger" class="inner-card">
-        <div class="product-image-container"><img src="{{product.image ? product.image : 'assets/images/terapp_alt.png'}}" class="card-img-top" alt="..."></div>
+        <div class="product-image-container"><img src="{{product.imege ? api_url.concat(product.imege) : 'assets/images/terapp_alt.png'}}" class="card-img-top" alt="..."></div>
         <div class="row">
           <div class="col-sm-12 text-center">
             <h4>{{product.name}}</h4>
