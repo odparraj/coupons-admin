@@ -40,6 +40,15 @@ export class CustomersComponent extends CrudComponent implements OnInit {
         'value': '',
         'levelSecurity': 0,
       },
+      'role': {
+        'xtype': 'SelectField',
+        'allowBlank': false,
+        'defaultValue': '',
+        'name': 'role',
+        'value': '',
+        'values': [],
+        'levelSecurity': 0,
+      },
     },
   };
 
@@ -67,6 +76,15 @@ export class CustomersComponent extends CrudComponent implements OnInit {
         'defaultValue': '',
         'name': 'password',
         'value': '',
+        'levelSecurity': 0,
+      },
+      'role': {
+        'xtype': 'SelectField',
+        'allowBlank': false,
+        'defaultValue': '',
+        'name': 'role',
+        'value': '',
+        'values': [],
         'levelSecurity': 0,
       },
     },
@@ -131,7 +149,14 @@ export class CustomersComponent extends CrudComponent implements OnInit {
     super();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.http.get('api/roles').toPromise().then((data) => {
+      let roles = data['data'] as [];
+      roles.forEach(role => {
+        this.createModel.items.role.values.push({label: role['name'], value:role['name']});
+        this.editModel.items.role.values.push({label: role['name'], value:role['name']});
+      });
+    }).catch(console.error);
   }
 
   delete(data) {
@@ -151,9 +176,15 @@ export class CustomersComponent extends CrudComponent implements OnInit {
     console.log('create', data);
   }
 
-  edit(data) {
+  async edit(data) {
     this.editModel.items.email.value = data.email;
     this.editModel.items.name.value = data.name;
+    await this.http.get(`api/users/${data.id}/roles`).toPromise().then((data)=>{
+      let roles = data['data'] as [];
+      roles.forEach(role => {
+        this.editModel.items.role.value = role['name'];
+      });
+    }).catch(console.error);
     this.currentAction = 'edit';
     console.log('edit', data);
   }

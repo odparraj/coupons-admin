@@ -51,13 +51,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
           permission: 'customers_manager.customers',
         },
       },
-      {
-        title: 'Customer Categories',
-        link: '/pages/customers-manager/customer-categories',
-        data: {
-          permission: 'customers_manager.customer_categories',
-        },
-      },
+      // {
+      //   title: 'Customer Categories',
+      //   link: '/pages/customers-manager/customer-categories',
+      //   data: {
+      //     permission: 'customers_manager.customer_categories',
+      //   },
+      // },
       {
         title: 'Admin Quota',
         link: '/pages/customers-manager/admin-quota',
