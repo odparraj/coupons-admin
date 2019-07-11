@@ -105,7 +105,16 @@ export const NB_CORE_PROVIDERS = [
           'store.products',
           'store.shopping'
         ]
-      }
+      },
+      'Customer-A' : {parent: 'customer'},
+      'Customer-B' : {parent: 'customer'},
+      'Customer-C' : {parent: 'customer'},
+      'Customer-D' : {parent: 'customer'},
+      'Customer-E' : {parent: 'customer'},
+      'Customer-F' : {parent: 'customer'},
+      'Customer-G' : {parent: 'customer'},
+      'Customer-H' : {parent: 'customer'},
+      'Customer-I' : {parent: 'customer'}
     },
   }).providers,
 
