@@ -11,6 +11,18 @@ import { CrudComponent } from '../../../../shared/components/crud/crud.component
 })
 export class CustomersComponent extends CrudComponent implements OnInit {
 
+  private customer_roles = [
+    { label: 'Customer-A', value: 'Customer-A'},
+    { label: 'Customer-B', value: 'Customer-B'},
+    { label: 'Customer-C', value: 'Customer-C'},
+    { label: 'Customer-D', value: 'Customer-D'},
+    { label: 'Customer-E', value: 'Customer-E'},
+    { label: 'Customer-F', value: 'Customer-F'},
+    { label: 'Customer-G', value: 'Customer-G'},
+    { label: 'Customer-H', value: 'Customer-H'},
+    { label: 'Customer-I', value: 'Customer-I'}
+  ]
+
   endpoint= 'api/me/customers';
   currentItem: string;
   currentAction: string = 'index';
@@ -32,21 +44,21 @@ export class CustomersComponent extends CrudComponent implements OnInit {
         'value': '',
         'levelSecurity': 0,
       },
-      'password': {
-        'xtype': 'PasswordField',
-        'allowBlank': false,
-        'defaultValue': '',
-        'name': 'password',
-        'value': '',
-        'levelSecurity': 0,
-      },
+      // 'password': {
+      //   'xtype': 'PasswordField',
+      //   'allowBlank': false,
+      //   'defaultValue': '',
+      //   'name': 'password',
+      //   'value': '',
+      //   'levelSecurity': 0,
+      // },
       'role': {
         'xtype': 'SelectField',
         'allowBlank': false,
         'defaultValue': '',
         'name': 'role',
         'value': '',
-        'values': [],
+        'values': this.customer_roles,
         'levelSecurity': 0,
       },
     },
@@ -70,21 +82,21 @@ export class CustomersComponent extends CrudComponent implements OnInit {
         'value': '',
         'levelSecurity': 0,
       },
-      'password': {
-        'xtype': 'PasswordField',
-        'allowBlank': false,
-        'defaultValue': '',
-        'name': 'password',
-        'value': '',
-        'levelSecurity': 0,
-      },
+      // 'password': {
+      //   'xtype': 'PasswordField',
+      //   'allowBlank': false,
+      //   'defaultValue': '',
+      //   'name': 'password',
+      //   'value': '',
+      //   'levelSecurity': 0,
+      // },
       'role': {
         'xtype': 'SelectField',
         'allowBlank': false,
         'defaultValue': '',
         'name': 'role',
         'value': '',
-        'values': [],
+        'values': this.customer_roles,
         'levelSecurity': 0,
       },
     },
@@ -103,6 +115,10 @@ export class CustomersComponent extends CrudComponent implements OnInit {
         name: 'Email',
         key: 'email',
       },
+      {
+        name: 'Category',
+        key: 'roles',
+      },
     ],
     endpoint: this.endpoint,
     filters:[]
@@ -114,12 +130,6 @@ export class CustomersComponent extends CrudComponent implements OnInit {
       btnClass: 'btn btn-primary',
       iconClass: 'fas fa-edit',
       title: 'Edit User',
-    },
-    {
-      name: 'editCategory',
-      btnClass: 'btn btn-success',
-      iconClass: 'fas fa-user-plus',
-      title: 'Edit Category',
     },
     {
       name: 'adminQuota',
@@ -149,14 +159,7 @@ export class CustomersComponent extends CrudComponent implements OnInit {
     super();
   }
 
-  async ngOnInit() {
-    await this.http.get('api/roles').toPromise().then((data) => {
-      let roles = data['data'] as [];
-      roles.forEach(role => {
-        this.createModel.items.role.values.push({label: role['name'], value:role['name']});
-        this.editModel.items.role.values.push({label: role['name'], value:role['name']});
-      });
-    }).catch(console.error);
+  ngOnInit() {
   }
 
   delete(data) {
@@ -177,12 +180,14 @@ export class CustomersComponent extends CrudComponent implements OnInit {
   }
 
   async edit(data) {
+    this.currentItem = data.id;
     this.editModel.items.email.value = data.email;
     this.editModel.items.name.value = data.name;
     await this.http.get(`api/users/${data.id}/roles`).toPromise().then((data)=>{
       let roles = data['data'] as [];
       roles.forEach(role => {
         this.editModel.items.role.value = role['name'];
+        console.log('role:', role['name']);
       });
     }).catch(console.error);
     this.currentAction = 'edit';
@@ -190,7 +195,7 @@ export class CustomersComponent extends CrudComponent implements OnInit {
   }
 
   update(data) {
-    this.http.put(`${this.endpoint}/${data.id}`, data).toPromise().then(() => {
+    this.http.put(`${this.endpoint}/${this.currentItem}`, data).toPromise().then(() => {
       console.log('update', data);
       this.currentAction = 'index';
     }).catch(console.error);
