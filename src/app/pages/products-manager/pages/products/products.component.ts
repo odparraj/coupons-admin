@@ -174,9 +174,6 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   }
 
   ngOnInit() {
-    customer_roles.forEach(role => {
-      this.discounts[role.value] = 0;
-    });
     console.log(this.discounts);
     this.route.queryParams.subscribe((params) => {
       this.type = params['type'];
@@ -243,7 +240,11 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
     }
   }
 
-  async create(data) {
+  create(data) {
+    this.discounts = {};
+    customer_roles.forEach(role => {
+      this.discounts[role.value] = 0;
+    });
     switch(this.type) {
       case "product": {
         break;
@@ -254,14 +255,38 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   }
 
   async edit(data) {
+    let product_data;
+    this.discounts = {};
+    await this.http.get(`api/me/products/${data.id}`).toPromise().then((product) => {
+      if(product['data']['discount']){
+        this.discounts = product['data']['discount'];
+      } else {
+        customer_roles.forEach(role => {
+          this.discounts[role.value] = 0;
+        });
+      }
+      console.log(product)
+    });
     this.editModel.items.name.value = data.name;
+    this.editModel.items.sku.value = data.sku;
+    this.editModel.items.price.value = data.price;
+    this.editModel.items.description.value = data.description;
+    this.currentItem = data.id;
     this.currentAction = 'edit';
     console.log('edit', data);
   }
 
   update(data) {
-    this.http.put(`${this.endpoint}/${data.id}`, data).toPromise().then(() => {
-      console.log('update', data);
+    console.log(data)
+    let input = new FormData();
+    for (let item in data) {
+      input.append(item, data[item]);
+    }
+    for (let discount in this.discounts) {
+      input.append(`discount[${discount}]`, this.discounts[discount]);
+    }
+    this.http.put(`${this.endpoint}/${this.currentItem}`, input).toPromise().then(() => {
+      // console.log('update', data);
       this.currentAction = 'index';
     }).catch(console.error);
   }
