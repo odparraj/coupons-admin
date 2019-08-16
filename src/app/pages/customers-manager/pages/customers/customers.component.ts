@@ -3,6 +3,7 @@ import { Config } from '../../../../shared/models/Config';
 import { Action } from '../../../../shared/models/Action';
 import { HttpClient } from '@angular/common/http';
 import { CrudComponent } from '../../../../shared/components/crud/crud.component';
+import { customer_roles } from '../../../../utils/config/variables';
 
 @Component({
   selector: 'customers',
@@ -10,18 +11,6 @@ import { CrudComponent } from '../../../../shared/components/crud/crud.component
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent extends CrudComponent implements OnInit {
-
-  private customer_roles = [
-    { label: 'Customer-A', value: 'Customer-A'},
-    { label: 'Customer-B', value: 'Customer-B'},
-    { label: 'Customer-C', value: 'Customer-C'},
-    { label: 'Customer-D', value: 'Customer-D'},
-    { label: 'Customer-E', value: 'Customer-E'},
-    { label: 'Customer-F', value: 'Customer-F'},
-    { label: 'Customer-G', value: 'Customer-G'},
-    { label: 'Customer-H', value: 'Customer-H'},
-    { label: 'Customer-I', value: 'Customer-I'}
-  ]
 
   endpoint= 'api/me/customers';
   currentItem: string;
@@ -44,21 +33,21 @@ export class CustomersComponent extends CrudComponent implements OnInit {
         'value': '',
         'levelSecurity': 0,
       },
-      // 'password': {
-      //   'xtype': 'PasswordField',
-      //   'allowBlank': false,
-      //   'defaultValue': '',
-      //   'name': 'password',
-      //   'value': '',
-      //   'levelSecurity': 0,
-      // },
+      'password': {
+        'xtype': 'PasswordField',
+        'allowBlank': false,
+        'defaultValue': '',
+        'name': 'password',
+        'value': '',
+        'levelSecurity': 0,
+      },
       'role': {
         'xtype': 'SelectField',
         'allowBlank': false,
         'defaultValue': '',
         'name': 'role',
         'value': '',
-        'values': this.customer_roles,
+        'values': customer_roles,
         'levelSecurity': 0,
       },
     },
@@ -82,21 +71,21 @@ export class CustomersComponent extends CrudComponent implements OnInit {
         'value': '',
         'levelSecurity': 0,
       },
-      // 'password': {
-      //   'xtype': 'PasswordField',
-      //   'allowBlank': false,
-      //   'defaultValue': '',
-      //   'name': 'password',
-      //   'value': '',
-      //   'levelSecurity': 0,
-      // },
+      'password': {
+        'xtype': 'PasswordField',
+        'allowBlank': false,
+        'defaultValue': '',
+        'name': 'password',
+        'value': '',
+        'levelSecurity': 0,
+      },
       'role': {
         'xtype': 'SelectField',
         'allowBlank': false,
         'defaultValue': '',
         'name': 'role',
         'value': '',
-        'values': this.customer_roles,
+        'values': customer_roles,
         'levelSecurity': 0,
       },
     },

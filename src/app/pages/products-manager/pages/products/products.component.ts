@@ -5,6 +5,8 @@ import { Config } from '../../../../shared/models/Config';
 import { Action } from '../../../../shared/models/Action';
 import { option } from '../../../../utils/forms/field/SelectField';
 import { ActivatedRoute, Router } from '@angular/router';
+import { customer_roles } from '../../../../utils/config/variables';
+import { FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'products',
@@ -20,6 +22,10 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   endpoint= 'api/me/products';
   currentItem: string;
   currentAction: string = 'index';
+
+  discounts = {};
+  objectKeys = Object.keys;
+
   createModel = {
     items: {
       'sku': {
@@ -168,6 +174,10 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   }
 
   ngOnInit() {
+    customer_roles.forEach(role => {
+      this.discounts[role.value] = 0;
+    });
+    console.log(this.discounts);
     this.route.queryParams.subscribe((params) => {
       this.type = params['type'];
       this.config.filters.push({name: 'type', value: params['type']});
@@ -234,6 +244,11 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
   }
 
   async create(data) {
+    switch(this.type) {
+      case "product": {
+        break;
+      }
+    }
     this.currentAction = 'create';
     console.log('create', data);
   }
@@ -257,10 +272,13 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
       input.append(item, data[item]);
     }
     input.append('images[]', this.image);
+    for (let discount in this.discounts) {
+      input.append(`discount[${discount}]`, this.discounts[discount]);
+    }
     console.log(this.image);
     this.http.post(this.endpoint, input).toPromise().then(() => {
       // console.log('store', data);
-      // this.currentAction = 'index';
+      this.currentAction = 'index';
     }).catch(console.error);
   }
 

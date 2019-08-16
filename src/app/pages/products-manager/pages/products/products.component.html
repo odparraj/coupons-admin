@@ -9,12 +9,21 @@
             <input type="file" id="image" (change)="onFileChange($event)" #fileInput>
         </div>
     </div>
+    <div *ngIf="type == 'service'">
+        <div class="form-group" *ngFor= "let key of objectKeys(discounts)">
+            <label>Discount {{key}}</label><br />
+            <input class="form-control" type="number" id="key" [(ngModel)]="discounts[key]">
+        </div>
+    </div>
 </custom-form>
 <custom-form *ngIf="currentAction=='edit' && editModel" 
     title="{{config.title}} / Edit Form" 
     [model]="editModel" 
     (submit)= "onAction({action:'update', data:$event})" 
     (cancel)="currentAction='index'">
+    <div class="form-group">
+        
+    </div>
 </custom-form>
 <custom-table *ngIf="currentAction=='index' && config && actions" 
     [config]="config" 
