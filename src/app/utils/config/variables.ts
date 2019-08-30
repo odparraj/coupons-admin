@@ -9,3 +9,9 @@ export var customer_roles = [
     { label: 'Customer-H', value: 'Customer-H'},
     { label: 'Customer-I', value: 'Customer-I'}
   ]
+
+export var order_status = [
+    { label: 'Completed', value: 'completed'},
+    { label: 'Pending', value: 'pending'},
+    { label: 'Cancelled', value: 'cancelled'},
+  ]

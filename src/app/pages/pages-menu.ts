@@ -81,6 +81,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
           permission: 'my_data.quota',
         },
       },
+      {
+        title: 'Description Page',
+        link: '/pages/my-data/description-page',
+        data: {
+          permission: 'my_data.description_page',
+        },
+      },
+      {
+        title: 'Request Quota',
+        link: '/pages/my-data/request-quota',
+        data: {
+          permission: 'my_data.request_quota',
+        },
+      },
     ],
   },
   {
@@ -105,6 +119,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/products-manager/taxonomies',
         data: {
           permission: 'products_manager.taxonomies',
+        },
+        queryParams: {
+          type: 'product'
+        }
+      },
+    ],
+  },
+  {
+    title: 'Sales Manager',
+    icon: 'nb-list',
+    data: {
+      permission: 'sales_manager',
+    },
+    children: [
+      {
+        title: 'Sales',
+        link: '/pages/sales-manager/sales',
+        data: {
+          permission: 'sales_manager.sales',
         },
         queryParams: {
           type: 'product'

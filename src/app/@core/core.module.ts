@@ -90,7 +90,11 @@ export const NB_CORE_PROVIDERS = [
           'services_manager',
           'services_manager.services',
           'services_manager.taxonomies',
-          
+          'sales_manager',
+          'sales_manager.sales',
+          'my_data',
+          'my_data.description_page',
+          'my_data.request_quota',
         ]
       },
       customer: {

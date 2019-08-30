@@ -359,9 +359,10 @@ export class ProductsComponent extends CrudComponent implements OnInit  {
       }); 
     }).catch(console.error);
 
+
     this.currentAction = 'editTaxons';
     this.currentItem = data.id;
-    console.log('edit Taxons', data, this.currentAction);
+    console.log('edit Taxons', this.syncModel, this.currentAction);
   }
   syncTaxons(data) {
     console.log('syncTaxons', data);

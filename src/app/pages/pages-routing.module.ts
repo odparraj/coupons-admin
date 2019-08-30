@@ -72,6 +72,13 @@ const routes: Routes = [{
       },
     },
     {
+      path: 'sales-manager',
+      loadChildren: './sales-manager/sales-manager.module#SalesManagerModule',
+      data: {
+        permission: 'sales_manager',
+      },
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },

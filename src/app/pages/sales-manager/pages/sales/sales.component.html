@@ -1,0 +1,53 @@
+<custom-form *ngIf="currentAction=='admin' && adminModel" 
+    title="{{config.title}} / Edit Form" 
+    [model]="adminModel" 
+    (submit)= "onAction({action:'update', data:$event})" 
+    (cancel)="currentAction='index'">
+    <!-- <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Cliente</th>
+          <th scope="col">Valor</th>
+          <th scope="col">Dirección de envío</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> 
+            <nb-user size="giant" picture="" name="{{order.customer}}"></nb-user>
+          </td>
+          <td>{{order.total_price | currency}}</td>
+          <td>{{order.address}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">Artículo</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Valor Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of items; let i = index;">
+          <th scope="row">{{i + 1}}</th>
+          <td> 
+            <nb-user size="giant" picture="{{product.product.imege ? api_url.concat(product.product.imege) : ''}}" name="{{product.product.name}}" title="{{product.product.brand}}"></nb-user>
+          </td>
+          <td>{{product.quantity}}</td>
+          <td>{{product.price | currency}}</td>
+        </tr>
+      </tbody>
+    </table> -->
+</custom-form>
+<custom-table *ngIf="currentAction=='index' && config && actions" 
+    [config]="config" 
+    [actions]="actions" 
+    (action)="onAction($event)">
+    <custom-actions *ngIf="globalActions"
+        [actions]="globalActions" 
+        (action)="onAction({action:$event, data:''})">
+    </custom-actions>
+</custom-table>

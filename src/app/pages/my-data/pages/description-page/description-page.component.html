@@ -1,0 +1,16 @@
+
+    <custom-form
+      title="Description page" 
+      [model]="model" 
+      (submit)= "onAction({action:'store', data:$event})" 
+      (cancel)="currentAction='index'">
+      <div class="form-group">
+          <label>Product Image</label><br />
+          <div class="form-control">
+              <input type="file" id="image" (change)="onFileChange($event)" #fileInput>
+          </div>
+      </div>
+      <label>Page Content</label><br />
+      <ckeditor [editor]="Editor" data=""></ckeditor>
+      <br />
+    </custom-form>
